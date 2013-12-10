@@ -25,6 +25,7 @@ class Authentication:
         result=json.loads(request.read())
         request.close()
 
+
         self.tokenid=result["access"]["token"]["id"]
         self.tenantid=result["access"]["token"]["tenant"]["id"]
 

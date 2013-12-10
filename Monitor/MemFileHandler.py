@@ -9,6 +9,8 @@ class MemFileHandler:
         self.attributes={}
         self.getAllAttributes()
 
+
+    # store all key-value pairs in the meminfo file in the dictionary attributes
     def getAllAttributes(self):
         for line in self.lines:
             templist=line.split(" ")

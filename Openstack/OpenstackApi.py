@@ -1,8 +1,8 @@
 __author__ = 'pike'
+
 from Authentication import *
 
-authUrl="http://114.212.189.132:35357"
-novaUrl="http://114.212.189.132:8774"
+from Openstack import AUTHURL,NOVAURL
 
 class OpenstackApi:
 
@@ -13,14 +13,15 @@ class OpenstackApi:
         # get the authentication token and tenant id
 
         au=Authentication()
-        au.tokenGet(authUrl,"admin","admin","ADMIN_PASS")
+        au.tokenGet(AUTHURL,"admin","admin","ADMIN_PASS")
         self.tenantid=au.getTenantId()
         self.tokenid=au.getTokenId()
 
 
 
+    # get servers that belong to a tenant
     def getServer(self):
-        url="%s/v2/%s/servers" % (novaUrl,self.tenantid)
+        url="%s/v2/%s/servers" % (NOVAURL,self.tenantid)
         print url
         serverRequest=urllib2.Request(url)
         serverRequest.add_header("Content-type","application/json")
