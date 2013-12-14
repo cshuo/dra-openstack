@@ -19,8 +19,8 @@ class OpenstackApi:
 
 
 
-    # get servers that belong to a tenant
-    def getServer(self):
+    # get instances that belong to a tenant
+    def getInstances(self):
         url="%s/v2/%s/servers" % (NOVAURL,self.tenantid)
         print url
         serverRequest=urllib2.Request(url)
@@ -31,5 +31,5 @@ class OpenstackApi:
         print len(result["servers"])
 
 if __name__=="__main__":
-    test1=OpenstackApi()
-    test1.getServer()
+    apitest=OpenstackApi()
+    apitest.getInstances()
