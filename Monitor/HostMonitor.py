@@ -1,7 +1,9 @@
 __author__ = 'pike'
 
-from MemFileHandler import *
 import commands
+
+from Utils.MemFileHandler import *
+
 
 class HostMonitor:
 
