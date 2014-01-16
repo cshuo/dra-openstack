@@ -2,13 +2,12 @@ __author__ = 'pike'
 
 import commands
 
-from Utils.MemFileHandler import *
-
+from Utils.FileUtil import *
 
 class HostMonitor:
 
     def __init__(self):
-        self.memhandler=MemFileHandler("meminfo")
+        self.memhandler=MemFileHandler("../meminfo")
 
 
     # return (memfree,memtotal)

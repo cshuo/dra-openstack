@@ -1,6 +1,6 @@
 __author__ = 'pike'
 
-from Utils.Ssh_tool import *
+from Utils.SshUtil import *
 from Openstack import HOST,USERNAME,PASSWORD
 
 

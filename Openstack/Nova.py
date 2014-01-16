@@ -1,10 +1,12 @@
 __author__ = 'pike'
 
+__author__ = 'pike'
+
 from Authentication import *
 
 from Openstack import AUTHURL,NOVAURL
 
-class OpenstackApi:
+class Nova:
 
 
 
@@ -31,5 +33,5 @@ class OpenstackApi:
         print len(result["servers"])
 
 if __name__=="__main__":
-    apitest=OpenstackApi()
+    apitest=Nova()
     apitest.getInstances()
