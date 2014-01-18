@@ -4,7 +4,7 @@ __author__ = 'pike'
 import numpy as np
 import matplotlib.pyplot as plt
 from FileUtil import VMfile
-
+from PlotUtil import Plot
 
 def minusAverage(list):
     average=sum(list)/list.__len__()
@@ -39,12 +39,19 @@ class FFT:
 
     def plot(self,x,y):
 
-        plt.figure("fft")
-        plt.plot(x,y)
-        plt.title("fft transform")
-        plt.ylabel("intensity")
-        plt.xlabel("Hz")
-        plt.show()
+        Plot.plot(x,y,"fft","Hz","Intensity")
+
+
+
+class AutoCorelation:
+    def __init__(self,x):
+        self.x=minusAverage(x)
+
+    def autocorr(self):
+        result=np.correlate(self.x,self.x,mode="full")
+        return result[result.size/2:]
+
+
 
 
 if __name__=="__main__":
@@ -52,8 +59,13 @@ if __name__=="__main__":
 
     vmdata=VMfile()
     (x,y)=vmdata.getData('../VMs.csv')
-    vmdata.plot(x,y)
-    fft=FFT(x,y)
-    (x1,y1)=fft.computeFFT()
-    fft.plot(x1,y1)
+    #vmdata.plot(x,y)
+    #fft=FFT(x,y)
+    #(x1,y1)=fft.computeFFT()
+    #fft.plot(x1,y1)
+    auto=AutoCorelation(y)
+    print auto.autocorr()
+    plt.figure()
+    plt.plot(auto.autocorr())
+    plt.show()
 

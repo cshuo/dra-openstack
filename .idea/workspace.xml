@@ -12,15 +12,15 @@
   </component>
   <component name="ChangesViewManager" flattened_view="true" show_ignored="false" />
   <component name="CoverageDataManager">
-    <SUITE FILE_PATH="coverage/Dynamic Resource Allocation$HostMonitor.coverage" NAME="HostMonitor Coverage Results" MODIFIED="1387102457176" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Monitor" />
     <SUITE FILE_PATH="coverage/Dynamic Resource Allocation$Instance.coverage" NAME="Instance Coverage Results" MODIFIED="1386665030419" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Openstack" />
-    <SUITE FILE_PATH="coverage/Dynamic Resource Allocation$MathUtil.coverage" NAME="MathUtil Coverage Results" MODIFIED="1389875231252" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Utils" />
+    <SUITE FILE_PATH="coverage/Dynamic Resource Allocation$HostMonitor.coverage" NAME="HostMonitor Coverage Results" MODIFIED="1387102457176" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Monitor" />
+    <SUITE FILE_PATH="coverage/Dynamic Resource Allocation$MathUtil.coverage" NAME="MathUtil Coverage Results" MODIFIED="1390056020214" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Utils" />
     <SUITE FILE_PATH="coverage/Dynamic Resource Allocation$Authentication.coverage" NAME="Authentication Coverage Results" MODIFIED="1386424536778" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Openstack" />
     <SUITE FILE_PATH="coverage/Dynamic Resource Allocation$Plot.coverage" NAME="Plot Coverage Results" MODIFIED="1389870960744" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Utils" />
-    <SUITE FILE_PATH="coverage/Dynamic Resource Allocation$Ceilometer.coverage" NAME="Ceilometer Coverage Results" MODIFIED="1389861016531" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Openstack" />
     <SUITE FILE_PATH="coverage/Dynamic Resource Allocation$InstanceDataReceiver.coverage" NAME="InstanceDataReceiver Coverage Results" MODIFIED="1387199350815" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Monitor" />
-    <SUITE FILE_PATH="coverage/Dynamic Resource Allocation$OpenstackApi.coverage" NAME="OpenstackApi Coverage Results" MODIFIED="1386424812048" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Openstack" />
+    <SUITE FILE_PATH="coverage/Dynamic Resource Allocation$Ceilometer.coverage" NAME="Ceilometer Coverage Results" MODIFIED="1389861016531" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Openstack" />
     <SUITE FILE_PATH="coverage/Dynamic Resource Allocation$Ssh_tool.coverage" NAME="Ssh_tool Coverage Results" MODIFIED="1386663775488" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Utils" />
+    <SUITE FILE_PATH="coverage/Dynamic Resource Allocation$OpenstackApi.coverage" NAME="OpenstackApi Coverage Results" MODIFIED="1386424812048" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Openstack" />
   </component>
   <component name="CreatePatchCommitExecutor">
     <option name="PATCH_PATH" value="" />
@@ -47,17 +47,15 @@
         <entry file="file://$PROJECT_DIR$/Monitor/HostMonitor.py">
           <provider selected="true" editor-type-id="text-editor">
             <state line="10" column="0" selection-start="165" selection-end="165" vertical-scroll-proportion="0.0" vertical-offset="60" max-vertical-offset="570">
-              <folding>
-                <element signature="e#21#36#0" expanded="true" />
-              </folding>
+              <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="FileUtil.py" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="FileUtil.py" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Utils/FileUtil.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="29" column="35" selection-start="702" selection-end="702" vertical-scroll-proportion="0.6405694" vertical-offset="255" max-vertical-offset="1230">
+            <state line="24" column="12" selection-start="455" selection-end="455" vertical-scroll-proportion="0.0" vertical-offset="300" max-vertical-offset="1230">
               <folding>
                 <element signature="e#21#30#0" expanded="true" />
               </folding>
@@ -68,7 +66,7 @@
       <file leaf-file-name="InstanceMonitor.py" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Monitor/InstanceMonitor.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="10" column="14" selection-start="176" selection-end="176" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="900">
+            <state line="10" column="14" selection-start="176" selection-end="176" vertical-scroll-proportion="0.0" vertical-offset="150" max-vertical-offset="900">
               <folding />
             </state>
           </provider>
@@ -86,7 +84,7 @@
       <file leaf-file-name="MonitorThread.py" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Monitor/MonitorThread.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="840">
+            <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="900">
               <folding />
             </state>
           </provider>
@@ -95,16 +93,16 @@
       <file leaf-file-name="InstanceDataReceiver.py" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Monitor/InstanceDataReceiver.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="9" column="45" selection-start="171" selection-end="171" vertical-scroll-proportion="0.0" vertical-offset="165" max-vertical-offset="510">
+            <state line="9" column="45" selection-start="171" selection-end="171" vertical-scroll-proportion="0.0" vertical-offset="135" max-vertical-offset="540">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="MathUtil.py" pinned="false" current="false" current-in-tab="false">
+      <file leaf-file-name="MathUtil.py" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/Utils/MathUtil.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="25" column="44" selection-start="497" selection-end="497" vertical-scroll-proportion="0.0" vertical-offset="424" max-vertical-offset="975">
+            <state line="47" column="30" selection-start="1086" selection-end="1086" vertical-scroll-proportion="0.35582823" vertical-offset="589" max-vertical-offset="1155">
               <folding>
                 <element signature="e#22#40#0" expanded="true" />
               </folding>
@@ -112,13 +110,10 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="VMs.csv" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/VMs.csv">
-          <provider editor-type-id="com.intellij.persistence.database.editor.CsvTableFileEditorProvider">
-            <state />
-          </provider>
+      <file leaf-file-name="PlotUtil.py" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Utils/PlotUtil.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="-0.0" vertical-offset="0" max-vertical-offset="779925">
+            <state line="13" column="25" selection-start="250" selection-end="250" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="300">
               <folding />
             </state>
           </provider>
@@ -146,18 +141,17 @@
         <option value="$PROJECT_DIR$/Openstack/OpenstackService.py" />
         <option value="$PROJECT_DIR$/Openstack/Ceilometer.py" />
         <option value="$PROJECT_DIR$/Utils/Plot.py" />
-        <option value="$PROJECT_DIR$/Utils/PlotUtil.py" />
         <option value="$PROJECT_DIR$/Monitor/HostMonitor.py" />
-        <option value="$PROJECT_DIR$/Utils/MathUtil.py" />
+        <option value="$PROJECT_DIR$/Utils/PlotUtil.py" />
         <option value="$PROJECT_DIR$/Utils/FileUtil.py" />
+        <option value="$PROJECT_DIR$/Utils/MathUtil.py" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="86" />
-    <option name="y" value="46" />
-    <option name="width" value="1074" />
-    <option name="height" value="647" />
+    <option name="y" value="22" />
+    <option name="width" value="1280" />
+    <option name="height" value="717" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="false">
     <OptionsSetting value="true" id="Add" />
@@ -444,9 +438,6 @@
       <option name="PARAMETERS" value="" />
       <method />
     </configuration>
-    <configuration default="true" type="JavascriptDebugType" factoryName="JavaScript Debug" singleton="true">
-      <method />
-    </configuration>
     <configuration default="true" type="tests" factoryName="Unittests">
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -468,6 +459,9 @@
       <option name="PUREUNITTEST" value="true" />
       <option name="PARAMS" value="" />
       <option name="USE_PARAM" value="false" />
+      <method />
+    </configuration>
+    <configuration default="true" type="JavascriptDebugType" factoryName="JavaScript Debug" singleton="true">
       <method />
     </configuration>
     <configuration default="true" type="tests" factoryName="Doctests">
@@ -537,24 +531,24 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="86" y="46" width="1074" height="647" extended-state="0" />
+    <frame x="0" y="22" width="1280" height="717" extended-state="6" />
     <editor active="true" />
     <layout>
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32994923" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.26945525" sideWeight="0.62998104" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.22933549" sideWeight="0.63149077" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="1" side_tool="true" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="9" side_tool="true" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.370019" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.3685092" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32994923" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
@@ -574,37 +568,27 @@
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/Utils/SshUtil.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="14" column="46" selection-start="443" selection-end="443" vertical-scroll-proportion="0.0" vertical-offset="60" max-vertical-offset="420">
-          <folding />
-        </state>
+        <state line="14" column="46" selection-start="443" selection-end="443" vertical-scroll-proportion="0.0" vertical-offset="60" max-vertical-offset="420" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/Openstack/Instance.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="30" column="24" selection-start="741" selection-end="741" vertical-scroll-proportion="0.0" vertical-offset="210" max-vertical-offset="555">
-          <folding />
-        </state>
+        <state line="30" column="24" selection-start="741" selection-end="741" vertical-scroll-proportion="0.0" vertical-offset="210" max-vertical-offset="555" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/Openstack/Authentication.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="27" column="0" selection-start="683" selection-end="683" vertical-scroll-proportion="0.0" vertical-offset="390" max-vertical-offset="780">
-          <folding />
-        </state>
+        <state line="27" column="0" selection-start="683" selection-end="683" vertical-scroll-proportion="0.0" vertical-offset="390" max-vertical-offset="780" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/Openstack/Nova.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="32" column="36" selection-start="450" selection-end="815" vertical-scroll-proportion="0.0" vertical-offset="90" max-vertical-offset="630">
-          <folding />
-        </state>
+        <state line="32" column="36" selection-start="450" selection-end="815" vertical-scroll-proportion="0.0" vertical-offset="90" max-vertical-offset="630" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/Openstack/OpenstackService.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="21" column="0" selection-start="361" selection-end="361" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="405">
-          <folding />
-        </state>
+        <state line="21" column="0" selection-start="361" selection-end="361" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="405" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/VMs.csv">
@@ -612,9 +596,7 @@
         <state />
       </provider>
       <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="779925">
-          <folding />
-        </state>
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="779925" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/Monitor/MonitorThread.py">
@@ -648,9 +630,7 @@
     <entry file="file://$PROJECT_DIR$/Monitor/HostMonitor.py">
       <provider selected="true" editor-type-id="text-editor">
         <state line="10" column="0" selection-start="165" selection-end="165" vertical-scroll-proportion="0.0" vertical-offset="60" max-vertical-offset="570">
-          <folding>
-            <element signature="e#21#36#0" expanded="true" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -668,20 +648,27 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Utils/MathUtil.py">
+    <entry file="file://$PROJECT_DIR$/Utils/PlotUtil.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="25" column="44" selection-start="497" selection-end="497" vertical-scroll-proportion="0.0" vertical-offset="424" max-vertical-offset="975">
-          <folding>
-            <element signature="e#22#40#0" expanded="true" />
-          </folding>
+        <state line="13" column="25" selection-start="250" selection-end="250" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="300">
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/Utils/FileUtil.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="29" column="35" selection-start="702" selection-end="702" vertical-scroll-proportion="0.6405694" vertical-offset="255" max-vertical-offset="1230">
+        <state line="24" column="12" selection-start="455" selection-end="455" vertical-scroll-proportion="0.0" vertical-offset="300" max-vertical-offset="1230">
           <folding>
             <element signature="e#21#30#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Utils/MathUtil.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="47" column="30" selection-start="1086" selection-end="1086" vertical-scroll-proportion="0.35582823" vertical-offset="589" max-vertical-offset="1155">
+          <folding>
+            <element signature="e#22#40#0" expanded="true" />
           </folding>
         </state>
       </provider>
