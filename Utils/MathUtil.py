@@ -12,6 +12,11 @@ def minusAverage(list):
         list[i]-=average
     return list
 
+def doubleList(list):
+    for i in range(0,list.__len__()):
+        list[i]=2*list[i]
+    return list
+
 class FFT:
 
     def __init__(self,x,y):
@@ -22,34 +27,39 @@ class FFT:
     #compute fft will return (x,y) represent frequency and intensity
     def computeFFT(self):
 
-        #fft_sig=np.fft.rfft(self.y)
         #remove the direct current component
         fft_sig=np.fft.rfft(minusAverage(self.y))
-        print np.abs(fft_sig)
 
         #Fs : sample frequency ; Fmax : wave's bandwidth ; N : total sampling number
         Fs=1.0/(self.x[1]-self.x[0])
         Fmax=Fs/2
         N=self.x.__len__()
-        print Fs,Fmax,N
+
         # feq represents fft figure's x axis
         feq=np.linspace(0,Fmax,N/2+1)
-        print feq
+
         return (feq,np.abs(fft_sig))
 
-    def plot(self,x,y):
 
-        Plot.plot(x,y,"fft","Hz","Intensity")
 
 
 
 class AutoCorelation:
-    def __init__(self,x):
-        self.x=minusAverage(x)
+
+    def __init__(self,y):
+        self.y=y
+
 
     def autocorr(self):
-        result=np.correlate(self.x,self.x,mode="full")
+
+        #remove the direct current component
+        y=minusAverage(self.y)
+
+        result=np.correlate(y,y,mode="full")
+
+        #count from 0
         return result[result.size/2:]
+
 
 
 
@@ -59,13 +69,38 @@ if __name__=="__main__":
 
     vmdata=VMfile()
     (x,y)=vmdata.getData('../VMs.csv')
+    plt.subplot(311)
+    plt.plot(x,y)
+    plt.xlabel("Hour")
+    plt.ylabel("Intensity")
+    plt.title("CPU Utility")
+
+    fft=FFT(x,y)
+    (x1,y1)=fft.computeFFT()
+    plt.subplot(312)
+    plt.plot(x1,y1)
+    plt.xlabel("Hz")
+    plt.ylabel("Intensity")
+    plt.title("FFT")
+
+    auto=AutoCorelation(y)
+    x2=doubleList(range(0,auto.autocorr().__len__()))
+    plt.subplot(313)
+    plt.plot(x2,auto.autocorr())
+    plt.xlabel("Lag(Hour)")
+    plt.ylabel("Corelation")
+    plt.title("Auto-Corelation")
+
+    plt.show()
+    #ax.xlable("1")
     #vmdata.plot(x,y)
     #fft=FFT(x,y)
     #(x1,y1)=fft.computeFFT()
     #fft.plot(x1,y1)
-    auto=AutoCorelation(y)
-    print auto.autocorr()
-    plt.figure()
-    plt.plot(auto.autocorr())
-    plt.show()
+    #auto=AutoCorelation(y)
+    #x_axis=doubleList(range(0,auto.autocorr().__len__()))
+    #plt.figure()
+    #plt.plot(x_axis,auto.autocorr())
+    #plt.show()
+
 
