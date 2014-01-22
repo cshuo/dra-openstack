@@ -8,23 +8,25 @@ import string
 class VMfile:
 
 
-    def __init__(self):pass
+    def __init__(self,filename):
+        self.file=open(filename,"r")
+        self.alllines=self.file.readlines()
 
     '''get the specific vm x,y axis data'''
 
-    def getData(self,filename):
-        file=open(filename,"r")
-        alllines=file.readlines();
+    def getData(self,vmname):
+
         x_axis=[]
         y_axis=[]
 
         time=0;
-        for line in alllines:
+        for line in self.alllines:
             split=line.split(",")
             #if (split[0].startswith('"Gart')):
-            if (split[0].startswith('"wangyi')):
+            #if (split[0].startswith('"wangyi')):
             #if (split[0].startswith('"JiaoTong-ETC')):
             #if (split[0].startswith('"JiaoTong_Shuiyun')):
+            if(split[0]==vmname):
 
                 y_axis.append(float(split[4].strip('"')))
                 x_axis.append(time)
@@ -72,6 +74,6 @@ class MemFileHandler:
 
 
 if __name__=="__main__":
-    vmdata=VMfile()
-    (x,y)=vmdata.getData('../VMs.csv')
+    vmdata=VMfile('../VMs.csv')
+    (x,y)=vmdata.getData('"zq-wuliu-liping-5.80"')
     vmdata.plot(x,y)

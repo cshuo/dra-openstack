@@ -5,6 +5,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 from FileUtil import VMfile
 from PlotUtil import Plot
+import math
 
 def minusAverage(list):
     average=sum(list)/list.__len__()
@@ -17,6 +18,15 @@ def doubleList(list):
         list[i]=2*list[i]
     return list
 
+def even(num):
+    if (math.ceil(num)%2==0):
+        return math.ceil(num)
+    else:
+        if (math.floor(num)%2==0):
+            return math.floor(num)
+        else:
+            return math.floor(num)+1
+
 class FFT:
 
     def __init__(self,x,y):
@@ -26,6 +36,8 @@ class FFT:
 
     #compute fft will return (x,y) represent frequency and intensity
     def computeFFT(self):
+        if (self.x.__len__()<2):
+            return None
 
         #remove the direct current component
         fft_sig=np.fft.rfft(minusAverage(self.y))
@@ -67,8 +79,8 @@ class AutoCorelation:
 if __name__=="__main__":
 
 
-    vmdata=VMfile()
-    (x,y)=vmdata.getData('../VMs.csv')
+    vmdata=VMfile('../VMs.csv')
+    (x,y)=vmdata.getData('"zq-wuliu-liping-5.80"')
     plt.subplot(311)
     plt.plot(x,y)
     plt.xlabel("Hour")
