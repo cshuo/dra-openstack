@@ -8,49 +8,49 @@ from PlotUtil import Plot
 import math
 
 def minusAverage(list):
-    average=sum(list)/list.__len__()
-    for i in range(0,list.__len__()):
-        list[i]-=average
+    average = sum(list) / list.__len__()
+    for i in range(0, list.__len__()):
+        list[i] -= average
     return list
 
 def doubleList(list):
-    for i in range(0,list.__len__()):
-        list[i]=2*list[i]
+    for i in range(0, list.__len__()):
+        list[i] = 2 * list[i]
     return list
 
 def even(num):
-    if (math.ceil(num)%2==0):
+    if (math.ceil(num) % 2 == 0):
         return math.ceil(num)
     else:
-        if (math.floor(num)%2==0):
+        if (math.floor(num) % 2 == 0):
             return math.floor(num)
         else:
-            return math.floor(num)+1
+            return math.floor(num) + 1
 
 class FFT:
 
     def __init__(self,x,y):
-        self.x=x
-        self.y=y
+        self.x = x
+        self.y = y
 
 
     #compute fft will return (x,y) represent frequency and intensity
     def computeFFT(self):
-        if (self.x.__len__()<2):
+        if (self.x.__len__() < 2):
             return None
 
         #remove the direct current component
-        fft_sig=np.fft.rfft(minusAverage(self.y))
+        fft_sig = np.fft.rfft(minusAverage(self.y))
 
         #Fs : sample frequency ; Fmax : wave's bandwidth ; N : total sampling number
-        Fs=1.0/(self.x[1]-self.x[0])
-        Fmax=Fs/2
-        N=self.x.__len__()
+        Fs = 1.0 / (self.x[1] - self.x[0])
+        Fmax = Fs / 2
+        N = self.x.__len__()
 
         # feq represents fft figure's x axis
-        feq=np.linspace(0,Fmax,N/2+1)
+        feq = np.linspace(0, Fmax, N / 2 + 1)
 
-        return (feq,np.abs(fft_sig))
+        return (feq, np.abs(fft_sig))
 
 
 
