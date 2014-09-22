@@ -1,6 +1,9 @@
 __author__ = 'pike'
 
 
+from Utils import ImportUtils
+
+
 class Service(service.Service):
 
     """Service object for binaries running on hosts.
@@ -20,17 +23,10 @@ class Service(service.Service):
         self.topic = topic
         self.manager_class_name = manager
 
-        # NOTE(russellb) We want to make sure to create the servicegroup API
-        # instance early, before creating other things such as the manager,
-        # that will also create a servicegroup API instance.  Internally, the
-        # servicegroup only allocates a single instance of the driver API and
-        # we want to make sure that our value of db_allowed is there when it
-        # gets created.  For that to happen, this has to be the first instance
-        # of the servicegroup API.
         #self.servicegroup_api = servicegroup.API(db_allowed=db_allowed)
 
-        #manager_class = importutils.import_class(self.manager_class_name)
-        #self.manager = manager_class(host=self.host, *args, **kwargs)
+        manager_class = ImportUtils.import_class(self.manager_class_name)
+        self.manager = manager_class(host=self.host, *args, **kwargs)
         self.rpcserver = None
         self.report_interval = report_interval
         self.periodic_enable = periodic_enable
@@ -40,6 +36,66 @@ class Service(service.Service):
         self.backdoor_port = None
         #self.conductor_api = conductor.API(use_local=db_allowed)
         #self.conductor_api.wait_until_ready(context.get_admin_context())
+
+    def start(self):
+        verstr = version.version_string_with_package()
+        LOG.audit(_('Starting %(topic)s node (version %(version)s)'),
+                  {'topic': self.topic, 'version': verstr})
+        self.basic_config_check()
+        self.manager.init_host()
+        self.model_disconnected = False
+        ctxt = context.get_admin_context()
+        try:
+            self.service_ref = self.conductor_api.service_get_by_args(ctxt,
+                    self.host, self.binary)
+            self.service_id = self.service_ref['id']
+        except exception.NotFound:
+            try:
+                self.service_ref = self._create_service_ref(ctxt)
+            except (exception.ServiceTopicExists,
+                    exception.ServiceBinaryExists):
+                # NOTE(danms): If we race to create a record with a sibling
+                # worker, don't fail here.
+                self.service_ref = self.conductor_api.service_get_by_args(ctxt,
+                    self.host, self.binary)
+
+        self.manager.pre_start_hook()
+
+        if self.backdoor_port is not None:
+            self.manager.backdoor_port = self.backdoor_port
+
+        LOG.debug("Creating RPC server for service %s", self.topic)
+
+        target = messaging.Target(topic=self.topic, server=self.host)
+
+        endpoints = [
+            self.manager,
+            baserpc.BaseRPCAPI(self.manager.service_name, self.backdoor_port)
+        ]
+        endpoints.extend(self.manager.additional_endpoints)
+
+        serializer = objects_base.NovaObjectSerializer()
+
+        self.rpcserver = rpc.get_server(target, endpoints, serializer)
+        self.rpcserver.start()
+
+        self.manager.post_start_hook()
+
+        LOG.debug("Join ServiceGroup membership for this service %s",
+                  self.topic)
+        # Add service to the ServiceGroup membership group.
+        self.servicegroup_api.join(self.host, self.topic, self)
+
+        if self.periodic_enable:
+            if self.periodic_fuzzy_delay:
+                initial_delay = random.randint(0, self.periodic_fuzzy_delay)
+            else:
+                initial_delay = None
+
+            self.tg.add_dynamic_timer(self.periodic_tasks,
+                                     initial_delay=initial_delay,
+                                     periodic_interval_max=
+                                        self.periodic_interval_max)
 
 
     @classmethod
@@ -60,24 +116,6 @@ class Service(service.Service):
         :param periodic_interval_max: if set, the max time to wait between runs
 
         """
-        #if not host:
-        #    host = CONF.host
-        #if not binary:
-        #    binary = os.path.basename(sys.argv[0])
-        #if not topic:
-        #    topic = binary.rpartition('nova-')[2]
-        #if not manager:
-        #    manager_cls = ('%s_manager' %
-        #                   binary.rpartition('nova-')[2])
-        #    manager = CONF.get(manager_cls, None)
-        #if report_interval is None:
-        #    report_interval = CONF.report_interval
-        #if periodic_enable is None:
-        #    periodic_enable = CONF.periodic_enable
-        #if periodic_fuzzy_delay is None:
-        #    periodic_fuzzy_delay = CONF.periodic_fuzzy_delay
-        #
-        #debugger.init()
 
         db_allowed = False
 
