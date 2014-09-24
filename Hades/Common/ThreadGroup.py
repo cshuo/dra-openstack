@@ -1,6 +1,7 @@
 __author__ = 'pike'
 
 import eventlet
+import threading
 
 def _thread_done(gt, *args, **kwargs):
     """Callback function to be passed to GreenThread.link() when we spawn()
@@ -23,7 +24,7 @@ class Thread(object):
         self.thread.kill()
 
     def wait(self):
-        return self.thread.wait()()
+        return self.thread.wait()
 
     def link(self, func, *args, **kwargs):
         self.thread.link(func, *args, **kwargs)
@@ -48,4 +49,30 @@ class ThreadGroup(object):
 
     def thread_done(self, thread):
         self.threads.remove(thread)
+
+    def stop(self):
+        current = threading.current_thread()
+        # Iterate over a copy of self.threads so thread_done doesn't
+        # modify the list while we're iterating
+        for x in self.threads[:]:
+            if x is current:
+                continue
+            try:
+                x.stop()
+            except Exception as ex:
+                print ex
+
+    def wait(self):
+        current = threading.current_thread()
+        # Iterate over a copy of self.threads so thread_done doesn't
+        # modify the list while we're iterating
+        for x in self.threads[:]:
+            if x is current:
+                continue
+            try:
+                x.wait()
+            except eventlet.greenlet.GreenletExit:
+                pass
+            except Exception as ex:
+                print ex
 
