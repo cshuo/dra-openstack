@@ -208,5 +208,15 @@ class Services(object):
         Systemd.notify_once()
         done.wait()
 
+def launch(service, workers = 1):
+    if workers is None or workers == 1:
+        launcher = ServiceLauncher()
+        launcher.launch_service(service)
+    else:
+        launcher = None
+
+    return launcher
+
+
 
 

@@ -1,6 +1,6 @@
 __author__ = 'pike'
 
 
-class SchedulerManager:
+class SchedulerManager():
     pass
 

@@ -2,9 +2,13 @@ __author__ = 'pike'
 
 
 from Utils import ImportUtils
+from Hades.Common import Service
+from oslo import messaging
+from Hades import BaseRpc
+from Hades import Rpc
 
 
-class Service(service.Service):
+class Service(Service.Service):
 
     """Service object for binaries running on hosts.
 
@@ -38,64 +42,66 @@ class Service(service.Service):
         #self.conductor_api.wait_until_ready(context.get_admin_context())
 
     def start(self):
-        verstr = version.version_string_with_package()
-        LOG.audit(_('Starting %(topic)s node (version %(version)s)'),
-                  {'topic': self.topic, 'version': verstr})
-        self.basic_config_check()
+        #verstr = version.version_string_with_package()
+        verstr = '1.0'
+        print 'Starting %(topic)s node (version %(version)s)' % {'topic': self.topic, 'version': verstr}
+
+        #self.basic_config_check()
         self.manager.init_host()
-        self.model_disconnected = False
-        ctxt = context.get_admin_context()
-        try:
-            self.service_ref = self.conductor_api.service_get_by_args(ctxt,
-                    self.host, self.binary)
-            self.service_id = self.service_ref['id']
-        except exception.NotFound:
-            try:
-                self.service_ref = self._create_service_ref(ctxt)
-            except (exception.ServiceTopicExists,
-                    exception.ServiceBinaryExists):
-                # NOTE(danms): If we race to create a record with a sibling
-                # worker, don't fail here.
-                self.service_ref = self.conductor_api.service_get_by_args(ctxt,
-                    self.host, self.binary)
+
+        #self.model_disconnected = False
+        #ctxt = context.get_admin_context()
+        #try:
+        #    self.service_ref = self.conductor_api.service_get_by_args(ctxt,
+        #            self.host, self.binary)
+        #    self.service_id = self.service_ref['id']
+        #except exception.NotFound:
+        #    try:
+        #        self.service_ref = self._create_service_ref(ctxt)
+        #    except (exception.ServiceTopicExists,
+        #            exception.ServiceBinaryExists):
+        #        # NOTE(danms): If we race to create a record with a sibling
+        #        # worker, don't fail here.
+        #        self.service_ref = self.conductor_api.service_get_by_args(ctxt,
+        #            self.host, self.binary)
 
         self.manager.pre_start_hook()
 
         if self.backdoor_port is not None:
             self.manager.backdoor_port = self.backdoor_port
 
-        LOG.debug("Creating RPC server for service %s", self.topic)
+        print "Creating RPC server for service %s" % self.topic
 
         target = messaging.Target(topic=self.topic, server=self.host)
 
         endpoints = [
             self.manager,
-            baserpc.BaseRPCAPI(self.manager.service_name, self.backdoor_port)
+            BaseRpc.BaseRPCAPI(self.manager.service_name, self.backdoor_port)
         ]
         endpoints.extend(self.manager.additional_endpoints)
 
-        serializer = objects_base.NovaObjectSerializer()
+        #serializer = objects_base.NovaObjectSerializer()
+        serializer = None
 
-        self.rpcserver = rpc.get_server(target, endpoints, serializer)
+        self.rpcserver = Rpc.get_server(target, endpoints, serializer)
         self.rpcserver.start()
 
         self.manager.post_start_hook()
 
-        LOG.debug("Join ServiceGroup membership for this service %s",
-                  self.topic)
+        print "Join ServiceGroup membership for this service %s" % self.topic
         # Add service to the ServiceGroup membership group.
-        self.servicegroup_api.join(self.host, self.topic, self)
-
-        if self.periodic_enable:
-            if self.periodic_fuzzy_delay:
-                initial_delay = random.randint(0, self.periodic_fuzzy_delay)
-            else:
-                initial_delay = None
-
-            self.tg.add_dynamic_timer(self.periodic_tasks,
-                                     initial_delay=initial_delay,
-                                     periodic_interval_max=
-                                        self.periodic_interval_max)
+        #self.servicegroup_api.join(self.host, self.topic, self)
+        #
+        #if self.periodic_enable:
+        #    if self.periodic_fuzzy_delay:
+        #        initial_delay = random.randint(0, self.periodic_fuzzy_delay)
+        #    else:
+        #        initial_delay = None
+        #
+        #    self.tg.add_dynamic_timer(self.periodic_tasks,
+        #                             initial_delay=initial_delay,
+        #                             periodic_interval_max=
+        #                                self.periodic_interval_max)
 
 
     @classmethod
@@ -116,6 +122,14 @@ class Service(service.Service):
         :param periodic_interval_max: if set, the max time to wait between runs
 
         """
+        assert host is not None
+        assert binary is not None
+
+        if not topic:
+            topic = binary.rpartition('nova-')[2]
+        if not manager:
+            manager = ""
+
 
         db_allowed = False
 
@@ -128,16 +142,41 @@ class Service(service.Service):
 
         return service_obj
 
+    def kill(self):
+        self.stop()
+
+    def stop(self):
+        try:
+            self.rpcserver.stop()
+            self.rpcserver.wait()
+        except Exception:
+            pass
+
+        try:
+            self.manager.cleanup_host()
+        except  Exception:
+            print 'Service error occurred during cleanup host'
+            pass
+
+        super(Service, self).stop()
 
 
+# NOTE(vish): the global launcher is to maintain the existing
+#             functionality of calling service.serve +
+#             service.wait
+_launcher = None
 
 def serve(server, workers=None):
     global _launcher
     if _launcher:
         raise RuntimeError('serve() can only be called once')
 
-    _launcher = service.launch(server, workers=workers)
+    _launcher = Service.launch(server, workers=workers)
 
 
 def wait():
     _launcher.wait()
+
+
+if __name__ == "__main__":
+    print "nova-compute".rpartition('nova-')
