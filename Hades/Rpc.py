@@ -59,6 +59,14 @@ def get_allowed_exmods():
 #    def deserialize_context(self, context):
 #        return nova.context.RequestContext.from_dict(context)
 
+def get_client(target, version_cap = None, serializer = None):
+    assert  TRANSPORT is not None
+    #serializer = RequestContextSerializer(serializer)
+    return messaging.RPCClient(TRANSPORT,
+                               target,
+                               version_cap = version_cap,
+                               serializer = serializer)
+
 def get_server(target, endpoints, serializer = None):
     assert TRANSPORT is not None
     #serializer = RequestContextSerializer(serializer)

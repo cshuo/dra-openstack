@@ -7,8 +7,7 @@ CONF = cfg.CONF
 
 class Manager(Base.Base):
     def __init__(self, host = None, db_driver = None, service_name = 'undefined'):
-        if not host:
-            host = CONF.host
+
         self.host = host
         self.backdoor_port = None
         self.service_name = service_name
