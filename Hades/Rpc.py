@@ -10,22 +10,32 @@ EXTRA_EXMODS = []
 # NOTE(markmc): The nova.openstack.common.rpc entries are for backwards compat
 # with Havana rpc_backend configuration values. The nova.rpc entries are for
 # compat with Essex values.
-TRANSPORT_ALIASES = {
-    'nova.openstack.common.rpc.impl_kombu': 'rabbit',
-    'nova.openstack.common.rpc.impl_qpid': 'qpid',
-    'nova.openstack.common.rpc.impl_zmq': 'zmq',
-    'nova.rpc.impl_kombu': 'rabbit',
-    'nova.rpc.impl_qpid': 'qpid',
-    'nova.rpc.impl_zmq': 'zmq',
+TRANSPORT_DRIVERS = {
+    'rabbit' : 'oslo.messaging._drivers.impl_rabbit',
+    'qpid' : 'oslo.messaging._drivers.impl_qpid:QpidDriver',
+    'zmq' : 'oslo.messaging._drivers.impl_zmq:ZmqDriver',
+
+    ## To avoid confusion
+    #'kombu = oslo.messaging._drivers.impl_rabbit:RabbitDriver',
+    #
+    ## For backwards compat
+    #'openstack.common.rpc.impl_kombu ='
+    #' oslo.messaging._drivers.impl_rabbit:RabbitDriver',
+    #'openstack.common.rpc.impl_qpid ='
+    #' oslo.messaging._drivers.impl_qpid:QpidDriver',
+    #'openstack.common.rpc.impl_zmq ='
+    #' oslo.messaging._drivers.impl_zmq:ZmqDriver',
 }
 
 # used in Hades/Cmd/scheduler
 def init(conf):
     global TRANSPORT
     exmods = get_allowed_exmods()
+    #conf.transport_url = 'rabbit://rabbitmq:RABBITMQ_PASS@114.212.189.133:5672/hades'
     TRANSPORT = messaging.get_transport(conf,
+                                        url = 'rabbit://rabbitmq:RABBITMQ_PASS@114.212.189.133:5672/',
                                         allowed_remote_exmods = exmods,
-                                        aliases = TRANSPORT_ALIASES)
+                                        aliases = {})
     #serializer
 
 def cleanup():

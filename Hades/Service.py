@@ -167,6 +167,7 @@ class Service(Service.Service):
 _launcher = None
 
 def serve(server, workers=None):
+    print 'serve service\n'
     global _launcher
     if _launcher:
         raise RuntimeError('serve() can only be called once')
@@ -175,6 +176,7 @@ def serve(server, workers=None):
 
 
 def wait():
+    print 'service wait\n'
     _launcher.wait()
 
 

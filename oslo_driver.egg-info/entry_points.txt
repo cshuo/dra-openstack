@@ -1,0 +1,9 @@
+[oslo.messaging.drivers]
+qpid = oslo.messaging._drivers.impl_qpid:QpidDriver
+openstack.common.rpc.impl_zmq = oslo.messaging._drivers.impl_zmq:ZmqDriver
+openstack.common.rpc.impl_qpid = oslo.messaging._drivers.impl_qpid:QpidDriver
+openstack.common.rpc.impl_kombu = oslo.messaging._drivers.impl_rabbit:RabbitDriver
+kombu = oslo.messaging._drivers.impl_rabbit:RabbitDriver
+rabbit = oslo.messaging._drivers.impl_rabbit:RabbitDriver
+zmq = oslo.messaging._drivers.impl_zmq:ZmqDriver
+

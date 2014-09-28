@@ -1,0 +1,6 @@
+setup.py
+oslo_driver.egg-info/PKG-INFO
+oslo_driver.egg-info/SOURCES.txt
+oslo_driver.egg-info/dependency_links.txt
+oslo_driver.egg-info/entry_points.txt
+oslo_driver.egg-info/top_level.txt
