@@ -1,3 +1,7 @@
+[oslo.messaging.executors]
+blocking = oslo.messaging._executors.impl_blocking:BlockingExecutor
+eventlet = oslo.messaging._executors.impl_eventlet:EventletExecutor
+
 [oslo.messaging.drivers]
 qpid = oslo.messaging._drivers.impl_qpid:QpidDriver
 openstack.common.rpc.impl_zmq = oslo.messaging._drivers.impl_zmq:ZmqDriver

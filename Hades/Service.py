@@ -2,13 +2,16 @@ __author__ = 'pike'
 
 
 from Utils import ImportUtils
-from Hades.Common import Service
+from Hades.Common import Service as service
 from oslo import messaging
 from Hades import BaseRpc
 from Hades import Rpc
+from oslo.config import cfg
+
+CONF = cfg.CONF
 
 
-class Service(Service.Service):
+class Service(service.Service):
 
     """Service object for binaries running on hosts.
 
@@ -72,7 +75,7 @@ class Service(Service.Service):
 
         print "Creating RPC server for service %s" % self.topic
 
-        target = messaging.Target(topic=self.topic, server=self.host)
+        target = messaging.Target(topic = self.topic, server = self.host, exchange = CONF.exchange)
 
         endpoints = [
             self.manager,
@@ -124,11 +127,8 @@ class Service(Service.Service):
         """
         assert host is not None
         assert binary is not None
-
-        if not topic:
-            topic = binary.rpartition('nova-')[2]
-        if not manager:
-            manager = ""
+        assert manager is not None
+        assert topic is not None
 
 
         db_allowed = False
@@ -172,7 +172,7 @@ def serve(server, workers=None):
     if _launcher:
         raise RuntimeError('serve() can only be called once')
 
-    _launcher = Service.launch(server, workers=workers)
+    _launcher = service.launch(server, workers=workers)
 
 
 def wait():

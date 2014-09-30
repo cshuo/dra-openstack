@@ -3,15 +3,9 @@ __author__ = 'pike'
 from oslo import messaging
 from oslo.config import cfg
 from Hades import Rpc
-
-rpcapi_opts = [
-    cfg.StrOpt('scheduler_topic',
-               default = 'scheduler',
-               help = 'the topic hades nodes listen on'),
-]
+from Hades import Config
 
 CONF =  cfg.CONF
-CONF.register_opts(rpcapi_opts)
 
 class SchedulerAPI(object):
 
@@ -21,7 +15,7 @@ class SchedulerAPI(object):
 
     def __init__(self):
         super(SchedulerAPI, self).__init__()
-        target = messaging.Target(topic = CONF.compute_topic, version = '3.0')
+        target = messaging.Target(topic = CONF.scheduler_topic, exchange = CONF.exchange, version = '3.0')
         version_cap = '3.23'
         serializer = None
         self.client = self.get_client(target, version_cap, serializer)
@@ -35,5 +29,10 @@ class SchedulerAPI(object):
         version = '3.0'
         cctxt = self.client.prepare(server = host,
                                     version = version)
-        cctxt.cast(ctxt, 'testSchedule',
+        return cctxt.call(ctxt, 'testSchedule',
                    host = host, arg = arg)
+
+if __name__ == "__main__":
+    Config.config_init()
+    scheduler_api = SchedulerAPI()
+    print scheduler_api.testSchedule({}, 'localhost', None)

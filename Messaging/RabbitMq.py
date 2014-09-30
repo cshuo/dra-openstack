@@ -45,4 +45,5 @@ class RabbitMq:
 
 if __name__ == "__main__":
     rabbitmq = RabbitMq()
-    print rabbitmq.listQueues()
+    print rabbitmq.listExchages()
+    #print rabbitmq.listQueues()

@@ -14,12 +14,11 @@ class SchedulerManager(Manager.Manager):
     target = messaging.Target(version = '3.34')
 
     def __init__(self, *args, **kwargs):
-        self.scheduler_api = Api.API()
         self.scheduler_rpcapi = RpcApi.SchedulerAPI()
-
-        super(SchedulerManager, self).__init__(service_name = 'scheduler',
+        super(SchedulerManager, self).__init__(service_name = 'hades_scheduler_service',
                                                *args,
                                                **kwargs)
 
-    def testSchedule(self):
+    def testSchedule(self, ctxt, host, arg):
         print "manager: testScheduler\n"
+        return "manager: testScheduler\n"

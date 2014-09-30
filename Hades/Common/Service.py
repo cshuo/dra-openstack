@@ -1,12 +1,13 @@
 __author__ = 'pike'
 
-from Hades.Common.ThreadGroup import *
+from Hades.Common import ThreadGroup
 from eventlet import event
 from Hades.Common import Systemd
 import signal
 import os
 import errno
 import sys
+
 try:
     # Importing just the symbol here because the io module does not
     # exist in Python 2.6.
@@ -134,11 +135,10 @@ class ServiceLauncher(Launcher):
 
 class Service(object):
 
-
     """Service object for binaries running on hosts."""
 
     def __init__(self, threads = 1000):
-        self.tg = ThreadGroup(threads)
+        self.tg = ThreadGroup.ThreadGroup(threads)
 
         # signal that the service is done shutting itself down:
         self._done = event.Event()
@@ -165,7 +165,7 @@ class Services(object):
 
     def __init__(self):
         self.services = []
-        self.tg = ThreadGroup()
+        self.tg = ThreadGroup.ThreadGroup()
         self.done = event.Event()
 
     def add(self, service):

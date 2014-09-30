@@ -1,39 +1,21 @@
 __author__ = 'pike'
 
 from oslo import  messaging
+from oslo.config import cfg
+
+CONF = cfg.CONF
 
 TRANSPORT = None
 
 ALLOWED_EXMODS = []
 EXTRA_EXMODS = []
 
-# NOTE(markmc): The nova.openstack.common.rpc entries are for backwards compat
-# with Havana rpc_backend configuration values. The nova.rpc entries are for
-# compat with Essex values.
-TRANSPORT_DRIVERS = {
-    'rabbit' : 'oslo.messaging._drivers.impl_rabbit',
-    'qpid' : 'oslo.messaging._drivers.impl_qpid:QpidDriver',
-    'zmq' : 'oslo.messaging._drivers.impl_zmq:ZmqDriver',
-
-    ## To avoid confusion
-    #'kombu = oslo.messaging._drivers.impl_rabbit:RabbitDriver',
-    #
-    ## For backwards compat
-    #'openstack.common.rpc.impl_kombu ='
-    #' oslo.messaging._drivers.impl_rabbit:RabbitDriver',
-    #'openstack.common.rpc.impl_qpid ='
-    #' oslo.messaging._drivers.impl_qpid:QpidDriver',
-    #'openstack.common.rpc.impl_zmq ='
-    #' oslo.messaging._drivers.impl_zmq:ZmqDriver',
-}
-
 # used in Hades/Cmd/scheduler
 def init(conf):
     global TRANSPORT
     exmods = get_allowed_exmods()
-    #conf.transport_url = 'rabbit://rabbitmq:RABBITMQ_PASS@114.212.189.133:5672/hades'
     TRANSPORT = messaging.get_transport(conf,
-                                        url = 'rabbit://rabbitmq:RABBITMQ_PASS@114.212.189.133:5672/',
+                                        url = CONF.rabbit_url,
                                         allowed_remote_exmods = exmods,
                                         aliases = {})
     #serializer
@@ -83,7 +65,7 @@ def get_server(target, endpoints, serializer = None):
     return messaging.get_rpc_server(TRANSPORT,
                                     target,
                                     endpoints,
-                                    executor = 'eventlet',
+                                    executor = 'blocking',
                                     serializer = serializer)
 
 def set_defaults(control_exchange):

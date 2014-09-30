@@ -30,16 +30,16 @@ class Thread(object):
         self.thread.link(func, *args, **kwargs)
 
 class ThreadGroup(object):
+
     """The point of the ThreadGroup class is to:
 
     * keep track of timers and greenthreads (making it easier to stop them
       when need be).
     * provide an easy API to add timers.
     """
-    def __int__(self, thread_pool_size = 10):
+    def __init__(self, thread_pool_size = 10):
         self.pool = eventlet.greenpool.GreenPool(thread_pool_size)
         self.threads = []
-        self.timers = []
 
     def add_thread(self, callback, *args, **kwargs):
         gt = self.pool.spawn(callback, *args, **kwargs)

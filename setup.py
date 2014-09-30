@@ -2,9 +2,9 @@ __author__ = 'pike'
 
 from setuptools import setup
 
-NAMESPACE = 'oslo.messaging.drivers'
+driverGroup = 'oslo.messaging.drivers'
 
-TRANSPORT_DRIVERS = [
+transportDrivers = [
     'rabbit = oslo.messaging._drivers.impl_rabbit:RabbitDriver',
     'qpid = oslo.messaging._drivers.impl_qpid:QpidDriver',
     'zmq = oslo.messaging._drivers.impl_zmq:ZmqDriver',
@@ -21,7 +21,17 @@ TRANSPORT_DRIVERS = [
     ' oslo.messaging._drivers.impl_zmq:ZmqDriver',
 ]
 
-entry_points = {NAMESPACE : TRANSPORT_DRIVERS}
+executorGroup = 'oslo.messaging.executors'
+
+executors = [
+    'blocking = oslo.messaging._executors.impl_blocking:BlockingExecutor',
+    'eventlet = oslo.messaging._executors.impl_eventlet:EventletExecutor'
+
+]
+
+
+entry_points = {driverGroup : transportDrivers,
+                executorGroup : executors}
 
 setup(
     name = "oslo_driver",
