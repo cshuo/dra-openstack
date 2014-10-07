@@ -1,7 +1,7 @@
 __author__ = 'pike'
 
 
-"""Starter script for customized scheduler."""
+"""Starter script for arbiter."""
 
 from Hades import Service
 from Hades import Config
@@ -11,12 +11,12 @@ CONF = cfg.CONF
 
 def main():
 
-    Config.config_init(CONF.nova_exchange)
+    Config.config_init(CONF.hades_exchange)
 
-    server = Service.Service.create(binary = 'hades-scheduler',
-                                    topic = CONF.hades_scheduler_topic,
+    server = Service.Service.create(binary = 'hades-arbiter',
+                                    topic = CONF.hades_arbiter_topic,
                                     host = 'localhost',
-                                    manager = CONF.hades_scheduler_manager)
+                                    manager = CONF.hades_arbiter_manager)
     Service.serve(server)
     Service.wait()
 

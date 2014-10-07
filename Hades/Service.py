@@ -75,7 +75,7 @@ class Service(service.Service):
 
         print "Creating RPC server for service %s" % self.topic
 
-        target = messaging.Target(topic = self.topic, server = self.host, exchange = CONF.exchange)
+        target = messaging.Target(topic = self.topic, server = self.host)
 
         endpoints = [
             self.manager,

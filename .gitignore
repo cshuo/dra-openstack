@@ -1,2 +1,4 @@
 *.pyc
 oslo_driver.egg-info
+build
+dist

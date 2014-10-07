@@ -7,15 +7,15 @@ from Hades import Config
 
 CONF =  cfg.CONF
 
-class SchedulerAPI(object):
+class ArbiterAPI(object):
 
     """
-    client side of the scheduler rpc API
+    client side of the arbiter rpc API
     """
 
     def __init__(self):
-        super(SchedulerAPI, self).__init__()
-        target = messaging.Target(topic = CONF.hades_scheduler_topic, version = '3.0')
+        super(ArbiterAPI, self).__init__()
+        target = messaging.Target(topic = CONF.hades_arbiter_topic, version = '3.0')
         version_cap = '3.23'
         serializer = None
         self.client = self.get_client(target, version_cap, serializer)
@@ -25,14 +25,15 @@ class SchedulerAPI(object):
                               version_cap = version_cap,
                               serializer = serializer)
 
-    def testSchedule(self, ctxt, host, arg):
+    def testArbiter(self, ctxt, host, arg):
         version = '3.0'
         cctxt = self.client.prepare(server = host,
                                     version = version)
-        return cctxt.call(ctxt, 'testSchedule',
+        return cctxt.call(ctxt, 'testArbiter',
                    host = host, arg = arg)
 
 if __name__ == "__main__":
-    Config.config_init(CONF.nova_exchange)
-    scheduler_api = SchedulerAPI()
-    print scheduler_api.testSchedule({}, 'localhost', None)
+    print 'arbiter rpcapi\n'
+    Config.config_init(CONF.hades_exchange)
+    arbiter_api = ArbiterAPI()
+    print arbiter_api.testArbiter({}, 'localhost', None)

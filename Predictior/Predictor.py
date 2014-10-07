@@ -103,7 +103,7 @@ class Predictor:
 
 
 if __name__=="__main__":
-    file=open('../VMs.csv',"r")
+    file=open('../Resource/VMs.csv',"r")
     lines=file.readlines()[1:]
 
     vmset=set()
@@ -114,7 +114,7 @@ if __name__=="__main__":
     file.close()
 
     predictor=Predictor('../VMs.csv')
-    outfile=open("../OUTPUT","w")
+    outfile=open("../Resource/OUTPUT","w")
     for vmname in vmset:
         bestcandidate=predictor.getBestCandidate(vmname)
         resultline=vmname+"\t"+str(bestcandidate)+"\t"+"%.2f" % (bestcandidate/24.0)+'\n'

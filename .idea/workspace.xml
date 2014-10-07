@@ -12,22 +12,25 @@
   </component>
   <component name="ChangesViewManager" flattened_view="true" show_ignored="false" />
   <component name="CoverageDataManager">
-    <SUITE FILE_PATH="coverage/Dynamic Resource Allocation$scheduler.coverage" NAME="scheduler Coverage Results" MODIFIED="1412046296949" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Hades/Cmd" />
+    <SUITE FILE_PATH="coverage/Dynamic Resource Allocation$scheduler.coverage" NAME="scheduler Coverage Results" MODIFIED="1412674074745" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Hades/Cmd" />
     <SUITE FILE_PATH="coverage/Dynamic Resource Allocation$Predictor.coverage" NAME="Predictor Coverage Results" MODIFIED="1395051997622" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Prediction" />
     <SUITE FILE_PATH="coverage/Dynamic Resource Allocation$Instance.coverage" NAME="Instance Coverage Results" MODIFIED="1386665030419" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Openstack" />
     <SUITE FILE_PATH="coverage/Dynamic Resource Allocation$Authentication.coverage" NAME="Authentication Coverage Results" MODIFIED="1386424536778" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Openstack" />
     <SUITE FILE_PATH="coverage/Dynamic Resource Allocation$Plot.coverage" NAME="Plot Coverage Results" MODIFIED="1389870960744" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Utils" />
     <SUITE FILE_PATH="coverage/Dynamic Resource Allocation$InstanceDataReceiver.coverage" NAME="InstanceDataReceiver Coverage Results" MODIFIED="1387199350815" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Monitor" />
+    <SUITE FILE_PATH="coverage/Dynamic Resource Allocation$RpcApi__1_.coverage" NAME="RpcApi (1) Coverage Results" MODIFIED="1412673234654" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Hades/Arbiter" />
+    <SUITE FILE_PATH="coverage/Dynamic Resource Allocation$tt.coverage" NAME="tt Coverage Results" MODIFIED="1412607785500" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/Dynamic Resource Allocation$HostMonitor.coverage" NAME="HostMonitor Coverage Results" MODIFIED="1387102457176" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Monitor" />
     <SUITE FILE_PATH="coverage/Dynamic Resource Allocation$RabbitMq.coverage" NAME="RabbitMq Coverage Results" MODIFIED="1411972287361" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Messaging" />
     <SUITE FILE_PATH="coverage/Dynamic Resource Allocation$Nova.coverage" NAME="Nova Coverage Results" MODIFIED="1411968369082" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Openstack/Service" />
     <SUITE FILE_PATH="coverage/Dynamic Resource Allocation$MathUtil.coverage" NAME="MathUtil Coverage Results" MODIFIED="1390221280385" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Utils" />
     <SUITE FILE_PATH="coverage/Dynamic Resource Allocation$OpenstackService.coverage" NAME="OpenstackService Coverage Results" MODIFIED="1410249729695" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Openstack/Service" />
-    <SUITE FILE_PATH="coverage/Dynamic Resource Allocation$Service.coverage" NAME="Service Coverage Results" MODIFIED="1411784050268" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Hades" />
     <SUITE FILE_PATH="coverage/Dynamic Resource Allocation$Ceilometer.coverage" NAME="Ceilometer Coverage Results" MODIFIED="1410249739399" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Openstack" />
-    <SUITE FILE_PATH="coverage/Dynamic Resource Allocation$RpcApi.coverage" NAME="RpcApi Coverage Results" MODIFIED="1412046314953" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Hades/Scheduler" />
-    <SUITE FILE_PATH="coverage/Dynamic Resource Allocation$Ssh_tool.coverage" NAME="Ssh_tool Coverage Results" MODIFIED="1386663775488" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Utils" />
+    <SUITE FILE_PATH="coverage/Dynamic Resource Allocation$Service.coverage" NAME="Service Coverage Results" MODIFIED="1411784050268" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Hades" />
+    <SUITE FILE_PATH="coverage/Dynamic Resource Allocation$arbiter.coverage" NAME="arbiter Coverage Results" MODIFIED="1412674076637" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Hades/Cmd" />
+    <SUITE FILE_PATH="coverage/Dynamic Resource Allocation$RpcApi.coverage" NAME="RpcApi Coverage Results" MODIFIED="1412674079552" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Hades/Scheduler" />
     <SUITE FILE_PATH="coverage/Dynamic Resource Allocation$OpenstackApi.coverage" NAME="OpenstackApi Coverage Results" MODIFIED="1386424812048" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Openstack" />
+    <SUITE FILE_PATH="coverage/Dynamic Resource Allocation$Ssh_tool.coverage" NAME="Ssh_tool Coverage Results" MODIFIED="1386663775488" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Utils" />
   </component>
   <component name="CreatePatchCommitExecutor">
     <option name="PATCH_PATH" value="" />
@@ -35,44 +38,33 @@
   <component name="DaemonCodeAnalyzer">
     <disable_hints />
   </component>
+  <component name="DatabaseView">
+    <flatten value="false" />
+    <groupTables value="false" />
+    <sortChildren value="false" />
+  </component>
   <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
   <component name="FavoritesManager">
     <favorites_list name="Dynamic Resource Allocation" />
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="Rpc.py" pinned="false" current="false" current-in-tab="false">
+      <file leaf-file-name="Rpc.py" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/Hades/Rpc.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="493" max-vertical-offset="1140">
+            <state line="5" column="8" selection-start="86" selection-end="86" vertical-scroll-proportion="-0.042134833" vertical-offset="75" max-vertical-offset="1140">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="RpcApi.py" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Hades/Scheduler/RpcApi.py">
+      <file leaf-file-name="arbiter.py" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Hades/Cmd/arbiter.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="19" column="25" selection-start="459" selection-end="459" vertical-scroll-proportion="0.0" vertical-offset="135" max-vertical-offset="600">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="BaseRpc.py" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Hades/BaseRpc.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="420">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Service.py" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Hades/Service.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="90" max-vertical-offset="2775">
-              <folding />
+            <state line="13" column="43" selection-start="210" selection-end="210" vertical-scroll-proportion="0.0" vertical-offset="105" max-vertical-offset="495">
+              <folding>
+                <element signature="e#57#82#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -80,54 +72,62 @@
       <file leaf-file-name="scheduler.py" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Hades/Cmd/scheduler.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="18" column="28" selection-start="428" selection-end="428" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="450">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="ThreadGroup.py" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Hades/Common/ThreadGroup.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="10" column="48" selection-start="59" selection-end="276" vertical-scroll-proportion="0.0" vertical-offset="433" max-vertical-offset="1245">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Service.py" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Hades/Common/Service.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="32" column="13" selection-start="768" selection-end="768" vertical-scroll-proportion="0.0" vertical-offset="1860" max-vertical-offset="3330">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Config.py" pinned="false" current="true" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/Hades/Config.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="23" column="61" selection-start="564" selection-end="564" vertical-scroll-proportion="0.84074074" vertical-offset="118" max-vertical-offset="660">
+            <state line="15" column="32" selection-start="256" selection-end="256" vertical-scroll-proportion="0.0" vertical-offset="15" max-vertical-offset="495">
               <folding>
-                <element signature="e#21#48#0" expanded="true" />
+                <element signature="e#70#95#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Context.py" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Hades/Context.py">
+      <file leaf-file-name="Manager.py" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Hades/Scheduler/Manager.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="105">
-              <folding />
+            <state line="24" column="0" selection-start="698" selection-end="698" vertical-scroll-proportion="0.0" vertical-offset="154" max-vertical-offset="525">
+              <folding>
+                <element signature="e#21#46#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
       <file leaf-file-name="Manager.py" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Hades/Manager.py">
+        <entry file="file://$PROJECT_DIR$/Hades/Arbiter/Manager.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="825">
+            <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="56" max-vertical-offset="435">
+              <folding>
+                <element signature="e#21#46#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="RpcApi.py" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Hades/Arbiter/RpcApi.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="21" column="0" selection-start="503" selection-end="503" vertical-scroll-proportion="0.0" vertical-offset="152" max-vertical-offset="675">
+              <folding>
+                <element signature="e#21#47#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="RpcApi.py" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Hades/Scheduler/RpcApi.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="23" column="22" selection-start="593" selection-end="593" vertical-scroll-proportion="0.0" vertical-offset="180" max-vertical-offset="645">
+              <folding>
+                <element signature="e#21#47#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Config.py" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Hades/Config.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="46" column="9" selection-start="1406" selection-end="1406" vertical-scroll-proportion="0.0" vertical-offset="409" max-vertical-offset="765">
               <folding />
             </state>
           </provider>
@@ -143,29 +143,29 @@
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
-        <option value="$PROJECT_DIR$/Hades/Scheduler/Api.py" />
-        <option value="$PROJECT_DIR$/Hades/__init__.py" />
-        <option value="$PROJECT_DIR$/Hades/Scheduler/__init__.py" />
-        <option value="$PROJECT_DIR$/Hades/Manager.py" />
-        <option value="/Library/Python/2.7/site-packages/oslo/messaging/transport.py" />
-        <option value="$PROJECT_DIR$/Hades/Common/Service.py" />
-        <option value="$PROJECT_DIR$/Hades/Common/ThreadGroup.py" />
         <option value="$PROJECT_DIR$/setup.py" />
         <option value="$PROJECT_DIR$/Messaging/RabbitMq.py" />
         <option value="$PROJECT_DIR$/Openstack/Conf/OpenstackConf.py" />
-        <option value="$PROJECT_DIR$/Hades/Cmd/scheduler.py" />
-        <option value="$PROJECT_DIR$/Hades/Scheduler/Manager.py" />
-        <option value="$PROJECT_DIR$/Hades/Config.py" />
+        <option value="$PROJECT_DIR$/Hades/Arbiter/Api.py" />
+        <option value="$PROJECT_DIR$/Hades/hades_egg/setup.py" />
+        <option value="$PROJECT_DIR$/tt.py" />
+        <option value="$PROJECT_DIR$/Hades/Arbiter/Manager.py" />
         <option value="$PROJECT_DIR$/Hades/Service.py" />
-        <option value="$PROJECT_DIR$/Hades/Rpc.py" />
         <option value="$PROJECT_DIR$/Hades/Scheduler/RpcApi.py" />
+        <option value="$PROJECT_DIR$/Hades/Scheduler/My_Scheduler.py" />
+        <option value="$PROJECT_DIR$/Hades/Config.py" />
+        <option value="$PROJECT_DIR$/Hades/Cmd/scheduler.py" />
+        <option value="$PROJECT_DIR$/Hades/Cmd/arbiter.py" />
+        <option value="$PROJECT_DIR$/Hades/Rpc.py" />
+        <option value="$PROJECT_DIR$/Hades/Scheduler/Manager.py" />
+        <option value="$PROJECT_DIR$/Hades/Arbiter/RpcApi.py" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds">
     <option name="y" value="22" />
     <option name="width" value="1280" />
-    <option name="height" value="713" />
+    <option name="height" value="708" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="false">
     <OptionsSetting value="true" id="Add" />
@@ -200,110 +200,6 @@
             <PATH_ELEMENT>
               <option name="myItemId" value="Dynamic Resource Allocation" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="External Libraries" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ExternalLibrariesNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="&lt; Python 2.7.5 (/System/Library/Frameworks/Python.framework/Versions/2.7/bin/python) &gt;" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.NamedLibraryElementNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Dynamic Resource Allocation" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="External Libraries" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ExternalLibrariesNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="&lt; Python 2.7.5 (/System/Library/Frameworks/Python.framework/Versions/2.7/bin/python) &gt;" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.NamedLibraryElementNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="site-packages" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Dynamic Resource Allocation" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="External Libraries" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ExternalLibrariesNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="&lt; Python 2.7.5 (/System/Library/Frameworks/Python.framework/Versions/2.7/bin/python) &gt;" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.NamedLibraryElementNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="site-packages" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="oslo" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="messaging" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Dynamic Resource Allocation" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="External Libraries" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ExternalLibrariesNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="&lt; Python 2.7.5 (/System/Library/Frameworks/Python.framework/Versions/2.7/bin/python) &gt;" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.NamedLibraryElementNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="site-packages" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="oslo" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="messaging" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="rpc" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Dynamic Resource Allocation" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="External Libraries" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ExternalLibrariesNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="&lt; Python 2.7.5 (/System/Library/Frameworks/Python.framework/Versions/2.7/bin/python) &gt;" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.NamedLibraryElementNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="site-packages" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="oslo" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
           <PATH>
@@ -362,43 +258,25 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="DB" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Dynamic Resource Allocation" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Dynamic Resource Allocation" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Hades" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Common" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Dynamic Resource Allocation" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Dynamic Resource Allocation" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Hades" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
               <option name="myItemId" value="Cmd" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Dynamic Resource Allocation" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Dynamic Resource Allocation" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Hades" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Arbiter" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -421,73 +299,14 @@
       <recent name="$PROJECT_DIR$" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/Resource" />
+      <recent name="$PROJECT_DIR$/Scripts" />
       <recent name="$PROJECT_DIR$/Hades" />
       <recent name="$PROJECT_DIR$/Utils" />
       <recent name="$PROJECT_DIR$" />
-      <recent name="$PROJECT_DIR$/Openstack/Common" />
-      <recent name="$PROJECT_DIR$/Openstack/Service" />
     </key>
   </component>
   <component name="RunManager" selected="Python.RpcApi">
-    <configuration default="false" name="Nova" type="PythonConfigurationType" factoryName="Python" temporary="true">
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/Openstack/Service" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <module name="Dynamic Resource Allocation" />
-      <EXTENSION ID="PythonCoverageRunConfigurationExtension" enabled="false" sample_coverage="true" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Openstack/Service/Nova.py" />
-      <option name="PARAMETERS" value="" />
-      <RunnerSettings RunnerId="PythonRunner" />
-      <ConfigurationWrapper RunnerId="PythonRunner" />
-      <method />
-    </configuration>
-    <configuration default="false" name="RabbitMq" type="PythonConfigurationType" factoryName="Python" temporary="true">
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/Messaging" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <module name="Dynamic Resource Allocation" />
-      <EXTENSION ID="PythonCoverageRunConfigurationExtension" enabled="false" sample_coverage="true" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Messaging/RabbitMq.py" />
-      <option name="PARAMETERS" value="" />
-      <RunnerSettings RunnerId="PyDebugRunner" />
-      <RunnerSettings RunnerId="PythonRunner" />
-      <ConfigurationWrapper RunnerId="PyDebugRunner" />
-      <ConfigurationWrapper RunnerId="PythonRunner" />
-      <method />
-    </configuration>
-    <configuration default="false" name="Service" type="PythonConfigurationType" factoryName="Python" temporary="true">
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/Hades" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <module name="Dynamic Resource Allocation" />
-      <EXTENSION ID="PythonCoverageRunConfigurationExtension" enabled="false" sample_coverage="true" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Hades/Service.py" />
-      <option name="PARAMETERS" value="" />
-      <RunnerSettings RunnerId="PythonRunner" />
-      <ConfigurationWrapper RunnerId="PythonRunner" />
-      <method />
-    </configuration>
     <configuration default="false" name="scheduler" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -527,6 +346,65 @@
       <RunnerSettings RunnerId="PyDebugRunner" />
       <RunnerSettings RunnerId="PythonRunner" />
       <ConfigurationWrapper RunnerId="PyDebugRunner" />
+      <ConfigurationWrapper RunnerId="PythonRunner" />
+      <method />
+    </configuration>
+    <configuration default="false" name="tt" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="Dynamic Resource Allocation" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" enabled="false" sample_coverage="true" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/tt.py" />
+      <option name="PARAMETERS" value="" />
+      <RunnerSettings RunnerId="PyDebugRunner" />
+      <RunnerSettings RunnerId="PythonRunner" />
+      <ConfigurationWrapper RunnerId="PyDebugRunner" />
+      <ConfigurationWrapper RunnerId="PythonRunner" />
+      <method />
+    </configuration>
+    <configuration default="false" name="arbiter" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/Hades/Cmd" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="Dynamic Resource Allocation" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" enabled="false" sample_coverage="true" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Hades/Cmd/arbiter.py" />
+      <option name="PARAMETERS" value="" />
+      <RunnerSettings RunnerId="PythonRunner" />
+      <ConfigurationWrapper RunnerId="PythonRunner" />
+      <method />
+    </configuration>
+    <configuration default="false" name="RpcApi (1)" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/Hades/Arbiter" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="Dynamic Resource Allocation" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" enabled="false" sample_coverage="true" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Hades/Arbiter/RpcApi.py" />
+      <option name="PARAMETERS" value="" />
+      <RunnerSettings RunnerId="PythonRunner" />
       <ConfigurationWrapper RunnerId="PythonRunner" />
       <method />
     </configuration>
@@ -614,9 +492,6 @@
       <option name="PARAMETERS" value="" />
       <method />
     </configuration>
-    <configuration default="true" type="JavascriptDebugType" factoryName="JavaScript Debug" singleton="true">
-      <method />
-    </configuration>
     <configuration default="true" type="tests" factoryName="Unittests">
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -638,6 +513,9 @@
       <option name="PUREUNITTEST" value="true" />
       <option name="PARAMS" value="" />
       <option name="USE_PARAM" value="false" />
+      <method />
+    </configuration>
+    <configuration default="true" type="JavascriptDebugType" factoryName="JavaScript Debug" singleton="true">
       <method />
     </configuration>
     <configuration default="true" type="tests" factoryName="Doctests">
@@ -701,19 +579,19 @@
     </configuration>
     <list size="6">
       <item index="0" class="java.lang.String" itemvalue="Python.Ceilometer" />
-      <item index="1" class="java.lang.String" itemvalue="Python.Nova" />
-      <item index="2" class="java.lang.String" itemvalue="Python.RabbitMq" />
-      <item index="3" class="java.lang.String" itemvalue="Python.Service" />
-      <item index="4" class="java.lang.String" itemvalue="Python.scheduler" />
-      <item index="5" class="java.lang.String" itemvalue="Python.RpcApi" />
+      <item index="1" class="java.lang.String" itemvalue="Python.scheduler" />
+      <item index="2" class="java.lang.String" itemvalue="Python.RpcApi" />
+      <item index="3" class="java.lang.String" itemvalue="Python.tt" />
+      <item index="4" class="java.lang.String" itemvalue="Python.arbiter" />
+      <item index="5" class="java.lang.String" itemvalue="Python.RpcApi (1)" />
     </list>
     <recent_temporary>
       <list size="5">
         <item index="0" class="java.lang.String" itemvalue="Python.RpcApi" />
-        <item index="1" class="java.lang.String" itemvalue="Python.scheduler" />
-        <item index="2" class="java.lang.String" itemvalue="Python.RabbitMq" />
-        <item index="3" class="java.lang.String" itemvalue="Python.Nova" />
-        <item index="4" class="java.lang.String" itemvalue="Python.Service" />
+        <item index="1" class="java.lang.String" itemvalue="Python.arbiter" />
+        <item index="2" class="java.lang.String" itemvalue="Python.scheduler" />
+        <item index="3" class="java.lang.String" itemvalue="Python.RpcApi (1)" />
+        <item index="4" class="java.lang.String" itemvalue="Python.tt" />
       </list>
     </recent_temporary>
   </component>
@@ -764,24 +642,24 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="22" width="1280" height="713" extended-state="0" />
-    <editor active="true" />
+    <frame x="0" y="22" width="1280" height="708" extended-state="6" />
+    <editor active="false" />
     <layout>
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3282313" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3282313" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3282313" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3298217" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.28038898" sideWeight="0.5413153" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.25688818" sideWeight="0.6921769" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3792517" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="1" side_tool="true" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="9" side_tool="true" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.45868465" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.30782312" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32993197" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
@@ -802,9 +680,9 @@
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.27128083" sideWeight="0.6010101" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32996634" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
     </layout-to-restore>
   </component>
   <component name="VcsContentAnnotationSettings">
@@ -839,62 +717,34 @@
           <option name="timeStamp" value="37" />
         </line-breakpoint>
       </breakpoints>
-      <option name="time" value="38" />
+      <option name="time" value="46" />
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file:///Library/Python/2.7/site-packages/oslo/messaging/rpc/dispatcher.py">
+    <entry file="file:///Library/Python/2.7/site-packages/oslo/messaging/_drivers/amqp.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="127" column="0" selection-start="4316" selection-end="4316" vertical-scroll-proportion="0.0" vertical-offset="1651" max-vertical-offset="2715">
+        <state line="174" column="0" selection-start="6349" selection-end="6349" vertical-scroll-proportion="0.0" vertical-offset="2371" max-vertical-offset="5085">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file:///Library/Python/2.7/site-packages/oslo/messaging/_executors/impl_blocking.py">
+    <entry file="file:///Library/Python/2.7/site-packages/oslo/messaging/_drivers/amqpdriver.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="29" column="7" selection-start="1193" selection-end="1193" vertical-scroll-proportion="0.0" vertical-offset="301" max-vertical-offset="780">
+        <state line="399" column="0" selection-start="14180" selection-end="14180" vertical-scroll-proportion="0.27440634" vertical-offset="5746" max-vertical-offset="6600">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file:///Library/Python/2.7/site-packages/oslo/messaging/server.py">
+    <entry file="file:///Library/Python/2.7/site-packages/oslo/messaging/_drivers/impl_rabbit.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="126" column="0" selection-start="4634" selection-end="4634" vertical-scroll-proportion="0.0" vertical-offset="1654" max-vertical-offset="2205">
+        <state line="341" column="0" selection-start="12812" selection-end="12812" vertical-scroll-proportion="0.27440634" vertical-offset="4741" max-vertical-offset="11580">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/setup.py">
+    <entry file="file:///Library/Python/2.7/site-packages/kombu/messaging.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="6" column="16" selection-start="91" selection-end="107" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1125">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Hades/Scheduler/Api.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="542">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Hades/Scheduler/Manager.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="21" column="20" selection-start="584" selection-end="595" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="375">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Hades/BaseRpc.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="542">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Hades/Context.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="267">
+        <state line="149" column="0" selection-start="5609" selection-end="5609" vertical-scroll-proportion="0.27440634" vertical-offset="1936" max-vertical-offset="8925">
           <folding />
         </state>
       </provider>
@@ -906,54 +756,92 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Hades/Rpc.py">
+    <entry file="file://$PROJECT_DIR$/Hades/Arbiter/Manager.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1140">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Hades/Common/ThreadGroup.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="10" column="48" selection-start="59" selection-end="276" vertical-scroll-proportion="0.0" vertical-offset="433" max-vertical-offset="1245">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Hades/Common/Service.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="32" column="13" selection-start="768" selection-end="768" vertical-scroll-proportion="0.0" vertical-offset="1710" max-vertical-offset="3330">
-          <folding />
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="435">
+          <folding>
+            <element signature="e#21#46#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/Hades/Service.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="1245" max-vertical-offset="2850">
+        <state line="29" column="26" selection-start="865" selection-end="865" vertical-scroll-proportion="0.8707124" vertical-offset="30" max-vertical-offset="2775">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/Hades/Cmd/scheduler.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="18" column="28" selection-start="428" selection-end="428" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="450">
-          <folding />
+        <state line="15" column="32" selection-start="256" selection-end="256" vertical-scroll-proportion="0.0" vertical-offset="15" max-vertical-offset="495">
+          <folding>
+            <element signature="e#70#95#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Hades/Scheduler/RpcApi.py">
+    <entry file="file://$PROJECT_DIR$/Hades/Cmd/arbiter.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="19" column="25" selection-start="459" selection-end="459" vertical-scroll-proportion="0.0" vertical-offset="135" max-vertical-offset="600">
-          <folding />
+        <state line="13" column="43" selection-start="210" selection-end="210" vertical-scroll-proportion="0.0" vertical-offset="105" max-vertical-offset="495">
+          <folding>
+            <element signature="e#57#82#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/Hades/Config.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="23" column="61" selection-start="564" selection-end="564" vertical-scroll-proportion="0.84074074" vertical-offset="118" max-vertical-offset="660">
+        <state line="46" column="9" selection-start="1406" selection-end="1406" vertical-scroll-proportion="0.0" vertical-offset="409" max-vertical-offset="765">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Hades/Arbiter/RpcApi.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="21" column="0" selection-start="503" selection-end="503" vertical-scroll-proportion="0.0" vertical-offset="152" max-vertical-offset="675">
           <folding>
-            <element signature="e#21#48#0" expanded="true" />
+            <element signature="e#21#47#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Hades/Scheduler/Manager.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="24" column="0" selection-start="698" selection-end="698" vertical-scroll-proportion="0.0" vertical-offset="154" max-vertical-offset="525">
+          <folding>
+            <element signature="e#21#46#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Hades/Scheduler/RpcApi.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="23" column="22" selection-start="593" selection-end="593" vertical-scroll-proportion="0.0" vertical-offset="180" max-vertical-offset="645">
+          <folding>
+            <element signature="e#21#47#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///System/Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/_abcoll.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="345" column="6" selection-start="9214" selection-end="9214" vertical-scroll-proportion="0.41573033" vertical-offset="5012" max-vertical-offset="10140">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///Library/Python/2.7/site-packages/oslo/config/cfg.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="1550" column="0" selection-start="51745" selection-end="51745" vertical-scroll-proportion="0.37878788" vertical-offset="22885" max-vertical-offset="35790">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Hades/Rpc.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="5" column="8" selection-start="86" selection-end="86" vertical-scroll-proportion="-0.042134833" vertical-offset="75" max-vertical-offset="1140">
+          <folding />
         </state>
       </provider>
     </entry>

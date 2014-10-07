@@ -15,7 +15,7 @@ def init(conf):
     global TRANSPORT
     exmods = get_allowed_exmods()
     TRANSPORT = messaging.get_transport(conf,
-                                        url = CONF.rabbit_url,
+                                        url = CONF.hades_rabbit_url,
                                         allowed_remote_exmods = exmods,
                                         aliases = {})
     #serializer
@@ -52,7 +52,7 @@ def get_allowed_exmods():
 #        return nova.context.RequestContext.from_dict(context)
 
 def get_client(target, version_cap = None, serializer = None):
-    assert  TRANSPORT is not None
+    assert TRANSPORT is not None
     #serializer = RequestContextSerializer(serializer)
     return messaging.RPCClient(TRANSPORT,
                                target,
@@ -69,4 +69,4 @@ def get_server(target, endpoints, serializer = None):
                                     serializer = serializer)
 
 def set_defaults(control_exchange):
-    messaging.set_transport_defaults(control_exchange)
+    CONF.control_exchange = control_exchange

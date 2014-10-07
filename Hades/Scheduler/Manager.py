@@ -3,8 +3,9 @@ __author__ = 'pike'
 from Hades import Manager
 from oslo import messaging
 from oslo.config import cfg
-from Hades.Scheduler import Api
 from Hades.Scheduler import RpcApi
+from Hades import Config
+from Hades.Arbiter.RpcApi import ArbiterAPI
 
 CONF = cfg.CONF
 
@@ -21,4 +22,9 @@ class SchedulerManager(Manager.Manager):
 
     def testSchedule(self, ctxt, host, arg):
         print "manager: testScheduler\n"
-        return "manager: testScheduler\n"
+
+        Config.config_init(CONF.hades_exchange)
+        arbiter_api = ArbiterAPI()
+        host =  arbiter_api.testArbiter({}, 'localhost', None)
+
+        return host
