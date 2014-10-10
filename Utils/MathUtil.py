@@ -3,20 +3,21 @@ __author__ = 'pike'
 
 import numpy as np
 import matplotlib.pyplot as plt
-from FileUtil import VMfile
-from PlotUtil import Plot
+from FileUtil import VMFile
 import math
 
 def minusAverage(list):
-    average = sum(list) / list.__len__()
-    for i in range(0, list.__len__()):
-        list[i] -= average
-    return list
+    result = list[:]
+    average = sum(result) / result.__len__()
+    for i in range(0, result.__len__()):
+        result[i] -= average
+    return result
 
 def doubleList(list):
-    for i in range(0, list.__len__()):
-        list[i] = 2 * list[i]
-    return list
+    result = list[:]
+    for i in range(0, result.__len__()):
+        result[i] = 2 * result[i]
+    return result
 
 def even(num):
     if (math.ceil(num) % 2 == 0):
@@ -29,9 +30,9 @@ def even(num):
 
 class FFT:
 
-    def __init__(self,x,y):
-        self.x = x
-        self.y = y
+    def __init__(self, x, y):
+        self.x = x[:]
+        self.y = y[:]
 
 
     #compute fft will return (x,y) represent frequency and intensity
@@ -53,52 +54,50 @@ class FFT:
         return (feq, np.abs(fft_sig))
 
 
+class AutoCorrelation:
 
-
-
-class AutoCorelation:
-
-    def __init__(self,y):
-        self.y=y
+    def __init__(self, y):
+        self.y = y[:]
 
 
     def autocorr(self):
 
         #remove the direct current component
-        y=minusAverage(self.y)
+        y = minusAverage(self.y)
 
-        result=np.correlate(y,y,mode="full")
+        autoValue = np.correlate(y, y, mode="full")
 
         #count from 0
-        return result[result.size/2:]
+        resultY = autoValue[autoValue.size / 2 :]
+        resultX = doubleList(range(0, resultY.__len__()))
 
-
+        return (resultX, resultY)
 
 
 
 if __name__=="__main__":
 
 
-    vmdata=VMfile('../VMs.csv')
-    (x,y)=vmdata.getData('"zq-wuliu-liping-5.80"')
+    vmdata = VMFile('../Resource/VMs.csv')
+    (x,y) = vmdata.getData('"zq-wuliu-liping-5.80"')
     plt.subplot(311)
-    plt.plot(x,y)
+    plt.plot(x, y)
     plt.xlabel("Hour")
     plt.ylabel("Intensity")
     plt.title("CPU Utility")
 
-    fft=FFT(x,y)
-    (x1,y1)=fft.computeFFT()
+    fft = FFT(x, y)
+    (x1,y1) = fft.computeFFT()
     plt.subplot(312)
-    plt.plot(x1,y1)
+    plt.plot(x1, y1)
     plt.xlabel("Hz")
     plt.ylabel("Intensity")
     plt.title("FFT")
 
-    auto=AutoCorelation(y)
-    x2=doubleList(range(0,auto.autocorr().__len__()))
+    auto = AutoCorrelation(y)
+    (x2, y2) = auto.autocorr()
     plt.subplot(313)
-    plt.plot(x2,auto.autocorr())
+    plt.plot(x2, y2)
     plt.xlabel("Lag(Hour)")
     plt.ylabel("Corelation")
     plt.title("Auto-Corelation")

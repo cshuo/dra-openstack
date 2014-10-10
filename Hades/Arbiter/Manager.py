@@ -3,8 +3,8 @@ __author__ = 'pike'
 from Hades import Manager
 from oslo import messaging
 from oslo.config import cfg
-from Hades.Arbiter import Api
 from Hades.Arbiter import RpcApi
+from Hades.Arbiter import SchedulePolicy
 
 CONF = cfg.CONF
 
@@ -15,10 +15,13 @@ class ArbiterManager(Manager.Manager):
 
     def __init__(self, *args, **kwargs):
         self.arbiter_rpcapi = RpcApi.ArbiterAPI()
+        self.schedulePolicy = SchedulePolicy.SchedulePolicy()
         super(ArbiterManager, self).__init__(service_name = 'hades_arbiter_service',
                                                *args,
                                                **kwargs)
 
     def testArbiter(self, ctxt, host, arg):
         print "manager: testArbiter\n"
-        return "compute1"
+        host = self.schedulePolicy.randomSchedule()
+        print host
+        return host

@@ -30,8 +30,6 @@ class Service(service.Service):
         self.topic = topic
         self.manager_class_name = manager
 
-        #self.servicegroup_api = servicegroup.API(db_allowed=db_allowed)
-
         manager_class = ImportUtils.import_class(self.manager_class_name)
         self.manager = manager_class(host=self.host, *args, **kwargs)
         self.rpcserver = None
@@ -41,32 +39,14 @@ class Service(service.Service):
         self.periodic_interval_max = periodic_interval_max
         self.saved_args, self.saved_kwargs = args, kwargs
         self.backdoor_port = None
-        #self.conductor_api = conductor.API(use_local=db_allowed)
-        #self.conductor_api.wait_until_ready(context.get_admin_context())
 
     def start(self):
-        #verstr = version.version_string_with_package()
+
         verstr = '1.0'
         print 'Starting %(topic)s node (version %(version)s)' % {'topic': self.topic, 'version': verstr}
 
         #self.basic_config_check()
         self.manager.init_host()
-
-        #self.model_disconnected = False
-        #ctxt = context.get_admin_context()
-        #try:
-        #    self.service_ref = self.conductor_api.service_get_by_args(ctxt,
-        #            self.host, self.binary)
-        #    self.service_id = self.service_ref['id']
-        #except exception.NotFound:
-        #    try:
-        #        self.service_ref = self._create_service_ref(ctxt)
-        #    except (exception.ServiceTopicExists,
-        #            exception.ServiceBinaryExists):
-        #        # NOTE(danms): If we race to create a record with a sibling
-        #        # worker, don't fail here.
-        #        self.service_ref = self.conductor_api.service_get_by_args(ctxt,
-        #            self.host, self.binary)
 
         self.manager.pre_start_hook()
 
@@ -75,6 +55,7 @@ class Service(service.Service):
 
         print "Creating RPC server for service %s" % self.topic
 
+        # exchange is set in CONF.control_exchange
         target = messaging.Target(topic = self.topic, server = self.host)
 
         endpoints = [
@@ -92,19 +73,6 @@ class Service(service.Service):
         self.manager.post_start_hook()
 
         print "Join ServiceGroup membership for this service %s" % self.topic
-        # Add service to the ServiceGroup membership group.
-        #self.servicegroup_api.join(self.host, self.topic, self)
-        #
-        #if self.periodic_enable:
-        #    if self.periodic_fuzzy_delay:
-        #        initial_delay = random.randint(0, self.periodic_fuzzy_delay)
-        #    else:
-        #        initial_delay = None
-        #
-        #    self.tg.add_dynamic_timer(self.periodic_tasks,
-        #                             initial_delay=initial_delay,
-        #                             periodic_interval_max=
-        #                                self.periodic_interval_max)
 
 
     @classmethod

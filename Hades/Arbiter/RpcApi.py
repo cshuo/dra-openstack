@@ -15,6 +15,8 @@ class ArbiterAPI(object):
 
     def __init__(self):
         super(ArbiterAPI, self).__init__()
+
+        # exchange is set in CONF.control_exchange
         target = messaging.Target(topic = CONF.hades_arbiter_topic, version = '3.0')
         version_cap = '3.23'
         serializer = None

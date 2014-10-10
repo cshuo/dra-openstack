@@ -2,7 +2,8 @@ __author__ = 'pike'
 
 
 from Openstack.Service.OpenstackService import  *
-from Openstack.Conf.OpenstackConf import *
+from Openstack.Conf import OpenstackConf
+from Utils.HttpUtil import OpenstackRestful
 
 
 class Ceilometer(OpenstackService):
@@ -10,22 +11,23 @@ class Ceilometer(OpenstackService):
     def __init__(self):
 
         OpenstackService.__init__(self)
-
-    def urlGenerate(self, version, type, name, statistics):
-
-        url = "http://%s:8777/%s/%s/%s" % (CONTROLLER_HOST, version, type, name)
-        if (statistics == "statistics"):
-            url += "/statistics"
-        return url
+        self.restful = OpenstackRestful(self.tokenId)
 
 
-    def getAllMeters(self):pass
+    def getAllMeters(self):
+        url = "%s/v2/meters" % OpenstackConf.CEILOMETER_URL
+        result = self.restful.getResult(url)
+        return result
 
+    def getAllResources(self):
+        url = "%s/v2/resources" % OpenstackConf.CEILOMETER_URL
+        result = self.restful.getResult(url)
+        return result
 
 
     def getCpuStat(self, startTime, endTime, resourceId):
 
-        url = self.urlGenerate("v2", "meters", "cpu_util", "statistics")
+        url = "%s/v2/meters/%s/statistics" % (OpenstackConf.CEILOMETER_URL, "cpu_util")
 
         #add params (use "Get" not "Post")
         urlParam = "?&q.field=timestamp&q.op=ge&q.value=%s" % startTime + \
@@ -33,12 +35,7 @@ class Ceilometer(OpenstackService):
                    "&q.field=resource_id&q.op=eq&q.value=%s" % resourceId
         url += urlParam
 
-        serverRequest = urllib2.Request(url)
-        serverRequest.add_header("Content-type", "application/json")
-        serverRequest.add_header("X-Auth-Token", self.tokenId)
-
-        request = urllib2.urlopen(serverRequest)
-        result = json.loads(request.read())
+        result = self.restful.getResult(url)
         return result[0]
 
     def getAvgCpuFromStat(self, cpuStat):
@@ -49,5 +46,5 @@ class Ceilometer(OpenstackService):
 if __name__=="__main__":
 
     ceilometerTest = Ceilometer()
-    cpuStat = ceilometerTest.getCpuStat("2014-08-01T00:00:00", "2014-09-01T00:00:00", "c07c4077-cda0-4907-bc76-536c6fc3afb2")
-    print ceilometerTest.getAvgCpuFromStat(cpuStat)
+    #cpuStat = ceilometerTest.getCpuStat("2014-08-01T00:00:00", "2014-09-01T00:00:00", "c07c4077-cda0-4907-bc76-536c6fc3afb2")
+    print ceilometerTest.getAllResources()[0]

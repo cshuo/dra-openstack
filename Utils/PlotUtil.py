@@ -6,7 +6,7 @@ import matplotlib.pyplot as plt
 class Plot:
 
     @staticmethod
-    def plot(x,y,title,xlable,ylable):
+    def plot(x, y, title, xlable, ylable):
         plt.figure(title)
         plt.plot(x,y)
         plt.title(title)
