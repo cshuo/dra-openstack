@@ -20,10 +20,6 @@ class VMFile:
         time = 0;
         for line in self.alllines:
             split = line.split(",")
-            #if (split[0].startswith('"Gart')):
-            #if (split[0].startswith('"wangyi')):
-            #if (split[0].startswith('"JiaoTong-ETC')):
-            #if (split[0].startswith('"JiaoTong_Shuiyun')):
             if(split[0] == vmname):
                 y_axis.append(float(split[4].strip('"')))
                 x_axis.append(time)

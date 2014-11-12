@@ -1,0 +1,7 @@
+<Policy type = "oblig" name = "policy1">
+	<subject>subjectValue</subject>
+	<target>targetValue</target>
+	<onEvent>eventValue</onEvent>
+	<action>actionValue</action>
+</Policy>
+

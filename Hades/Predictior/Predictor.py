@@ -109,7 +109,8 @@ class Predictor:
             index = len(self.x) + i
             pos = index - bestCycle * multi / (self.x[1] - self.x[0])
             while pos >=0:
-                if pos <= len(self.x):
+                if pos <= len(self.x) - 1:
+                    print pos
                     values.append(self.y[pos])
                 multi += 1
                 pos = index - bestCycle * multi / (self.x[1] - self.x[0])
@@ -121,14 +122,14 @@ class Predictor:
 
 if __name__ == "__main__":
 
-    file = open('../../Resource/VMs.csv',"r")
-    lines = file.readlines()[1:]
-    vmset = set()
-    for line in lines:
-        vmname = line.split(',')[0]
-        vmset.add(vmname)
-    vmset.remove('\r\n')
-    file.close()
+    #file = open('../../Resource/VMs.csv',"r")
+    #lines = file.readlines()[1:]
+    #vmset = set()
+    #for line in lines:
+    #    vmname = line.split(',')[0]
+    #    vmset.add(vmname)
+    #vmset.remove('\r\n')
+    #file.close()
 
     #outfile = open("../../Resource/OUTPUT","w")
     #for vmname in vmset:
@@ -141,17 +142,65 @@ if __name__ == "__main__":
     #outfile.close()
 
     vmdata = VMFile('../../Resource/VMs.csv')
-    #(x, y) = vmdata.getData('"zq-wuliu-liping-5.80"')
-    (x, y) = vmdata.getData('"ks-yanglao-wx-5.95"')
-    print x
+
+    (x0, y0) = vmdata.getData('"ks-yanglao-wx-5.95"')
+    (x1, y1) = vmdata.getData('"Gartner-vss-2.105"')
+    (x2, y2) = vmdata.getData('"JiaoTong-ETC-DOC-ShiHuaiyuan-5.11"')
+    (x3, y3) = vmdata.getData('"JiaoTong_Shuiyun_chuanyuanka_lizhenxue_512"')
+    (x4, y4) = vmdata.getData('"zq-wuliu-liping-5.80"')
 
 
-    predictor = Predictor(x, y)
-    print predictor.getBestCandidate()
-    (preX, preY) = predictor.predictFutureWave(40)
+    predictor0 = Predictor(x0, y0)
+    (preX0, preY0) = predictor0.predictFutureWave(100)
 
-    plt.plot(x, y)
-    plt.plot(preX, preY)
+    predictor1 = Predictor(x1, y1)
+    (preX1, preY1) = predictor1.predictFutureWave(100)
+
+    predictor2 = Predictor(x2, y2)
+    (preX2, preY2) = predictor2.predictFutureWave(100)
+
+    predictor3 = Predictor(x3, y3)
+    (preX3, preY3) = predictor3.predictFutureWave(100)
+
+    predictor4 = Predictor(x4, y4)
+    (preX4, preY4) = predictor4.predictFutureWave(100)
+
+    plt.subplot(511)
+    plt.plot(x0, y0, label = "history")
+    plt.plot(preX0, preY0, label = "future" )
+    plt.xlabel("hour")
+    plt.ylabel("cpu_util")
+    plt.legend()
+
+    plt.subplot(512)
+    plt.plot(x1, y1, label = "history")
+    plt.plot(preX1, preY1, label = "future" )
+    plt.xlabel("hour")
+    plt.ylabel("cpu_util")
+    plt.legend()
+
+    plt.subplot(513)
+    plt.plot(x2, y2, label = "history")
+    plt.plot(preX2, preY2, label = "future" )
+    plt.xlabel("hour")
+    plt.ylabel("cpu_util")
+    plt.legend()
+
+    plt.subplot(514)
+    plt.plot(x3, y3, label = "history")
+    plt.plot(preX3, preY3, label = "future" )
+    plt.xlabel("hour")
+    plt.ylabel("cpu_util")
+    plt.legend()
+
+    plt.subplot(515)
+    plt.plot(x4, y4, label = "history")
+    plt.plot(preX4, preY4, label = "future" )
+    plt.xlabel("hour")
+    plt.ylabel("cpu_util")
+    plt.legend()
+
+
     plt.show()
 
 
