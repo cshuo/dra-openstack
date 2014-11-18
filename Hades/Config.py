@@ -12,7 +12,13 @@ rpcapi_opts = [
                help = 'the topic hades nodes listen on'),
     cfg.StrOpt('hades_arbiter_topic',
                default = 'hades_arbiter_test',
-               help = 'the topic hades arbiter nodes listen on')
+               help = 'the topic hades arbiter nodes listen on'),
+    cfg.StrOpt('hades_policyService_topic',
+               default = 'hades_policyService_topic',
+               help = 'the topic hades policyService nodes listen on'),
+    cfg.StrOpt('hades_arbiterPMA_topic',
+               default = 'hades_arbiterPMA_topic',
+               help = 'the topic hades arbiterPMA nodes listen on')
 ]
 
 manager_opts = [
@@ -21,7 +27,13 @@ manager_opts = [
                help = 'hades scheduler manager'),
     cfg.StrOpt('hades_arbiter_manager',
                default = 'Hades.Arbiter.Manager.ArbiterManager',
-               help = 'hades arbiter manager')
+               help = 'hades arbiter manager'),
+    cfg.StrOpt('hades_policyService_manager',
+               default = 'Hades.PolicyService.Manager.PolicyServiceManager',
+               help = 'hades policyService manager'),
+    cfg.StrOpt('hades_arbiterPMA_manager',
+               default = 'Hades.PMA.Manager.ArbiterPMAManager',
+               help = 'hades arbiterPMA manager')
 ]
 
 transport = [

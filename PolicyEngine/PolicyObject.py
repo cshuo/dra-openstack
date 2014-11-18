@@ -1,21 +1,21 @@
 __author__ = 'pike'
 
-import Action
-import Condition
-import Event
-import Subject
-import Target
+from Action import Action
+from Event import Event
+from Subject import Subject
+from Target import Target
 
 class PolicyObject:
 
-    def __init__(self, type, **kwargs):
+    def __init__(self, name, type, **kwargs):
+        self.name = name
         self.type = type
         self.enabled = False
 
-        self.subject = kwargs['subject']
-        self.target = kwargs['target']
-        self.event = kwargs['onEvent']
-        self.action = kwargs['action']
+        self.subject = Subject(kwargs['subject'])
+        self.target = Target(kwargs['target'])
+        self.event = Event(kwargs['onEvent'])
+        self.action = Action(kwargs['action'])
 
     def getSubject(self):
         return self.subject
@@ -31,6 +31,9 @@ class PolicyObject:
 
     def getType(self):
         return self.type
+
+    def getName(self):
+        return self.name
 
     def isEnabled(self):
         return self.enabled

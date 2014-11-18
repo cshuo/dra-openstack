@@ -1,7 +1,68 @@
+<PolicyGroup name = "group1">
+
 <Policy type = "oblig" name = "policy1">
-	<subject>subjectValue</subject>
-	<target>targetValue</target>
-	<onEvent>eventValue</onEvent>
-	<action>actionValue</action>
+	<subject>SchedulerPMA</subject>
+	<target>target</target>
+	<onEvent>createNewInstance</onEvent>
+	<action>
+        EventService.sendEvent(ArbiterPMA, event)
+    </action>
 </Policy>
 
+<Policy type = "oblig" name = "policy2">
+	<subject>ArbiterPMA</subject>
+	<target>target</target>
+	<onEvent>createNewInstance</onEvent>
+	<action>
+        info = event.getInfo()
+        host = selectHostOnCreate(info)
+        createInstance(host)
+    </action>
+</Policy>
+
+<Policy type = "oblig" name = "policy3">
+	<subject>SLAPMA</subject>
+	<target>target</target>
+	<onEvent>timeEvent</onEvent>
+	<action>
+        violation = getViolations(instanceId, requirement)
+        event = EventService.createEvent(violation)
+        EventService.sendEvent(ArbiterPMA, event)
+    </action>
+</Policy>
+
+<Policy type = "oblig" name = "policy4">
+	<subject>ArbiterPMA</subject>
+	<target>target</target>
+	<onEvent>slaViolation</onEvent>
+	<action>
+        violation = event.getInfo()
+        host = selectHostOnViolate(instanceId, violation, "algorithm")
+        migrateInstance(instanceId, host)
+    </action>
+</Policy>
+
+<Policy type = "oblig" name = "policy5">
+	<subject>PredictorPMA</subject>
+	<target>target</target>
+	<onEvent>timeEvent</onEvent>
+	<action>
+        predictedData = getPredictedCpuUtil(instanceId, startTime, endTime)
+        event = EventService.createEvent(predictedData)
+        EventService.sendEvent(ArbiterPMA, event)
+    </action>
+</Policy>
+
+<Policy type = "oblig" name = "policy6">
+	<subject>ArbiterPMA</subject>
+	<target>target</target>
+	<onEvent>predictEvent</onEvent>
+	<action>
+        predictedData = event.getInfo()
+        host = selectHostOnPredict(instanceId, predictedData, "algorithm")
+        migrateInstance(instanceId, host)
+    </action>
+</Policy>
+
+
+</PolicyGroup>

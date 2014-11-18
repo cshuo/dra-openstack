@@ -9,26 +9,40 @@ class PolicyInterpreter:
         pass
 
     @staticmethod
-    def getPolicyObjectFromFile(file):
+    def getPolicyObjectsFromFile(file):
         tree = ET.ElementTree(file = file)
-        root = tree.getroot()
-        type = root.attrib['type']
+        return PolicyInterpreter.getPolicyObjectsFromET(tree)
 
-        kwarg = {}
-        for item in root:
-            key = item.tag
-            value = item.text
-            kwarg[key] = value
+    @staticmethod
+    def getPolicyObjectsFromString(xmlStr):
+        tree = ET.fromstring(xmlStr)
+        return PolicyInterpreter.getPolicyObjectsFromET(tree)
 
-        policyObj = PolicyObject(type, **kwarg)
+    @staticmethod
+    def getPolicyObjectsFromET(tree):
+        policyObjs = []
+        # root refers to policygroup
+        policyGroup = tree.getroot()
 
-        return policyObj
+        for policy in policyGroup:
+            type = policy.attrib['type']
+            name = policy.attrib['name']
+            kwargs = {}
+            for item in policy:
+                key = item.tag
+                value = item.text
+                kwargs[key] = value
+            policyObj = PolicyObject(name, type, **kwargs)
+            policyObjs.append(policyObj)
+
+        return policyObjs
+
 
 
 if __name__ == "__main__":
 
-    pObj = PolicyInterpreter.getPolicyObjectFromFile("../Resource/testPolicy.xml")
-    print pObj.type
+    pObjs = PolicyInterpreter.getPolicyObjectsFromFile("../Resource/testPolicy.xml")
+    print pObjs[0].type
 
 
 
