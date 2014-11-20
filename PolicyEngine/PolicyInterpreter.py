@@ -11,18 +11,19 @@ class PolicyInterpreter:
     @staticmethod
     def getPolicyObjectsFromFile(file):
         tree = ET.ElementTree(file = file)
-        return PolicyInterpreter.getPolicyObjectsFromET(tree)
+        root = tree.getroot()
+        return PolicyInterpreter.getPolicyObjectsFromRoot(root)
 
     @staticmethod
     def getPolicyObjectsFromString(xmlStr):
-        tree = ET.fromstring(xmlStr)
-        return PolicyInterpreter.getPolicyObjectsFromET(tree)
+        root = ET.fromstring(xmlStr)
+        return PolicyInterpreter.getPolicyObjectsFromRoot(root)
 
     @staticmethod
-    def getPolicyObjectsFromET(tree):
+    def getPolicyObjectsFromRoot(root):
         policyObjs = []
         # root refers to policygroup
-        policyGroup = tree.getroot()
+        policyGroup = root
 
         for policy in policyGroup:
             type = policy.attrib['type']

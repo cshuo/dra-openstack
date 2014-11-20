@@ -20,5 +20,5 @@ class PolicyServiceManager(Manager.Manager):
         self.arbiterPMAApi = ArbiterPMAAPI(CONF.hades_arbiterPMA_topic, CONF.hades_exchange)
 
 
-    def loadPolicy(self, ctxt, host, arg):
-        return self.arbiterPMAApi.loadPolicy({}, 'pike', None)
+    def loadPolicy(self, ctxt, host, policy):
+        return self.arbiterPMAApi.loadPolicy({}, 'pike', policy)

@@ -11,9 +11,14 @@ class PolicyManager:
     def addPolicy(self, policy):
         self.policyObjs[policy.getName()] = policy
 
-    def addPolicyFromXML(self, xmlPolicy):
-        policyObj = PolicyInterpreter.getPolicyObjectsFromString(xmlPolicy)
-        self.addPolicy(policyObj)
+    def addPolicys(self, policys):
+        for policy in policys:
+            self.addPolicy(policy)
+
+
+    def addPolicysFromXML(self, xmlPolicy):
+        policyObjs = PolicyInterpreter.getPolicyObjectsFromString(xmlPolicy)
+        self.addPolicys(policyObjs)
 
     def deletePolicy(self, name):
         self.policyObjs.__delitem__(name)
@@ -21,7 +26,7 @@ class PolicyManager:
     def getPolicyByName(self, name):
         return self.policyObjs.get(name)
 
-    def getPolicyOnEvent(self, event):
+    def getPolicysOnEvent(self, event):
         result = []
         for policy in self.policyObjs:
             if (policy.getEvent().getValue() == event):
