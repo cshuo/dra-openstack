@@ -40,8 +40,8 @@ class PolicyObject:
 
 
     def enable(self):
-        pass
+        self.enabled = True
 
     def disable(self):
-        pass
+        self.enabled = False
 

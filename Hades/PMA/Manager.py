@@ -20,9 +20,12 @@ class ArbiterPMAManager(Manager.Manager):
 
         self.policyManager = PolicyManager()
 
-    def testArbiterPMA(self, ctxt, host, arg):
-        print "manager: testArbiterPMA\n"
-        return "arbiterPMA"
+    def loadPolicy(self, ctxt, host, arg):
 
-    def addPolicy(self, xmlPolicy):
+        return "loadPolicy"
+
+    def addPolicyFromXML(self, xmlPolicy):
         self.policyManager.addPolicyFromXML(xmlPolicy)
+
+    def enablePolicy(self, policyName):
+        self.policyManager.enablePolicy(policyName)

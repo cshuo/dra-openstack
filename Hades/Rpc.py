@@ -70,3 +70,5 @@ def get_server(target, endpoints, serializer = None):
 
 def set_defaults(control_exchange):
     CONF.control_exchange = control_exchange
+
+

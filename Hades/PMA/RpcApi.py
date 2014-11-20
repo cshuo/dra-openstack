@@ -1,39 +1,35 @@
 __author__ = 'pike'
 
-from oslo import messaging
 from oslo.config import cfg
-from Hades import Rpc
 from Hades import Config
+from Hades import BaseRpcApi
 
 CONF =  cfg.CONF
 
-class ArbiterPMAAPI(object):
+#class PMAAPI(BaseRpcApi.BaseAPI):
+#    def __init__(self, topic, exchange):
+#        super(ArbiterPMAAPI, self).__init__(topic, exchange)
+#
+#
+#    def loadPolicy(self, ctxt, host, arg):
+#        cctxt = self.client.prepare(server = host,)
+#        return cctxt.call(ctxt, 'loadPolicy',
+#                   host = host, arg = arg)
+
+class ArbiterPMAAPI(BaseRpcApi.BaseAPI):
 
 
-    def __init__(self):
-        super(ArbiterPMAAPI, self).__init__()
+    def __init__(self, topic, exchange):
+        super(ArbiterPMAAPI, self).__init__(topic, exchange)
 
-        # exchange is set in CONF.control_exchange
-        target = messaging.Target(topic = CONF.hades_arbiterPMA_topic)
-        version_cap = None
-        serializer = None
-        self.client = self.get_client(target, version_cap, serializer)
 
-    def get_client(self, target, version_cap, serializer):
-        return Rpc.get_client(target,
-                              version_cap = version_cap,
-                              serializer = serializer)
-
-    def testArbiterPMA(self, ctxt, host, arg):
+    def loadPolicy(self, ctxt, host, arg):
         cctxt = self.client.prepare(server = host,)
-        return cctxt.call(ctxt, 'testArbiterPMA',
+        return cctxt.call(ctxt, 'loadPolicy',
                    host = host, arg = arg)
 
-    def loadPolicy(self, ctxt, policy):
-        pass
 
 if __name__ == "__main__":
     print 'arbiterPMA rpcapi\n'
-    Config.config_init(CONF.hades_exchange)
-    api = ArbiterPMAAPI()
+    api = ArbiterPMAAPI(CONF.hades_arbiterPMA_topic, CONF.hades_exchange)
     print api.testArbiterPMA({}, 'pike', None)

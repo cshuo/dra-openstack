@@ -28,13 +28,22 @@ class PolicyManager:
                 result.append(policy)
         return result
 
+    def enablePolicy(self, name):
+        policy = self.policyObjs[name]
+        policy.enable()
+
+    def disablePolicy(self, name):
+        policy = self.policyObjs[name]
+        policy.disable()
+
 
 if __name__ == "__main__":
-    policyObjs = PolicyInterpreter.getPolicyObjectsFromFile("../Resource/testPolicy.xml")
-    policyManager = PolicyManager()
-
-    policyManager.addPolicy(policyObjs[0])
-    policyManager.addPolicy(policyObjs[1])
-
-    result = policyManager.getPolicyOnEvent("eventValue")
-    print result[0].getType()
+    #policyObjs = PolicyInterpreter.getPolicyObjectsFromFile("../Resource/testPolicy.xml")
+    #policyManager = PolicyManager()
+    #
+    #policyManager.addPolicy(policyObjs[0])
+    #policyManager.addPolicy(policyObjs[1])
+    #
+    #result = policyManager.getPolicyOnEvent("eventValue")
+    #print result[0].getType()
+    pass
