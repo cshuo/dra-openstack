@@ -1,54 +1,60 @@
 __author__ = 'pike'
 
-from PolicyInterpreter import PolicyInterpreter
+from Pyclips import ClipsEngine
+from PolicyEngine.Arbiter.Arbiter import *
+
+registerFunctions = [
+    migrate
+]
 
 class PolicyManager:
 
-    #use policy name to be the unique id
     def __init__(self):
-        self.policyObjs = {}
+        self.clipsEngine = ClipsEngine()
+        self.rules = {}
 
-    def addPolicy(self, policy):
-        self.policyObjs[policy.getName()] = policy
+        for function in registerFunctions:
+            self.clipsEngine.registerPythonFunction(function)
 
-    def addPolicys(self, policys):
-        for policy in policys:
-            self.addPolicy(policy)
+    def loadPolicy(self, policy):
+        rules = policy['rules']
+        for ruleName in rules.keys():
+            rule = rules[ruleName]
+            self.loadRule(ruleName, rule)
 
+    def loadRule(self, ruleName, rule):
+        self.rules[ruleName] = rule
+        self.clipsEngine.addRule(rule)
 
-    def addPolicysFromXML(self, xmlPolicy):
-        policyObjs = PolicyInterpreter.getPolicyObjectsFromString(xmlPolicy)
-        self.addPolicys(policyObjs)
+    def unloadRule(self, ruleName):
+        self.clipsEngine.removeRule(ruleName)
+        self.rules.__delitem__(ruleName)
 
-    def deletePolicy(self, name):
-        self.policyObjs.__delitem__(name)
+    def enableRule(self, ruleName):
+        rule = self.rules[ruleName]
+        self.clipsEngine.addRule(rule)
 
-    def getPolicyByName(self, name):
-        return self.policyObjs.get(name)
+    def disableRule(self, ruleName):
+        self.clipsEngine.removeRule(ruleName)
 
-    def getPolicysOnEvent(self, event):
-        result = []
-        for policy in self.policyObjs:
-            if (policy.getEvent().getValue() == event):
-                result.append(policy)
-        return result
+    def assertFact(self, fact):
+        self.clipsEngine.assertFact(fact)
 
-    def enablePolicy(self, name):
-        policy = self.policyObjs[name]
-        policy.enable()
+    def run(self):
+        self.clipsEngine.run()
 
-    def disablePolicy(self, name):
-        policy = self.policyObjs[name]
-        policy.disable()
 
 
 if __name__ == "__main__":
-    #policyObjs = PolicyInterpreter.getPolicyObjectsFromFile("../Resource/testPolicy.xml")
-    #policyManager = PolicyManager()
-    #
-    #policyManager.addPolicy(policyObjs[0])
-    #policyManager.addPolicy(policyObjs[1])
-    #
-    #result = policyManager.getPolicyOnEvent("eventValue")
-    #print result[0].getType()
-    pass
+    rule = """
+    (defrule duck
+        (animal-is duck)
+        (type str)
+        =>
+        (python-call migrate))
+    """
+    policy = PolicyManager()
+    policy.loadRule("duck", rule)
+    policy.assertFact("(animal-is duck)")
+    policy.assertFact("(type str)")
+    policy.run()

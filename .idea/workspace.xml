@@ -12,7 +12,7 @@
   </component>
   <component name="ChangesViewManager" flattened_view="true" show_ignored="false" />
   <component name="CoverageDataManager">
-    <SUITE FILE_PATH="coverage/Dynamic Resource Allocation$Manager.coverage" NAME="Manager Coverage Results" MODIFIED="1416479844898" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Hades/PMA" />
+    <SUITE FILE_PATH="coverage/Dynamic Resource Allocation$Manager.coverage" NAME="Manager Coverage Results" MODIFIED="1417588994235" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Hades/PolicyService" />
     <SUITE FILE_PATH="coverage/Dynamic Resource Allocation$Instance.coverage" NAME="Instance Coverage Results" MODIFIED="1386665030419" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Openstack" />
     <SUITE FILE_PATH="coverage/Dynamic Resource Allocation$Plot.coverage" NAME="Plot Coverage Results" MODIFIED="1389870960744" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Utils" />
     <SUITE FILE_PATH="coverage/Dynamic Resource Allocation$tt.coverage" NAME="tt Coverage Results" MODIFIED="1412607785500" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
@@ -20,27 +20,28 @@
     <SUITE FILE_PATH="coverage/Dynamic Resource Allocation$SchedulePolicy.coverage" NAME="SchedulePolicy Coverage Results" MODIFIED="1412690387722" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Hades/Arbiter" />
     <SUITE FILE_PATH="coverage/Dynamic Resource Allocation$OpenstackService.coverage" NAME="OpenstackService Coverage Results" MODIFIED="1410249729695" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Openstack/Service" />
     <SUITE FILE_PATH="coverage/Dynamic Resource Allocation$DynamicInvoker.coverage" NAME="DynamicInvoker Coverage Results" MODIFIED="1416410007273" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/PolicyEngine" />
-    <SUITE FILE_PATH="coverage/Dynamic Resource Allocation$eventService.coverage" NAME="eventService Coverage Results" MODIFIED="1416459291867" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Hades/Cmd" />
-    <SUITE FILE_PATH="coverage/Dynamic Resource Allocation$RpcApi.coverage" NAME="RpcApi Coverage Results" MODIFIED="1416485107374" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Hades/PolicyService" />
+    <SUITE FILE_PATH="coverage/Dynamic Resource Allocation$eventService.coverage" NAME="eventService Coverage Results" MODIFIED="1416491369669" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Hades/Cmd" />
+    <SUITE FILE_PATH="coverage/Dynamic Resource Allocation$RpcApi.coverage" NAME="RpcApi Coverage Results" MODIFIED="1417590223818" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Hades/PolicyService" />
     <SUITE FILE_PATH="coverage/Dynamic Resource Allocation$Ssh_tool.coverage" NAME="Ssh_tool Coverage Results" MODIFIED="1386663775488" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Utils" />
-    <SUITE FILE_PATH="coverage/Dynamic Resource Allocation$PolicyInterpreter.coverage" NAME="PolicyInterpreter Coverage Results" MODIFIED="1415951114238" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/PolicyEngine" />
+    <SUITE FILE_PATH="coverage/Dynamic Resource Allocation$PolicyInterpreter.coverage" NAME="PolicyInterpreter Coverage Results" MODIFIED="1417588684400" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/PolicyEngine" />
     <SUITE FILE_PATH="coverage/Dynamic Resource Allocation$scheduler.coverage" NAME="scheduler Coverage Results" MODIFIED="1412733701702" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Hades/Cmd" />
     <SUITE FILE_PATH="coverage/Dynamic Resource Allocation$Predictor.coverage" NAME="Predictor Coverage Results" MODIFIED="1413014621240" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Hades/Predictior" />
     <SUITE FILE_PATH="coverage/Dynamic Resource Allocation$Authentication.coverage" NAME="Authentication Coverage Results" MODIFIED="1386424536778" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Openstack" />
     <SUITE FILE_PATH="coverage/Dynamic Resource Allocation$InstanceDataReceiver.coverage" NAME="InstanceDataReceiver Coverage Results" MODIFIED="1387199350815" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Monitor" />
+    <SUITE FILE_PATH="coverage/Dynamic Resource Allocation$Pyclips.coverage" NAME="Pyclips Coverage Results" MODIFIED="1417511438592" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/PolicyEngine" />
     <SUITE FILE_PATH="coverage/Dynamic Resource Allocation$ArbiterPMA.coverage" NAME="ArbiterPMA Coverage Results" MODIFIED="1416408388884" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Hades/Cmd" />
-    <SUITE FILE_PATH="coverage/Dynamic Resource Allocation$RpcApi__1_.coverage" NAME="RpcApi (1) Coverage Results" MODIFIED="1416459359345" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Hades/EventService" />
-    <SUITE FILE_PATH="coverage/Dynamic Resource Allocation$PolicyManager.coverage" NAME="PolicyManager Coverage Results" MODIFIED="1415887390853" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/PolicyEngine" />
-    <SUITE FILE_PATH="coverage/Dynamic Resource Allocation$policyService.coverage" NAME="policyService Coverage Results" MODIFIED="1416484973066" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Hades/Cmd" />
+    <SUITE FILE_PATH="coverage/Dynamic Resource Allocation$RpcApi__1_.coverage" NAME="RpcApi (1) Coverage Results" MODIFIED="1416491372985" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Hades/EventService" />
+    <SUITE FILE_PATH="coverage/Dynamic Resource Allocation$PolicyManager.coverage" NAME="PolicyManager Coverage Results" MODIFIED="1417509772721" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/PolicyEngine" />
+    <SUITE FILE_PATH="coverage/Dynamic Resource Allocation$policyService.coverage" NAME="policyService Coverage Results" MODIFIED="1417590221955" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Hades/Cmd" />
     <SUITE FILE_PATH="coverage/Dynamic Resource Allocation$RpcApi__2_.coverage" NAME="RpcApi (2) Coverage Results" MODIFIED="1416479721164" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Hades/PMA" />
     <SUITE FILE_PATH="coverage/Dynamic Resource Allocation$HostMonitor.coverage" NAME="HostMonitor Coverage Results" MODIFIED="1387102457176" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Monitor" />
     <SUITE FILE_PATH="coverage/Dynamic Resource Allocation$RabbitMq.coverage" NAME="RabbitMq Coverage Results" MODIFIED="1411972287361" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Messaging" />
     <SUITE FILE_PATH="coverage/Dynamic Resource Allocation$MathUtil.coverage" NAME="MathUtil Coverage Results" MODIFIED="1412952495650" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Utils" />
     <SUITE FILE_PATH="coverage/Dynamic Resource Allocation$FileUtil.coverage" NAME="FileUtil Coverage Results" MODIFIED="1412928160051" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Utils" />
-    <SUITE FILE_PATH="coverage/Dynamic Resource Allocation$Ceilometer.coverage" NAME="Ceilometer Coverage Results" MODIFIED="1412759751403" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Openstack" />
     <SUITE FILE_PATH="coverage/Dynamic Resource Allocation$Service.coverage" NAME="Service Coverage Results" MODIFIED="1411784050268" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Hades" />
+    <SUITE FILE_PATH="coverage/Dynamic Resource Allocation$Ceilometer.coverage" NAME="Ceilometer Coverage Results" MODIFIED="1412759751403" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Openstack" />
     <SUITE FILE_PATH="coverage/Dynamic Resource Allocation$arbiter.coverage" NAME="arbiter Coverage Results" MODIFIED="1412733725399" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Hades/Cmd" />
-    <SUITE FILE_PATH="coverage/Dynamic Resource Allocation$arbiterPMA.coverage" NAME="arbiterPMA Coverage Results" MODIFIED="1416485105032" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Hades/Cmd" />
+    <SUITE FILE_PATH="coverage/Dynamic Resource Allocation$arbiterPMA.coverage" NAME="arbiterPMA Coverage Results" MODIFIED="1417590220364" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Hades/Cmd" />
     <SUITE FILE_PATH="coverage/Dynamic Resource Allocation$OpenstackApi.coverage" NAME="OpenstackApi Coverage Results" MODIFIED="1386424812048" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Openstack" />
   </component>
   <component name="CreatePatchCommitExecutor">
@@ -60,10 +61,39 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="RpcApi.py" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Hades/PMA/RpcApi.py">
+      <file leaf-file-name="Manager.py" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Hades/PMA/Manager.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="18" column="0" selection-start="420" selection-end="420" vertical-scroll-proportion="0.0" vertical-offset="144" max-vertical-offset="525">
+            <state line="24" column="45" selection-start="507" selection-end="507" vertical-scroll-proportion="0.0" vertical-offset="300" max-vertical-offset="915">
+              <folding>
+                <element signature="e#21#46#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="PolicyManager.py" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/PolicyEngine/PolicyManager.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="18" column="33" selection-start="385" selection-end="385" vertical-scroll-proportion="0.0" vertical-offset="195" max-vertical-offset="975">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="dispatcher.py" pinned="false" current="false" current-in-tab="false">
+        <entry file="file:///Library/Python/2.7/site-packages/oslo/messaging/rpc/dispatcher.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="132" column="0" selection-start="4489" selection-end="4489" vertical-scroll-proportion="0.0" vertical-offset="1711" max-vertical-offset="2715">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="amqpdriver.py" pinned="false" current="false" current-in-tab="false">
+        <entry file="file:///Library/Python/2.7/site-packages/oslo/messaging/_drivers/amqpdriver.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="404" column="0" selection-start="14387" selection-end="14387" vertical-scroll-proportion="0.0" vertical-offset="5806" max-vertical-offset="6600">
               <folding />
             </state>
           </provider>
@@ -72,7 +102,7 @@
       <file leaf-file-name="RpcApi.py" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Hades/PolicyService/RpcApi.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="37" column="4" selection-start="923" selection-end="923" vertical-scroll-proportion="0.0" vertical-offset="371" max-vertical-offset="660">
+            <state line="18" column="44" selection-start="416" selection-end="416" vertical-scroll-proportion="0.0" vertical-offset="333" max-vertical-offset="585">
               <folding>
                 <element signature="e#21#48#0" expanded="true" />
               </folding>
@@ -80,55 +110,10 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Manager.py" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Hades/PolicyService/Manager.py">
+      <file leaf-file-name="testPolicy.xml" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Resource/testPolicy.xml">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="22" column="45" selection-start="626" selection-end="626" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="405">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Manager.py" pinned="false" current="true" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/Hades/PMA/Manager.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="22" column="83" selection-start="557" selection-end="557" vertical-scroll-proportion="0.6435986" vertical-offset="99" max-vertical-offset="735">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Action.py" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/PolicyEngine/Action.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="255">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Event.py" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/PolicyEngine/Event.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="210">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="PolicyObject.py" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/PolicyEngine/PolicyObject.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="210" max-vertical-offset="750">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="PolicyManager.py" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/PolicyEngine/PolicyManager.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="19" column="52" selection-start="471" selection-end="471" vertical-scroll-proportion="0.0" vertical-offset="120" max-vertical-offset="885">
+            <state line="4" column="22" selection-start="99" selection-end="99" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="300">
               <folding />
             </state>
           </provider>
@@ -137,19 +122,37 @@
       <file leaf-file-name="PolicyInterpreter.py" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/PolicyEngine/PolicyInterpreter.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="17" column="8" selection-start="383" selection-end="383" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="810">
+            <state line="19" column="40" selection-start="497" selection-end="497" vertical-scroll-proportion="0.0" vertical-offset="180" max-vertical-offset="615">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="policyService.py" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Hades/Cmd/policyService.py">
+      <file leaf-file-name="RpcApi.py" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/Hades/PMA/RpcApi.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="5" column="28" selection-start="52" selection-end="52" vertical-scroll-proportion="0.0" vertical-offset="71" max-vertical-offset="360">
+            <state line="23" column="39" selection-start="718" selection-end="718" vertical-scroll-proportion="0.23809524" vertical-offset="255" max-vertical-offset="600">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="BaseRpcApi.py" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Hades/BaseRpcApi.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="2" column="0" selection-start="21" selection-end="21" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="525">
               <folding>
-                <element signature="e#65#101#0" expanded="true" />
+                <element signature="e#21#45#0" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Manager.py" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Hades/PolicyService/Manager.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="28" column="0" selection-start="795" selection-end="795" vertical-scroll-proportion="0.0" vertical-offset="153" max-vertical-offset="465">
+              <folding />
             </state>
           </provider>
         </entry>
@@ -164,29 +167,29 @@
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
-        <option value="$PROJECT_DIR$/PolicyEngine/Arbiter/Arbiter.py" />
-        <option value="$PROJECT_DIR$/PolicyEngine/DynamicInvoker.py" />
-        <option value="$PROJECT_DIR$/Hades/EventService/RpcApi.py" />
-        <option value="$PROJECT_DIR$/Hades/Cmd/startScript.py" />
-        <option value="$PROJECT_DIR$/Hades/Config.py" />
-        <option value="$PROJECT_DIR$/Hades/EventService/Manager.py" />
-        <option value="$PROJECT_DIR$/Hades/Cmd/eventService.py" />
         <option value="$PROJECT_DIR$/Hades/Cmd/arbiter.py" />
-        <option value="$PROJECT_DIR$/Hades/PMA/RpcApi.py" />
-        <option value="$PROJECT_DIR$/Hades/PolicyService/Manager.py" />
         <option value="$PROJECT_DIR$/Hades/Cmd/arbiterPMA.py" />
         <option value="$PROJECT_DIR$/Hades/Cmd/policyService.py" />
-        <option value="$PROJECT_DIR$/PolicyEngine/PolicyInterpreter.py" />
-        <option value="$PROJECT_DIR$/Hades/PolicyService/RpcApi.py" />
-        <option value="$PROJECT_DIR$/PolicyEngine/PolicyManager.py" />
+        <option value="$PROJECT_DIR$/Hades/Cmd/scheduler.py" />
+        <option value="$PROJECT_DIR$/Hades/EventService/RpcApi.py" />
+        <option value="$PROJECT_DIR$/Hades/PMA/RpcApi.py" />
+        <option value="$PROJECT_DIR$/Hades/EventService/Manager.py" />
+        <option value="$PROJECT_DIR$/PolicyEngine/Arbiter/Arbiter.py" />
+        <option value="$PROJECT_DIR$/PolicyEngine/Pyclips.py" />
+        <option value="$PROJECT_DIR$/PolicyEngine/Policy.py" />
+        <option value="$PROJECT_DIR$/Resource/testPolicy.xml" />
+        <option value="$PROJECT_DIR$/Hades/PolicyService/Manager.py" />
         <option value="$PROJECT_DIR$/Hades/PMA/Manager.py" />
+        <option value="$PROJECT_DIR$/Hades/PolicyService/RpcApi.py" />
+        <option value="$PROJECT_DIR$/PolicyEngine/PolicyInterpreter.py" />
+        <option value="$PROJECT_DIR$/PolicyEngine/PolicyManager.py" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds">
     <option name="y" value="22" />
     <option name="width" value="1280" />
-    <option name="height" value="668" />
+    <option name="height" value="711" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="false">
     <OptionsSetting value="true" id="Add" />
@@ -214,7 +217,6 @@
       <sortByType />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -258,24 +260,6 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="PolicyEngine" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Dynamic Resource Allocation" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Dynamic Resource Allocation" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="PolicyEngine" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Arbiter" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -349,6 +333,7 @@
           </PATH>
         </subPane>
       </pane>
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -378,20 +363,20 @@
     </key>
   </component>
   <component name="RunManager" selected="Python.RpcApi">
-    <configuration default="false" name="RpcApi (2)" type="PythonConfigurationType" factoryName="Python" temporary="true">
+    <configuration default="false" name="PolicyInterpreter" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
       <envs>
         <env name="PYTHONUNBUFFERED" value="1" />
       </envs>
       <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/Hades/PMA" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/PolicyEngine" />
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <module name="Dynamic Resource Allocation" />
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" enabled="false" sample_coverage="true" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Hades/PMA/RpcApi.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/PolicyEngine/PolicyInterpreter.py" />
       <option name="PARAMETERS" value="" />
       <RunnerSettings RunnerId="PythonRunner" />
       <ConfigurationWrapper RunnerId="PythonRunner" />
@@ -404,13 +389,32 @@
         <env name="PYTHONUNBUFFERED" value="1" />
       </envs>
       <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/Hades/PMA" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/Hades/PolicyService" />
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <module name="Dynamic Resource Allocation" />
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" enabled="false" sample_coverage="true" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Hades/PMA/Manager.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Hades/PolicyService/Manager.py" />
+      <option name="PARAMETERS" value="" />
+      <RunnerSettings RunnerId="PythonRunner" />
+      <ConfigurationWrapper RunnerId="PythonRunner" />
+      <method />
+    </configuration>
+    <configuration default="false" name="policyService" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/Hades/Cmd" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="Dynamic Resource Allocation" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" enabled="false" sample_coverage="true" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Hades/Cmd/policyService.py" />
       <option name="PARAMETERS" value="" />
       <RunnerSettings RunnerId="PythonRunner" />
       <ConfigurationWrapper RunnerId="PythonRunner" />
@@ -449,25 +453,6 @@
       <module name="Dynamic Resource Allocation" />
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" enabled="false" sample_coverage="true" runner="coverage.py" />
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Hades/Cmd/arbiterPMA.py" />
-      <option name="PARAMETERS" value="" />
-      <RunnerSettings RunnerId="PythonRunner" />
-      <ConfigurationWrapper RunnerId="PythonRunner" />
-      <method />
-    </configuration>
-    <configuration default="false" name="policyService" type="PythonConfigurationType" factoryName="Python" temporary="true">
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/Hades/Cmd" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <module name="Dynamic Resource Allocation" />
-      <EXTENSION ID="PythonCoverageRunConfigurationExtension" enabled="false" sample_coverage="true" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Hades/Cmd/policyService.py" />
       <option name="PARAMETERS" value="" />
       <RunnerSettings RunnerId="PythonRunner" />
       <ConfigurationWrapper RunnerId="PythonRunner" />
@@ -557,9 +542,6 @@
       <option name="PARAMETERS" value="" />
       <method />
     </configuration>
-    <configuration default="true" type="JavascriptDebugType" factoryName="JavaScript Debug" singleton="true">
-      <method />
-    </configuration>
     <configuration default="true" type="tests" factoryName="Unittests">
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -581,6 +563,9 @@
       <option name="PUREUNITTEST" value="true" />
       <option name="PARAMS" value="" />
       <option name="USE_PARAM" value="false" />
+      <method />
+    </configuration>
+    <configuration default="true" type="JavascriptDebugType" factoryName="JavaScript Debug" singleton="true">
       <method />
     </configuration>
     <configuration default="true" type="tests" factoryName="Doctests">
@@ -644,19 +629,19 @@
     </configuration>
     <list size="6">
       <item index="0" class="java.lang.String" itemvalue="Python.Ceilometer" />
-      <item index="1" class="java.lang.String" itemvalue="Python.RpcApi (2)" />
+      <item index="1" class="java.lang.String" itemvalue="Python.PolicyInterpreter" />
       <item index="2" class="java.lang.String" itemvalue="Python.Manager" />
-      <item index="3" class="java.lang.String" itemvalue="Python.RpcApi" />
-      <item index="4" class="java.lang.String" itemvalue="Python.arbiterPMA" />
-      <item index="5" class="java.lang.String" itemvalue="Python.policyService" />
+      <item index="3" class="java.lang.String" itemvalue="Python.policyService" />
+      <item index="4" class="java.lang.String" itemvalue="Python.RpcApi" />
+      <item index="5" class="java.lang.String" itemvalue="Python.arbiterPMA" />
     </list>
     <recent_temporary>
       <list size="5">
         <item index="0" class="java.lang.String" itemvalue="Python.RpcApi" />
-        <item index="1" class="java.lang.String" itemvalue="Python.arbiterPMA" />
-        <item index="2" class="java.lang.String" itemvalue="Python.policyService" />
+        <item index="1" class="java.lang.String" itemvalue="Python.policyService" />
+        <item index="2" class="java.lang.String" itemvalue="Python.arbiterPMA" />
         <item index="3" class="java.lang.String" itemvalue="Python.Manager" />
-        <item index="4" class="java.lang.String" itemvalue="Python.RpcApi (2)" />
+        <item index="4" class="java.lang.String" itemvalue="Python.PolicyInterpreter" />
       </list>
     </recent_temporary>
   </component>
@@ -707,19 +692,19 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="22" width="1280" height="668" extended-state="0" />
-    <editor active="false" />
+    <frame x="0" y="22" width="1280" height="711" extended-state="0" />
+    <editor active="true" />
     <layout>
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3282313" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3282313" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3298217" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.35656402" sideWeight="0.620438" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3792517" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.40275526" sideWeight="0.51269037" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3857868" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="1" side_tool="true" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="9" side_tool="true" content_ui="tabs" />
-      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.37956205" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.48730963" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -745,9 +730,9 @@
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.27128083" sideWeight="0.6010101" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32996634" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
     </layout-to-restore>
   </component>
   <component name="VcsContentAnnotationSettings">
@@ -777,128 +762,125 @@
           <option name="timeStamp" value="36" />
         </line-breakpoint>
       </breakpoints>
-      <option name="time" value="48" />
+      <option name="time" value="54" />
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/Hades/Cmd/startScript.py">
+    <entry file="file:///Library/Python/2.7/site-packages/clips/_clips_wrap.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="13" column="0" selection-start="369" selection-end="369" vertical-scroll-proportion="0.0" vertical-offset="99" max-vertical-offset="405">
+        <state line="3907" column="0" selection-start="135930" selection-end="135930" vertical-scroll-proportion="-0.042016808" vertical-offset="58605" max-vertical-offset="65280" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/PolicyEngine/Arbiter/Arbiter.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="3" column="12" selection-start="34" selection-end="34" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="150">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Hades/Cmd/arbiter.py">
+    <entry file="file://$PROJECT_DIR$/Hades/BaseRpc.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="3" column="33" selection-start="55" selection-end="55" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="360">
-          <folding>
-            <element signature="e#58#94#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Hades/Manager.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="825">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="540">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Hades/Cmd/eventService.py">
+    <entry file="file://$PROJECT_DIR$/Hades/Config.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="14" column="45" selection-start="0" selection-end="423" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="330">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1035">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/PolicyEngine/Policy.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="11" column="0" selection-start="124" selection-end="124" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="255">
           <folding>
-            <element signature="e#62#98#0" expanded="true" />
+            <marker date="1417586361000" expanded="true" signature="-1:-1" placeholder="..." />
+            <marker date="1417586361000" expanded="true" signature="-1:-1" placeholder="..." />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Hades/Cmd/arbiterPMA.py">
+    <entry file="file://$PROJECT_DIR$/PolicyEngine/Pyclips.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="5" column="32" selection-start="56" selection-end="56" vertical-scroll-proportion="0.0" vertical-offset="86" max-vertical-offset="375">
+        <state line="49" column="51" selection-start="795" selection-end="896" vertical-scroll-proportion="0.0" vertical-offset="465" max-vertical-offset="1005">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Resource/testPolicy.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="4" column="22" selection-start="99" selection-end="99" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="300">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Hades/BaseRpcApi.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="2" column="0" selection-start="21" selection-end="21" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="525">
           <folding>
-            <element signature="e#62#98#0" expanded="true" />
+            <element signature="e#21#45#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///Library/Python/2.7/site-packages/oslo/messaging/rpc/dispatcher.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="132" column="0" selection-start="4489" selection-end="4489" vertical-scroll-proportion="0.0" vertical-offset="1711" max-vertical-offset="2715">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///Library/Python/2.7/site-packages/oslo/messaging/_drivers/amqpdriver.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="404" column="0" selection-start="14387" selection-end="14387" vertical-scroll-proportion="0.0" vertical-offset="5806" max-vertical-offset="6600">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Hades/PolicyService/Manager.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="28" column="0" selection-start="795" selection-end="795" vertical-scroll-proportion="0.0" vertical-offset="48" max-vertical-offset="465">
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/Hades/PolicyService/RpcApi.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="37" column="4" selection-start="923" selection-end="923" vertical-scroll-proportion="0.0" vertical-offset="371" max-vertical-offset="660">
+        <state line="18" column="44" selection-start="416" selection-end="416" vertical-scroll-proportion="0.0" vertical-offset="333" max-vertical-offset="585">
           <folding>
             <element signature="e#21#48#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Hades/PolicyService/Manager.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="22" column="45" selection-start="626" selection-end="626" vertical-scroll-proportion="0.0" vertical-offset="101" max-vertical-offset="405">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/PolicyEngine/PolicyInterpreter.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="17" column="8" selection-start="383" selection-end="383" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="810">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Hades/Cmd/policyService.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="5" column="28" selection-start="52" selection-end="52" vertical-scroll-proportion="0.0" vertical-offset="71" max-vertical-offset="360">
-          <folding>
-            <element signature="e#65#101#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file:///Library/Python/2.7/site-packages/oslo/messaging/rpc/client.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="149" column="0" selection-start="5272" selection-end="5272" vertical-scroll-proportion="0.33217993" vertical-offset="2049" max-vertical-offset="5475">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Hades/PMA/RpcApi.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="18" column="0" selection-start="420" selection-end="420" vertical-scroll-proportion="0.0" vertical-offset="144" max-vertical-offset="525">
+        <state line="19" column="40" selection-start="497" selection-end="497" vertical-scroll-proportion="0.0" vertical-offset="180" max-vertical-offset="615">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/PolicyEngine/PolicyManager.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="19" column="52" selection-start="471" selection-end="471" vertical-scroll-proportion="0.0" vertical-offset="75" max-vertical-offset="885">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/PolicyEngine/PolicyObject.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="750">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/PolicyEngine/Action.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="289">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/PolicyEngine/Event.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="289">
+        <state line="18" column="33" selection-start="385" selection-end="385" vertical-scroll-proportion="0.0" vertical-offset="195" max-vertical-offset="975">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/Hades/PMA/Manager.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="22" column="83" selection-start="557" selection-end="557" vertical-scroll-proportion="0.6435986" vertical-offset="99" max-vertical-offset="735">
+        <state line="24" column="45" selection-start="507" selection-end="507" vertical-scroll-proportion="0.0" vertical-offset="135" max-vertical-offset="915">
+          <folding>
+            <element signature="e#21#46#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Hades/PMA/RpcApi.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="23" column="39" selection-start="718" selection-end="718" vertical-scroll-proportion="0.23809524" vertical-offset="255" max-vertical-offset="600">
           <folding />
         </state>
       </provider>

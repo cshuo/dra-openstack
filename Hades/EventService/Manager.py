@@ -20,9 +20,9 @@ class EventServiceManager(Manager.Manager):
 
         self.arbiterPMA = ArbiterPMAAPI(CONF.hades_arbiterPMA_topic, CONF.hades_exchange)
 
-    def sendEvent(self, ctxt, host, pma):
+    def sendEvent(self, ctxt, host, pma, event):
         print "sendEvent"
         if pma == 'arbiterPMA':
-            pass
+            return self.arbiterPMA.handleEvent({}, 'pike', event)
         else:
             pass

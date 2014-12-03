@@ -7,6 +7,7 @@ from PolicyEngine.PolicyManager import PolicyManager
 
 CONF = cfg.CONF
 
+
 class PMAManager(Manager.Manager):
 
     target = messaging.Target()
@@ -17,17 +18,21 @@ class PMAManager(Manager.Manager):
 
         self.policyManager = PolicyManager()
 
+    ########################### POLICY ##############################
+
+
+
     def loadPolicy(self, ctxt, host, policy):
 
-        self.addPolicysFromXML(policy)
-        return self.policyManager.getPolicyByName('policy3').getAction().getValue()
+        self.policyManager.loadPolicy(policy)
+        return True
 
-    def addPolicysFromXML(self, xmlPolicy):
-        self.policyManager.addPolicysFromXML(xmlPolicy)
 
-    def enablePolicy(self, policyName):
-        self.policyManager.enablePolicy(policyName)
+    ########################### EVENT ##############################
 
+    def handleEvent(self, ctxt, host, event):
+        #implement in derived class
+        pass
 
 
 class ArbiterPMAManager(PMAManager):
@@ -39,6 +44,10 @@ class ArbiterPMAManager(PMAManager):
         super(ArbiterPMAManager, self).__init__(service_name = 'hades_arbiterPMA_service',
                                                *args,
                                                **kwargs)
+
+    def handleEvent(self, ctxt, host, event):
+        return 'arbiterPMA handle event : ' + event
+
 
 
 if __name__ == "__main__":

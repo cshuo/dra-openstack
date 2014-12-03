@@ -1,7 +1,6 @@
 __author__ = 'pike'
 
 import xml.etree.cElementTree as ET
-from  PolicyObject import PolicyObject
 
 class PolicyInterpreter:
 
@@ -9,41 +8,28 @@ class PolicyInterpreter:
         pass
 
     @staticmethod
-    def getPolicyObjectsFromFile(file):
+    def readPolicyFromFile(file):
         tree = ET.ElementTree(file = file)
-        root = tree.getroot()
-        return PolicyInterpreter.getPolicyObjectsFromRoot(root)
-
-    @staticmethod
-    def getPolicyObjectsFromString(xmlStr):
-        root = ET.fromstring(xmlStr)
-        return PolicyInterpreter.getPolicyObjectsFromRoot(root)
-
-    @staticmethod
-    def getPolicyObjectsFromRoot(root):
-        policyObjs = []
-        # root refers to policygroup
-        policyGroup = root
-
+        policyGroup = tree.getroot()
+        policys = []
         for policy in policyGroup:
-            type = policy.attrib['type']
-            name = policy.attrib['name']
-            kwargs = {}
-            for item in policy:
-                key = item.tag
-                value = item.text
-                kwargs[key] = value
-            policyObj = PolicyObject(name, type, **kwargs)
-            policyObjs.append(policyObj)
+            policyName = policy.attrib['name']
+            target = policy.attrib['target']
+            rules = {}
+            for rule in policy:
+                ruleName = rule.attrib['name']
+                rule = rule.text
+                rules[ruleName] = rule
+            policys.append({'name' : policyName,
+                            'target' : target,
+                            'rules' : rules})
+        return policys
 
-        return policyObjs
+
 
 
 
 if __name__ == "__main__":
 
-    pObjs = PolicyInterpreter.getPolicyObjectsFromFile("../Resource/testPolicy.xml")
-    print pObjs[0].type
-
-
-
+    policys = PolicyInterpreter.readPolicyFromFile("../Resource/testPolicy.xml")
+    print policys
