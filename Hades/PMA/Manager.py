@@ -25,6 +25,7 @@ class PMAManager(Manager.Manager):
     def loadPolicy(self, ctxt, host, policy):
 
         self.policyManager.loadPolicy(policy)
+        print 'loadPolicy'
         return True
 
 
@@ -46,7 +47,12 @@ class ArbiterPMAManager(PMAManager):
                                                **kwargs)
 
     def handleEvent(self, ctxt, host, event):
-        return 'arbiterPMA handle event : ' + event
+        print event
+        self.policyManager.assertFact(event)
+        self.policyManager.run()
+        result = self.policyManager.getStdout()
+        return result
+
 
 
 

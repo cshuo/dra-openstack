@@ -24,5 +24,4 @@ class PolicyServiceManager(Manager.Manager):
         for policy in policys:
             if policy['target'] == 'arbiterPMA':
                 self.arbiterPMAApi.loadPolicy({}, 'pike', policy)
-
         return True

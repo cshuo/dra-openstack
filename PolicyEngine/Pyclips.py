@@ -1,7 +1,7 @@
 __author__ = 'pike'
 
 import clips
-
+from ExternalFunction import *
 
 def clipsFunction(x):
     print type(x)
@@ -39,23 +39,33 @@ class ClipsEngine:
     def reset(self):
         self.env.Reset()
 
+    def getStdout(self):
+        return clips.StdoutStream.Read()
+
 
 
 
 if __name__ == "__main__":
+    #rule = """
+    #(defrule duck
+    #    (animal-is duck)
+    #    =>
+    #    (printout stdout "clipsFunction" crlf))
+    #"""
     rule = """
-    (defrule duck
-        (animal-is duck)
+        (defrule new_vm
+        (newVM cpubound vmInfo)
         =>
-        (python-call clipsFunction [woshipike,wo]))
+        (bind ?hosts (python-call Host_CpuUtil_Filter))
+        (bind ?destHost (python-call Host_CpuUtil_Cost ?hosts))
+        (printout stdout ?destHost crlf))
     """
 
     engine = ClipsEngine()
     engine.registerPythonFunction(clipsFunction)
+    engine.registerPythonFunction(Host_CpuUtil_Filter)
+    engine.registerPythonFunction(Host_CpuUtil_Cost)
     engine.addRule(rule)
-    engine.assertFact("(animal-is duck)")
-    engine.removeRule("s")
+    engine.assertFact("(newVM cpubound vmInfo)")
     engine.run()
-    #print clips.StdoutStream.Read()
-    #print clips.ErrorStream.Read()
-    #print clips.TraceStream.Read()
+    print clips.StdoutStream.Read()

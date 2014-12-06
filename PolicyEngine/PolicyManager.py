@@ -1,10 +1,12 @@
 __author__ = 'pike'
 
 from Pyclips import ClipsEngine
-from PolicyEngine.Arbiter.Arbiter import *
+from ExternalFunction import *
 
 registerFunctions = [
-    migrate
+    migrate,
+    Host_CpuUtil_Cost,
+    Host_CpuUtil_Filter
 ]
 
 class PolicyManager:
@@ -43,18 +45,22 @@ class PolicyManager:
     def run(self):
         self.clipsEngine.run()
 
+    def getStdout(self):
+        return self.clipsEngine.getStdout()
+
 
 
 if __name__ == "__main__":
     rule = """
-    (defrule duck
-        (animal-is duck)
-        (type str)
+        (defrule new_vm
+        (newVM cpubound vmInfo)
         =>
-        (python-call migrate))
+        (bind ?hosts (python-call Host_CpuUtil_Filter))
+        (bind ?destHost (python-call Host_CpuUtil_Cost ?hosts))
+        (printout stdout ?destHost crlf))
     """
     policy = PolicyManager()
-    policy.loadRule("duck", rule)
-    policy.assertFact("(animal-is duck)")
-    policy.assertFact("(type str)")
+    policy.loadRule("new_vm", rule)
+    policy.assertFact("(newVM cpubound vmInfo)")
     policy.run()
+    print policy.getStdout()

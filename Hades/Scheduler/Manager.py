@@ -5,7 +5,7 @@ from oslo import messaging
 from oslo.config import cfg
 from Hades.Scheduler import RpcApi
 from Hades import Config
-from Hades.Arbiter.RpcApi import ArbiterAPI
+from Hades.EventService.RpcApi import EventServiceAPI
 
 CONF = cfg.CONF
 
@@ -19,12 +19,10 @@ class SchedulerManager(Manager.Manager):
         super(SchedulerManager, self).__init__(service_name = 'hades_scheduler_service',
                                                *args,
                                                **kwargs)
+        self.eventServiceApi = EventServiceAPI(CONF.hades_eventService_topic, CONF.hades_exchange)
 
     def testSchedule(self, ctxt, host, arg):
-        print "manager: testScheduler\n"
 
-        Config.config_init(CONF.hades_exchange)
-        arbiter_api = ArbiterAPI()
-        host =  arbiter_api.testArbiter({}, 'localhost', None)
+        host =  self.eventServiceApi.sendEvent({}, 'pike', 'arbiterPMA', '(newVM cpubound vmInfo)')
 
         return host

@@ -30,4 +30,5 @@ if __name__ == "__main__":
 
 
     api = PolicyServiceAPI(CONF.hades_policyService_topic, CONF.hades_exchange)
+    print policys
     print api.loadPolicy({}, 'pike', policys)

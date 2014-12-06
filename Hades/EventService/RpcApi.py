@@ -26,4 +26,4 @@ if __name__ == "__main__":
     print 'eventService rpcapi\n'
 
     api = EventServiceAPI(CONF.hades_eventService_topic, CONF.hades_exchange)
-    print api.sendEvent({}, 'pike', "arbiterPMA", "hello pike!")
+    print api.sendEvent({}, 'pike', "arbiterPMA", "(newVM cpubound vmInfo)")

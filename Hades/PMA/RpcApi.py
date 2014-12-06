@@ -34,3 +34,4 @@ class ArbiterPMAAPI(PMAAPI):
 if __name__ == "__main__":
     print 'arbiterPMA rpcapi\n'
     api = ArbiterPMAAPI(CONF.hades_arbiterPMA_topic, CONF.hades_exchange)
+    print api.handleEvent({}, 'pike', {'fact' : '(animal-is duck)'})

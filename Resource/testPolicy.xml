@@ -2,11 +2,13 @@
 
 <Policy name = "policy1" target = "arbiterPMA">
 
-	<rule name = "duck">
-        (defrule duck
-        (animal-is duck)
+	<rule name = "new_vm">
+        (defrule new_vm
+        (newVM cpubound vmInfo)
         =>
-        (python-call clipsFunction woshipike))
+        (bind ?hosts (python-call Host_CpuUtil_Filter))
+        (bind ?destHost (python-call Host_CpuUtil_Cost ?hosts))
+        (printout stdout ?destHost crlf))
     </rule>
 
 </Policy>
