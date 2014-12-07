@@ -16,6 +16,7 @@ class PMAManager(Manager.Manager):
 
         super(PMAManager, self).__init__(*args,**kwargs)
 
+        # use policyManager to manage policies for each PMA
         self.policyManager = PolicyManager()
 
     ########################### POLICY ##############################
@@ -32,8 +33,14 @@ class PMAManager(Manager.Manager):
     ########################### EVENT ##############################
 
     def handleEvent(self, ctxt, host, event):
-        #implement in derived class
-        pass
+        print event
+        self.policyManager.assertFact(event)
+        self.policyManager.run()
+        #result = self.policyManager.getStdout()
+        #print "result: " + result
+        result = 'result'
+        print result
+        return result
 
 
 class ArbiterPMAManager(PMAManager):
@@ -46,12 +53,21 @@ class ArbiterPMAManager(PMAManager):
                                                *args,
                                                **kwargs)
 
-    def handleEvent(self, ctxt, host, event):
-        print event
-        self.policyManager.assertFact(event)
-        self.policyManager.run()
-        result = self.policyManager.getStdout()
-        return result
+    #def handleEvent(self, ctxt, host, event):
+    #    print event
+    #    self.policyManager.assertFact(event)
+    #    self.policyManager.run()
+    #    result = self.policyManager.getStdout()
+    #    return result
+
+class MonitorPMAManager(PMAManager):
+
+    target = messaging.Target()
+
+    def __init__(self, *args, **kwargs):
+        super(MonitorPMAManager, self).__init__(service_name = 'hades_monitorPMA_service',
+                                                *args,
+                                                **kwargs)
 
 
 

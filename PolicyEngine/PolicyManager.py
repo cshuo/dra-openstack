@@ -6,7 +6,9 @@ from ExternalFunction import *
 registerFunctions = [
     migrate,
     Host_CpuUtil_Cost,
-    Host_CpuUtil_Filter
+    Host_CpuUtil_Filter,
+    Get_Host_Resource,
+    Host_resource_upperBound
 ]
 
 class PolicyManager:

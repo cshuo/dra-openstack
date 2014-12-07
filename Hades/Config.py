@@ -19,6 +19,9 @@ rpcapi_opts = [
     cfg.StrOpt('hades_arbiterPMA_topic',
                default = 'hades_arbiterPMA_topic',
                help = 'the topic hades arbiterPMA nodes listen on'),
+    cfg.StrOpt('hades_monitorPMA_topic',
+               default = 'hades_monitorPMA_topic',
+               help = 'the topic hades monitorPMA nodes listen on'),
     cfg.StrOpt('hades_eventService_topic',
                default = 'hades_eventService_topic',
                help = 'the topic hades eventService nodes listen on')
@@ -37,6 +40,9 @@ manager_opts = [
     cfg.StrOpt('hades_arbiterPMA_manager',
                default = 'Hades.PMA.Manager.ArbiterPMAManager',
                help = 'hades arbiterPMA manager'),
+    cfg.StrOpt('hades_monitorPMA_manager',
+               default = 'Hades.PMA.Manager.MonitorPMAManager',
+               help = 'hades monitorPMA manager'),
     cfg.StrOpt('hades_eventService_manager',
                default = 'Hades.EventService.Manager.EventServiceManager',
                help = 'hades eventService manager')

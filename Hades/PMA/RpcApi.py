@@ -29,6 +29,10 @@ class ArbiterPMAAPI(PMAAPI):
     def __init__(self, topic, exchange):
         super(ArbiterPMAAPI, self).__init__(topic, exchange)
 
+class MonitorPMAAPI(PMAAPI):
+    def __init__(self, topic, exchange):
+        super(MonitorPMAAPI, self).__init__(topic, exchange)
+
 
 
 if __name__ == "__main__":

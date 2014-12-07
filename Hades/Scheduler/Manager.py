@@ -23,6 +23,6 @@ class SchedulerManager(Manager.Manager):
 
     def testSchedule(self, ctxt, host, arg):
 
-        host =  self.eventServiceApi.sendEvent({}, 'pike', 'arbiterPMA', '(newVM cpubound vmInfo)')
+        host =  self.eventServiceApi.sendEventForResult({}, 'pike', 'arbiterPMA', '(newVM cpubound vmInfo)')
 
         return host

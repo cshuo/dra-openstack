@@ -11,6 +11,26 @@
         (printout stdout ?destHost crlf))
     </rule>
 
+
+
+</Policy>
+
+<Policy name = "policy2" target = "monitorPMA">
+    <rule name = "collect_0">
+        (defrule collect_0
+        (collect host ?host_id ?resource)
+        =>
+        (bind ?value (python-call Get_Host_Resource ?host_id ?resource))
+        (assert (collected host ?host_id ?resource ?value)))
+    </rule>
+
+    <rule name = "upperBound_0">
+        (defrule upperBound_0
+        (collected host ?host_id ?resource ?value)
+        =>
+        (python-call Host_resource_upperBound ?host_id ?resource ?value))
+    </rule>
+
 </Policy>
 
 

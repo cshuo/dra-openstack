@@ -19,6 +19,11 @@ class EventServiceAPI(BaseRpcApi.BaseAPI):
 
     def sendEvent(self, ctxt, host, pma, event):
         cctxt = self.client.prepare(server = host)
+        return cctxt.cast(ctxt, 'sendEvent',
+                   host = host, pma = pma, event = event)
+
+    def sendEventForResult(self, ctxt, host, pma, event):
+        cctxt = self.client.prepare(server = host)
         return cctxt.call(ctxt, 'sendEvent',
                    host = host, pma = pma, event = event)
 
@@ -26,4 +31,5 @@ if __name__ == "__main__":
     print 'eventService rpcapi\n'
 
     api = EventServiceAPI(CONF.hades_eventService_topic, CONF.hades_exchange)
-    print api.sendEvent({}, 'pike', "arbiterPMA", "(newVM cpubound vmInfo)")
+    #print api.sendEvent({}, 'pike', "arbiterPMA", "(newVM cpubound vmInfo)")
+    print api.sendEvent({}, "pike", "monitorPMA", "(collect host compute1 cpuutil)")
