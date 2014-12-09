@@ -19,12 +19,12 @@ class EventServiceAPI(BaseRpcApi.BaseAPI):
 
     def sendEvent(self, ctxt, host, pma, event):
         cctxt = self.client.prepare(server = host)
-        return cctxt.cast(ctxt, 'sendEvent',
+        cctxt.cast(ctxt, 'sendEvent',
                    host = host, pma = pma, event = event)
 
     def sendEventForResult(self, ctxt, host, pma, event):
         cctxt = self.client.prepare(server = host)
-        return cctxt.call(ctxt, 'sendEvent',
+        return cctxt.call(ctxt, 'sendEventForResult',
                    host = host, pma = pma, event = event)
 
 if __name__ == "__main__":

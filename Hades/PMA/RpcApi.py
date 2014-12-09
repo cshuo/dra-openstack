@@ -21,7 +21,11 @@ class PMAAPI(BaseRpcApi.BaseAPI):
     ##################### EVENT #######################
     def handleEvent(self, ctxt, host, event):
         cctxt = self.client.prepare(server = host)
-        return cctxt.call(ctxt, 'handleEvent', host = host, event = event)
+        cctxt.cast(ctxt, 'handleEvent', host = host, event = event)
+
+    def handleEventWithResult(self, ctxt, host, event):
+        cctxt = self.client.prepare(server = host)
+        return cctxt.call(ctxt, 'handleEventWithResult', host = host, event = event)
 
 
 class ArbiterPMAAPI(PMAAPI):

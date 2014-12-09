@@ -9,6 +9,7 @@ class Host:
     def getHostName(self):
         return self.hostName
 
+
     def getService(self):
         return self.service
 

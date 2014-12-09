@@ -4,35 +4,44 @@ from oslo import messaging
 from oslo.config import cfg
 from Hades import Rpc
 from Hades import Config
+from Hades import BaseRpcApi
+from oslo.config import cfg
+
 
 CONF =  cfg.CONF
 
-class SchedulerAPI(object):
+class SchedulerAPI(BaseRpcApi.BaseAPI):
 
     """
     client side of the scheduler rpc API
     """
 
-    def __init__(self):
-        super(SchedulerAPI, self).__init__()
-        target = messaging.Target(topic = CONF.hades_scheduler_topic, version = '3.0')
-        version_cap = '3.23'
-        serializer = None
-        self.client = self.get_client(target, version_cap, serializer)
+    def __init__(self, topic, exchange):
+        super(SchedulerAPI, self).__init__(topic, exchange)
 
-    def get_client(self, target, version_cap, serializer):
-        return Rpc.get_client(target,
-                              version_cap = version_cap,
-                              serializer = serializer)
 
     def testSchedule(self, ctxt, host, arg):
-        version = '3.0'
-        cctxt = self.client.prepare(server = host,
-                                    version = version)
+        cctxt = self.client.prepare(server = host)
         return cctxt.call(ctxt, 'testSchedule',
                    host = host, arg = arg)
 
 if __name__ == "__main__":
-    Config.config_init(CONF.nova_exchange)
-    scheduler_api = SchedulerAPI()
-    print scheduler_api.testSchedule({}, 'localhost', None)
+    #scheduler_api = SchedulerAPI(CONF.hades_scheduler_topic, CONF.hades_exchange)
+    #print scheduler_api.testSchedule({}, 'pike', None)
+    messaging.set_transport_defaults('hades')
+
+
+    TRANSPORT = messaging.get_transport(CONF,
+                                        url = 'rabbit://guest:RABBIT_PASS@114.212.189.134:5672/',
+                                        allowed_remote_exmods = [],
+                                        aliases = {})
+    target = messaging.Target(topic = 'hades_scheduler_topic')
+    version_cap = None
+    serializer = None
+    client = messaging.RPCClient(TRANSPORT,
+                               target,
+                               version_cap = version_cap,
+                               serializer = serializer)
+
+    cctxt = client.prepare(server = 'pike')
+    cctxt.call({}, 'testSchedule', host = 'pike', arg = '')

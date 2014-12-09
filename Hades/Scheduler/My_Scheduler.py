@@ -1,7 +1,7 @@
 __author__ = 'pike'
 
 import random
-
+from oslo import messaging
 from oslo.config import cfg
 
 from nova.compute import rpcapi as compute_rpcapi
@@ -10,12 +10,10 @@ from nova.openstack.common import log as logging
 from nova.openstack.common.gettextutils import _
 from nova.scheduler import driver
 
-from Hades import RpcApi
-from Hades import Config
 
 
-CONF = cfg.CONF
-CONF.import_opt('compute_topic', 'nova.compute.rpcapi')
+CONF = cfg.ConfigOpts()
+#CONF.import_opt('compute_topic', 'nova.compute.rpcapi')
 #LOG = logging.getLogger(__name__)
 
 
@@ -27,23 +25,41 @@ class HubScheduler(driver.Scheduler):
     def __init__(self, *args, **kwargs):
         super(HubScheduler, self).__init__(*args, **kwargs)
         self.compute_rpcapi = compute_rpcapi.ComputeAPI()
-        Config.config_init(CONF.nova_exchange)
-        self.scheduler_api = RpcApi.SchedulerAPI()
+	#Config.config_init()
+	#self.scheduler_api = RpcApi.SchedulerAPI()
+
 
 
     def _schedule(self, context, topic, request_spec, filter_properties):
         """Picks a host that is up at random."""
 
-        elevated = context.elevated()
-        hosts = self.hosts_up(elevated, topic)
+        #elevated = context.elevated()
+        #hosts = self.hosts_up(elevated, topic)
 
-        if not hosts:
-            msg = _("Is the appropriate service running?")
-            raise exception.NoValidHost(reason=msg)
+        #if not hosts:
+        #    msg = _("Is the appropriate service running?")
+        #    raise exception.NoValidHost(reason=msg)
+        #host =  self.scheduler_api.testSchedule({}, 'localhost', None)
 
-        host = self.scheduler_api.testSchedule({}, 'localhost', None)
+	messaging.set_transport_defaults('hades')
 
-        #host = 'compute2'
+
+	TRANSPORT = messaging.get_transport(CONF,
+                                        url = 'rabbit://guest:RABBIT_PASS@114.212.189.134:5672/',
+                                        allowed_remote_exmods = [],
+                                        aliases = {})
+	target = messaging.Target(topic = 'hades_scheduler_topic')
+	version_cap = None
+	serializer = None
+	client = messaging.RPCClient(TRANSPORT,
+                               target,
+                               version_cap = version_cap,
+                               serializer = serializer)
+
+	cctxt = client.prepare(server = 'pike')
+
+	host = cctxt.call({}, 'testSchedule', host = 'pike', arg = '')
+
         return host
 
     def select_destinations(self, context, request_spec, filter_properties):
@@ -55,7 +71,7 @@ class HubScheduler(driver.Scheduler):
 
         dests = []
         for i in range(num_instances):
-            host = self._schedule(context, CONF.compute_topic,
+            host = self._schedule(context, 'nova.compute.rpcapi',
                     request_spec, filter_properties)
             host_state = dict(host=host, nodename=None, limits=None)
             dests.append(host_state)
@@ -74,7 +90,7 @@ class HubScheduler(driver.Scheduler):
         for num, instance_uuid in enumerate(instance_uuids):
             request_spec['instance_properties']['launch_index'] = num
             try:
-                host = self._schedule(context, CONF.compute_topic,
+                host = self._schedule(context, 'nova.compute.rpcapi',
                                       request_spec, filter_properties)
                 updated_instance = driver.instance_update_db(context,
                         instance_uuid)

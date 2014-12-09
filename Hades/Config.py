@@ -8,7 +8,7 @@ CONF = cfg.CONF
 
 rpcapi_opts = [
     cfg.StrOpt('hades_scheduler_topic',
-               default = 'hades_scheduler_test',
+               default = 'hades_scheduler_topic',
                help = 'the topic hades nodes listen on'),
     cfg.StrOpt('hades_arbiter_topic',
                default = 'hades_arbiter_test',

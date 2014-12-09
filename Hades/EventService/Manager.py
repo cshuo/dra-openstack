@@ -25,8 +25,16 @@ class EventServiceManager(Manager.Manager):
     def sendEvent(self, ctxt, host, pma, event):
         print "sendEvent"
         if pma == 'arbiterPMA':
-            return self.arbiterPMA.handleEvent({}, 'pike', event)
+            self.arbiterPMA.handleEvent({}, 'pike', event)
         elif pma == 'monitorPMA':
-            return self.monitorPMA.handleEvent({}, 'pike', event)
+            self.monitorPMA.handleEvent({}, 'pike', event)
+
+
+    def sendEventForResult(self, ctxt, host, pma, event):
+        print "sendEventForResult"
+        if pma == 'arbiterPMA':
+            return self.arbiterPMA.handleEventWithResult({}, 'pike', event)
+        elif pma == 'monitorPMA':
+            return self.monitorPMA.handleEventWithResult({}, 'pike', event)
         else:
             return False

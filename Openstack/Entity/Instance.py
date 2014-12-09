@@ -6,14 +6,14 @@ from Openstack import HOST,USERNAME,PASSWORD
 
 class Instance:
 
-    def __init__(self, info):
-        self.info = info
+    def __init__(self, id):
+        self.id = id
 
     def getId(self):
-        return self.info['id']
+        return self.id
 
     def getName(self):
-        return self.info['name']
+        return self.name
 
 
 

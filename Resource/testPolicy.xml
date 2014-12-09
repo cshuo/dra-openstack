@@ -7,10 +7,19 @@
         (newVM cpubound vmInfo)
         =>
         (bind ?hosts (python-call Host_CpuUtil_Filter))
-        (bind ?destHost (python-call Host_CpuUtil_Cost ?hosts))
-        (printout stdout ?destHost crlf))
+        (printout stdout ?hosts crlf))
     </rule>
 
+    <rule name = "migrate_0">
+        (defrule migrate_0
+        (violation host ?host_id ?resource upperBound ?value)
+        =>
+        (bind ?vms (python-call Get_VMs_On_Host ?host_id))
+        (bind ?vm (python-call VM_CpuUtil_Cost ?vms))
+        (bind ?hosts (python-call Host_CpuUtil_Filter))
+        (bind ?destHost (python-call Host_CpuUtil_Cost ?hosts))
+        (python-call Migrate ?vm ?destHost))
+    </rule>
 
 
 </Policy>
@@ -28,7 +37,7 @@
         (defrule upperBound_0
         (collected host ?host_id ?resource ?value)
         =>
-        (python-call Host_resource_upperBound ?host_id ?resource ?value))
+        (python-call Host_Resource_UpperBound ?host_id ?resource ?value))
     </rule>
 
 </Policy>

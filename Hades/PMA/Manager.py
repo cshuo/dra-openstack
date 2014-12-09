@@ -33,12 +33,16 @@ class PMAManager(Manager.Manager):
     ########################### EVENT ##############################
 
     def handleEvent(self, ctxt, host, event):
-        print event
+        print "handleEvent: " + event
         self.policyManager.assertFact(event)
         self.policyManager.run()
-        #result = self.policyManager.getStdout()
-        #print "result: " + result
-        result = 'result'
+
+
+    def handleEventWithResult(self, ctxt, host, event):
+        print "handleEventWithResult: " + event
+        self.policyManager.assertFact(event)
+        self.policyManager.run()
+        result = self.policyManager.getStdout()
         print result
         return result
 

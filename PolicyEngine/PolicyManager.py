@@ -4,11 +4,16 @@ from Pyclips import ClipsEngine
 from ExternalFunction import *
 
 registerFunctions = [
-    migrate,
+    Migrate,
     Host_CpuUtil_Cost,
     Host_CpuUtil_Filter,
+    Host_Resource_UpperBound,
+
     Get_Host_Resource,
-    Host_resource_upperBound
+    Get_VMs_On_Host,
+
+    VM_CpuUtil_Cost
+
 ]
 
 class PolicyManager:
