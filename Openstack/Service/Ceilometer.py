@@ -24,27 +24,80 @@ class Ceilometer(OpenstackService):
         result = self.restful.getResult(url)
         return result
 
+    def getMeter(self, meter_name, queryFilter):
+        url = "%s/v2/meters/%s" % (OpenstackConf.CEILOMETER_URL, meter_name)
 
-    def getCpuStat(self, startTime, endTime, resourceId):
+        #transfer str to list
+        queryFilter = eval(queryFilter)
+        print queryFilter
 
-        url = "%s/v2/meters/%s/statistics" % (OpenstackConf.CEILOMETER_URL, "cpu_util")
+        params = ""
+        for queryItem in queryFilter:
+            param = ""
+            for key in queryItem:
+                param += "&q.%s=%s" % (key, queryItem[key])
+            params += param
 
-        #add params (use "Get" not "Post")
-        urlParam = "?&q.field=timestamp&q.op=ge&q.value=%s" % startTime + \
-                   "&q.field=timestamp&q.op=lt&q.value=%s" % endTime + \
-                   "&q.field=resource_id&q.op=eq&q.value=%s" % resourceId
-        url += urlParam
+        url = url + "?" + params
 
         result = self.restful.getResult(url)
         return result[0]
 
-    def getAvgCpuFromStat(self, cpuStat):
-        return cpuStat["avg"]
+
+
+    def getMeterStatistics(self, meter_name, queryFilter, groupby = None, period = None, aggregate = None):
+        url = "%s/v2/meters/%s/statistics" % (OpenstackConf.CEILOMETER_URL, meter_name)
+
+        #transfer str to list
+        queryFilter = eval(queryFilter)
+        #print queryFilter
+
+        params = ""
+        for queryItem in queryFilter:
+            param = ""
+            for key in queryItem:
+                param += "&q.%s=%s" % (key, queryItem[key])
+            params += param
+
+        url = url + "?" + params
+
+        result = self.restful.getResult(url)
+        return result[0]
+
+
+    #def getCpuStat(self, startTime, endTime, resourceId):
+    #
+    #    #url = "%s/v2/meters/%s/statistics" % (OpenstackConf.CEILOMETER_URL, "cpu_util")
+    #    url = "%s/v2/meters/%s/statistics" % (OpenstackConf.CEILOMETER_URL, "compute.node.cpu.idle.time")
+    #
+    #    #add params (use "Get" not "Post")
+    #    urlParam = "?&q.field=timestamp&q.op=ge&q.value=%s" % startTime + \
+    #               "&q.field=timestamp&q.op=lt&q.value=%s" % endTime + \
+    #               "&q.field=resource_id&q.op=eq&q.value=%s" % "compute1_compute1"
+    #    url += urlParam
+    #
+    #    result = self.restful.getResult(url)
+    #    return result[0]
+    #
+    #def getAvgCpuFromStat(self, cpuStat):
+    #    return cpuStat["avg"]
 
 
 
 if __name__=="__main__":
 
     ceilometerTest = Ceilometer()
-    #cpuStat = ceilometerTest.getCpuStat("2014-08-01T00:00:00", "2014-09-01T00:00:00", "c07c4077-cda0-4907-bc76-536c6fc3afb2")
-    print ceilometerTest.getAllResources()[0]
+
+    q = '''[{"field": "timestamp",
+    "op": "ge",
+    "value": "2014-12-12T00:00:00"},
+    {"field": "timestamp",
+    "op": "lt",
+    "value": "2014-12-16T00:00:00"},
+    {"field": "resource_id",
+    "op": "eq",
+    "value": "feebf6dc-2f04-4e1d-977e-6c7fde4e4cb3"}]'''
+
+    print ceilometerTest.getMeterStatistics("cpu_util", q)
+    #print ceilometerTest.getCpuStat("2014-12-12T00:00:00", "2014-12-16T00:00:00", "feebf6dc-2f04-4e1d-977e-6c7fde4e4cb3")
+    #print ceilometerTest.getAllResources()

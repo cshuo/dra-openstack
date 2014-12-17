@@ -22,7 +22,8 @@ class SchedulerManager(Manager.Manager):
     def testSchedule(self, ctxt, host, arg):
         print "customized scheduler"
 
-        host =  self.eventServiceApi.sendEventForResult({}, 'pike', 'arbiterPMA', '(newVM cpubound vmInfo)')
-        host = host.strip('\n')
-        print host
+        #host =  self.eventServiceApi.sendEventForResult({}, 'pike', 'arbiterPMA', '(newVM cpubound vmInfo)')
+        #host = host.strip('\n')
+        #print host
+        host = 'compute2'
         return host

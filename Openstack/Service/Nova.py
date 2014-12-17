@@ -33,7 +33,32 @@ class Nova(OpenstackService):
 
         return instances
 
-    def getHosts(self):
+    def getInstancesOnHost(self, host):
+        url = "%s/v2/%s/servers?host=%s" % (OpenstackConf.NOVA_URL, self.tenantId, host)
+
+        result = self.restful.getResult(url)
+        servers = result['servers']
+
+        instances = []
+        for i in range(len(servers)):
+            instances.append(Instance(servers[i]['id']))
+
+        return instances
+
+    #def getHosts(self):
+    #
+    #    url = "%s/v2/%s/os-hosts" % (OpenstackConf.NOVA_URL, self.tenantId)
+    #
+    #    result = self.restful.getResult(url)
+    #
+    #    hostsList = result['hosts']
+    #    hosts = []
+    #    for host in hostsList:
+    #        hosts.append(Host(host['host_name'], host['service']))
+    #
+    #    return hosts
+
+    def getComputeHosts(self):
 
         url = "%s/v2/%s/os-hosts" % (OpenstackConf.NOVA_URL, self.tenantId)
 
@@ -42,18 +67,10 @@ class Nova(OpenstackService):
         hostsList = result['hosts']
         hosts = []
         for host in hostsList:
-            hosts.append(Host(host['host_name'], host['service']))
+            if host['service'] == 'compute':
+                hosts.append(Host(host['host_name']))
 
         return hosts
-
-    #def getComputeHosts(self):
-    #
-    #    hosts = self.getHosts()
-    #    computeHosts = []
-    #    for i in range(len(hosts)):
-    #        if (hosts[i].getService() == "compute"):
-    #            computeHosts.append(hosts[i])
-    #    return computeHosts
 
 
 
@@ -74,22 +91,24 @@ class Nova(OpenstackService):
 
         #execute shell command to migrate the instance
         cmd_migrate = "nova %s live-migration %s %s" % (OpenstackConf.PARAMS, instanceId, hostName)
-        ssh_controller.remote_cmd(cmd_migrate)
+        print ssh_controller.remote_cmd(cmd_migrate)
 
 
 
 if __name__ == "__main__":
     nova = Nova()
-    instances = nova.getInstances()
-    for instance in instances:
-        print instance.getId()
+    #instances = nova.getInstances()
+    #for instance in instances:
+    #    print instance.getId()
+    #
+    ##host = Host("compute1", OpenstackConf.COMPUTE1_HOST)
+    #
+    ##Nova.liveMigration(instances[0], host)
+    #hosts = nova.getHosts()
+    #for host in hosts:
+    #    print host.getHostName()
+    #
+    #
+    #nova.liveMigration('5bdbf476-f046-4986-9e1d-5b078414a298', "compute2")
+    nova.getInstancesOnHost('compute2')
 
-    #host = Host("compute1", OpenstackConf.COMPUTE1_HOST)
-
-    #Nova.liveMigration(instances[0], host)
-    hosts = nova.getHosts()
-    for host in hosts:
-        print host.getHostName()
-
-
-    #nova.liveMigration(instances[0].getId(), "compute1")
