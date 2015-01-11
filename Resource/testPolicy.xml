@@ -4,7 +4,7 @@
 
 	<rule name = "new_vm">
         (defrule new_vm
-        (newVM cpubound vmInfo)
+        (new_vm vm_properties)
         =>
         (bind ?hosts (python-call Host_CpuUtil_Filter))
         (printout stdout ?hosts crlf))
@@ -12,12 +12,12 @@
 
     <rule name = "migrate_0">
         (defrule migrate_0
-        (violation host ?host_id ?resource upperBound ?value)
+        (host_violation ?resourceId ?meter_name)
         =>
-        (bind ?vms (python-call Get_VMs_On_Host ?host_id))
-        (bind ?vm (python-call VM_CpuUtil_Cost ?vms))
-        (bind ?hosts (python-call Host_CpuUtil_Filter))
-        (bind ?destHost (python-call Host_CpuUtil_Cost ?hosts))
+        (bind ?vms (python-call Get_Vms_On_Host ?resourceId))
+        (bind ?vm (python-call Vm_Random_Selector ?vms))
+        (bind ?hostIds (python-call Host_Filter "['compute1_compute1', 'compute2_compute2']" "{'compute.node.cpu.percent' : {'min' : 0, 'max' : 90}}"))
+        (bind ?destHost (python-call Host_Generic_Selector ?hostIds "['Host_CpuUtil_Cost']" "[1]"))
         (python-call Migrate ?vm ?destHost))
     </rule>
 
@@ -27,17 +27,18 @@
 <Policy name = "policy2" target = "monitorPMA">
     <rule name = "collect_0">
         (defrule collect_0
-        (collect host ?host_id ?resource)
+        (host_collect_data_statistics ?resourceId ?meter_name ?queryFilter ?groupBy ?period ?aggregate ?result)
         =>
-        (bind ?value (python-call Get_Host_Resource ?host_id ?resource))
-        (assert (collected host ?host_id ?resource ?value)))
+        (bind ?value (python-call Collect_Data_Statistics ?meter_name ?queryFilter ?groupBy ?period ?aggregate ?result))
+        (assert (host_collected_data_statistics ?resourceId ?meter_name ?value)))
     </rule>
 
-    <rule name = "upperBound_0">
-        (defrule upperBound_0
-        (collected host ?host_id ?resource ?value)
+    <rule name = "threshold_0">
+        (defrule threshold_0
+        (host_collected_data_statistics ?resourceId ?meter_name ?value)
         =>
-        (python-call Host_Resource_UpperBound ?host_id ?resource ?value))
+        (python-call Host_Set_Threshold ?resourceId ?meter_name ?value "{'compute.node.cpu.percent' : {'min' : 10, 'max' : 80}}"))
+
     </rule>
 
 </Policy>

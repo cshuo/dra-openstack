@@ -4,15 +4,14 @@ from Pyclips import ClipsEngine
 from ExternalFunction import *
 
 registerFunctions = [
-    Migrate,
-    Host_CpuUtil_Cost,
-    Host_CpuUtil_Filter,
-    Host_Resource_UpperBound,
-
-    Get_Host_Resource,
-    Get_VMs_On_Host,
-
-    VM_CpuUtil_Cost
+    Host_Filter,
+    Collect_Data,
+    Collect_Data_Statistics,
+    Get_Vms_On_Host,
+    Host_Set_Threshold,
+    Host_Generic_Selector,
+    Vm_Random_Selector,
+    Migrate
 
 ]
 

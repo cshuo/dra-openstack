@@ -91,7 +91,6 @@ class Nova(OpenstackService):
 
         #execute shell command to migrate the instance
         cmd_migrate = "nova %s live-migration %s %s" % (OpenstackConf.PARAMS, instanceId, hostName)
-        print ssh_controller.remote_cmd(cmd_migrate)
 
 
 

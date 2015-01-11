@@ -61,6 +61,8 @@ class Ceilometer(OpenstackService):
 
         url = url + "?" + params
 
+        print url
+
         result = self.restful.getResult(url)
         return result[0]
 
