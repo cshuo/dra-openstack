@@ -18,6 +18,7 @@ host_distance_matrix = [[0.5, 2, 3, 4],
                         [3, 2, 0.5, 2],
                         [4, 3, 2, 0.5]]
 
+
 host_mapper = {'host_1' : 0, 'host_2' : 1, 'host_3' : 2, 'host_4' : 3}
 
 #enum
@@ -25,7 +26,7 @@ class ResourceType:
     (CPU_UTIL, BANDWIDTH, DISK_IO) = ('CPU_UTIL', 'BANDWIDTH', 'DISK_IO')
 
 class InstanceType:
-    (ALL, MATLAB_1, MATLAB_1_MASTER, MATLAB_2, MATLAB_2_MASTER, WEB_SERVER_1, GAME_1, STORAGE_1) = ('ALL', 'MATLAB_1', 'MATLAB_1_MASTER', 'MATLAB_2', 'MATLAB_2_MASTER', 'WEB_SERVER_1', 'GAME_1', 'STORAGE_1')
+    (ALL, MATLAB_1, MATLAB_1_MASTER, MATLAB_2, MATLAB_2_MASTER, WEB_SERVER_1, GAME_1, STORAGE_1, HADOOP) = ('ALL', 'MATLAB_1', 'MATLAB_1_MASTER', 'MATLAB_2', 'MATLAB_2_MASTER', 'WEB_SERVER_1', 'GAME_1', 'STORAGE_1', 'HADOOP')
 
 ############################################### base entity ###############################################
 
@@ -154,7 +155,6 @@ class Instance(object):
 
 ############################################### specific entity ###############################################
 
-
 class Instance_Matlab_1(Instance):
     # time refers to the time point in a day (0-24)
     def __init__(self, instanceId, instanceType, host, instance_list):
@@ -214,6 +214,26 @@ class Instance_Storage_1(Instance):
     def generateDiskIo(self, time):
         pass
 
+class Instance_Hadoop(Instance):
+    def __init__(self, instanceId, instanceType, host, instance_list):
+        super(Instance_Hadoop, self).__init__(instanceId, instanceType, host, instance_list)
+
+class Host_Hadoop(Host):
+    def __init__(self, hostId, host_list):
+        super(Host_Hadoop, self).__init__(hostId, host_list)
+        self.fileList = []
+
+    def addFile(self, file):
+        self.fileList.append(file)
+
+    def containsFile(self, file):
+        if file in self.fileList:
+            return True
+        else:
+            return False
+
+
+
 ############################################### filter ###############################################
 def filter_host_instanceType(host_list, instanceType, flag):
     result = []
@@ -232,6 +252,23 @@ def filter_host_instanceType(host_list, instanceType, flag):
             result.append(host)
     return result
 
+def filter_host_containsFile(host_list, file, flag):
+    result = []
+
+    if type(host_list) == list:
+        temp = {}
+        for host in host_list:
+            temp[host.getId()] = host
+        host_list = temp
+
+    for hostId in host_list:
+        host = host_list[hostId]
+        if host.containsFile(file) and flag:
+            result.append(host)
+        if not host.containsFile(file) and not flag:
+            result.append(host)
+    return result
+
 # less than threshold
 def filter_host_cpu(host_list, flag, time_count, interval, threshold):
     result = []
@@ -242,8 +279,24 @@ def filter_host_cpu(host_list, flag, time_count, interval, threshold):
             result.append(host)
     return result
 
+# instance no more than num
+def filter_host_instanceNum(host_list, num, type):
+    result = []
+    for hostId in host_list:
+        host = host_list[hostId]
+        instanceNum = host.getInstanceNum(type)
+        if instanceNum < num:
+            result.append(host)
+    return result
+
 ############################################### rank ###############################################
 def select_host_max_instance(host_list, instanceType):
+    if type(host_list) == list:
+        temp = {}
+        for host in host_list:
+            temp[host.getId()] = host
+        host_list = temp
+
     result_host = None
     max = 0
     for hostId in host_list:
@@ -254,6 +307,12 @@ def select_host_max_instance(host_list, instanceType):
     return result_host
 
 def select_host_min_instance(host_list, instanceType):
+    if type(host_list) == list:
+        temp = {}
+        for host in host_list:
+            temp[host.getId()] = host
+        host_list = temp
+
     result_host = None
     min = 10000
     for hostId in host_list:
@@ -315,6 +374,35 @@ def select_host_cpu_distance(host, host_list, distance_matrix, flag, time_count,
             maxRank = rank
     return resultHost
 
+def select_host_file_distance_max(file_host_list, host_list, distance_matrix):
+    result = None
+    maxRank = -1000
+    for host in host_list:
+        totalDistance = 0
+        for file_host in file_host_list:
+            totalDistance += getDistance(file_host, host, distance_matrix)
+        if totalDistance >= maxRank:
+            result = host
+            maxRank = totalDistance
+    return result
+
+def select_host_file_distance_min(file_host_list, host_list, distance_matrix):
+    result = None
+    minRank = 1000
+    for host in host_list:
+        totalDistance = 0
+        for file_host in file_host_list:
+            totalDistance += getDistance(file_host, host, distance_matrix)
+        if totalDistance <= minRank:
+            result = host
+            minRank = totalDistance
+    return result
+
+
+def getDistance(host1, host2, distance_matrix):
+    index1 = host_mapper[host1.getId()]
+    index2 = host_mapper[host2.getId()]
+    return distance_matrix[index1][index2]
 
 
 ############################################### migrate ###############################################
@@ -407,6 +495,43 @@ def storage_1_consolidation(period):
                 destHost = host
                 migrate_instance(srcHost, destHost, migrateInstance)
 
+def hadoop_consolidation(period):
+    if (time_count % period == 0):
+        file_host1 = filter_host_containsFile(host_list, 'file2', True)[0]
+        file_host2 = filter_host_containsFile(host_list, 'file3', True)[0]
+        file_host3 = filter_host_containsFile(host_list, 'file6', True)[0]
+
+        file_host_list = [file_host1, file_host2, file_host3]
+
+        srcHostList = filter_host_instanceType(host_list, InstanceType.HADOOP, True)
+        srcHost = select_host_file_distance_max(file_host_list, srcHostList, host_distance_matrix)
+
+        migrateInstance = select_instance_random(srcHost, InstanceType.HADOOP)
+
+        destHostList = filter_host_instanceNum(host_list, 8, InstanceType.HADOOP)
+        destHost = select_host_file_distance_min(file_host_list, destHostList, host_distance_matrix)
+
+        if srcHost.getInstanceNum(InstanceType.HADOOP) == 8:
+            return
+
+        migrate_instance(srcHost, destHost, migrateInstance)
+
+def hadoop_consolidation_old(period):
+    if (time_count % period == 0):
+        srcHostList = filter_host_instanceType(host_list, InstanceType.HADOOP, True)
+        srcHost = select_host_min_instance(srcHostList, InstanceType.HADOOP)
+
+        migrateInstance = select_instance_random(srcHost, InstanceType.HADOOP)
+
+        destHostList = filter_host_instanceNum(host_list, 8, InstanceType.HADOOP)
+        destHost = select_host_max_instance(destHostList, InstanceType.HADOOP)
+
+        if srcHost.getInstanceNum(InstanceType.HADOOP) == 8:
+            return
+
+        migrate_instance(srcHost, destHost, migrateInstance)
+
+
 def getTotalDistance():
     totalDistance = 0
 
@@ -430,6 +555,17 @@ def getTotalDistance():
             print totalDistance
     return totalDistance
 
+def getTotalFileDistance():
+    totalDistance = 0
+    fileHost1 = host_list['host_2']
+    fileHost2 = host_list['host_2']
+    fileHost3 = host_list['host_3']
+    for instanceId in instance_list:
+        instance = instance_list[instanceId]
+        host = instance.getHost()
+        totalDistance += getDistance(host, fileHost1, host_distance_matrix) + getDistance(host, fileHost2, host_distance_matrix) + getDistance(host, fileHost3, host_distance_matrix)
+    return totalDistance
+
 
 ############################################### experiment setup ###############################################
 
@@ -444,7 +580,7 @@ def setup_environment_1():
 
     instance_1 = Instance_Matlab_1('instance_1', InstanceType.MATLAB_1, host_1, instance_list)
     instance_2 = Instance_Matlab_1('instance_2', InstanceType.MATLAB_1, host_1, instance_list)
-    instance_3 = Instance_Matlab_1('instance_3', InstanceType.MATLAB_1, host_3, instance_list)
+    instance_3 = Instance_Matlab_1('instance_3', InstanceType.MATLAB_1, host_4, instance_list)
     instance_4 = Instance_Matlab_1('instance_4', InstanceType.MATLAB_1, host_2, instance_list)
     instance_5 = Instance_Matlab_1('instance_5', InstanceType.MATLAB_1, host_2, instance_list)
     instance_6 = Instance_Matlab_1('instance_6', InstanceType.MATLAB_1, host_4, instance_list)
@@ -457,7 +593,7 @@ def setup_environment_1():
 
     instance_13 = Instance_Matlab_2('instance_13', InstanceType.MATLAB_2, host_1, instance_list)
     instance_14 = Instance_Matlab_2('instance_14', InstanceType.MATLAB_2, host_1, instance_list)
-    instance_15 = Instance_Matlab_2('instance_15', InstanceType.MATLAB_2, host_3, instance_list)
+    instance_15 = Instance_Matlab_2('instance_15', InstanceType.MATLAB_2, host_4, instance_list)
     instance_16 = Instance_Matlab_2('instance_16', InstanceType.MATLAB_2, host_2, instance_list)
     instance_17 = Instance_Matlab_2('instance_17', InstanceType.MATLAB_2, host_2, instance_list)
     instance_18 = Instance_Matlab_2('instance_18', InstanceType.MATLAB_2, host_4, instance_list)
@@ -505,6 +641,40 @@ def setup_environment_2():
     instance_29 = Instance_Storage_1('instance_29', InstanceType.STORAGE_1, host_2, instance_list)
     instance_30 = Instance_Storage_1('instance_30', InstanceType.STORAGE_1, host_2, instance_list)
 
+def setup_environment_3():
+    host_1 = Host_Hadoop('host_1', host_list)
+    host_2 = Host_Hadoop('host_2', host_list)
+    host_3 = Host_Hadoop('host_3', host_list)
+    host_4 = Host_Hadoop('host_4', host_list)
+
+    host_1.addFile('file1')
+    host_1.addFile('file5')
+    host_2.addFile('file2')
+    host_2.addFile('file6')
+    host_3.addFile('file3')
+    host_3.addFile('file7')
+    host_4.addFile('file4')
+    host_4.addFile('file8')
+
+    instance_1 = Instance_Hadoop('instance_1', InstanceType.HADOOP, host_1, instance_list)
+    instance_2 = Instance_Hadoop('instance_2', InstanceType.HADOOP, host_1, instance_list)
+    instance_3 = Instance_Hadoop('instance_3', InstanceType.HADOOP, host_2, instance_list)
+    instance_4 = Instance_Hadoop('instance_4', InstanceType.HADOOP, host_2, instance_list)
+    instance_5 = Instance_Hadoop('instance_5', InstanceType.HADOOP, host_2, instance_list)
+    instance_6 = Instance_Hadoop('instance_6', InstanceType.HADOOP, host_3, instance_list)
+    instance_7 = Instance_Hadoop('instance_7', InstanceType.HADOOP, host_3, instance_list)
+    instance_8 = Instance_Hadoop('instance_8', InstanceType.HADOOP, host_3, instance_list)
+    instance_9 = Instance_Hadoop('instance_9', InstanceType.HADOOP, host_3, instance_list)
+    instance_10 = Instance_Hadoop('instance_10', InstanceType.HADOOP, host_4, instance_list)
+    instance_11 = Instance_Hadoop('instance_11', InstanceType.HADOOP, host_4, instance_list)
+    instance_12 = Instance_Hadoop('instance_12', InstanceType.HADOOP, host_4, instance_list)
+    instance_13 = Instance_Hadoop('instance_13', InstanceType.HADOOP, host_4, instance_list)
+    instance_14 = Instance_Hadoop('instance_14', InstanceType.HADOOP, host_4, instance_list)
+    instance_15 = Instance_Hadoop('instance_15', InstanceType.HADOOP, host_4, instance_list)
+    instance_16 = Instance_Hadoop('instance_16', InstanceType.HADOOP, host_4, instance_list)
+
+    file_list = ['file2', 'file3', 'file6']
+
 def display(host_list):
     print '\n'
     for hostId in host_list:
@@ -516,36 +686,82 @@ def display(host_list):
 
 
 if __name__ == '__main__':
-    setup_environment_1()
-    display(host_list)
-
-    host1_cpuUtil = []
-    host2_cpuUtil = []
-    host3_cpuUtil = []
-    host4_cpuUtil = []
-    total_distance = []
-    time = []
-
-    while time_count < 100:
-        host1_cpuUtil.append(host_list['host_1'].getStatisticData('history', ResourceType.CPU_UTIL, time_count, 1))
-        host2_cpuUtil.append(host_list['host_2'].getStatisticData('history', ResourceType.CPU_UTIL, time_count, 1))
-        host3_cpuUtil.append(host_list['host_3'].getStatisticData('history', ResourceType.CPU_UTIL, time_count, 1))
-        host4_cpuUtil.append(host_list['host_4'].getStatisticData('history', ResourceType.CPU_UTIL, time_count, 1))
-        total_distance.append(getTotalDistance())
-        time.append(time_count)
-        if time_count > 23:
-            #matlab_1_consolidate(4)
-            #matlab_2_consolidate(4)
-            matlab_1_consolidate_comparison(8)
-            #matlab_2_consolidate_comparison(4)
-        time_count += 1
-    display(host_list)
-    plt.plot(time, host1_cpuUtil)
-    plt.plot(time, host2_cpuUtil)
-    plt.plot(time, host3_cpuUtil)
-    plt.plot(time, host4_cpuUtil)
-    plt.plot(time, total_distance)
-    plt.show()
+    #setup_environment_1()
+    #display(host_list)
+    #
+    #host1_cpuUtil = []
+    #host2_cpuUtil = []
+    #host3_cpuUtil = []
+    #host4_cpuUtil = []
+    #total_distance = []
+    #time = []
+    #
+    #while time_count < 100:
+    #    host1_cpuUtil.append(host_list['host_1'].getStatisticData('history', ResourceType.CPU_UTIL, time_count, 1))
+    #    host2_cpuUtil.append(host_list['host_2'].getStatisticData('history', ResourceType.CPU_UTIL, time_count, 1))
+    #    host3_cpuUtil.append(host_list['host_3'].getStatisticData('history', ResourceType.CPU_UTIL, time_count, 1))
+    #    host4_cpuUtil.append(host_list['host_4'].getStatisticData('history', ResourceType.CPU_UTIL, time_count, 1))
+    #    total_distance.append(getTotalDistance())
+    #    time.append(time_count)
+    #    if time_count > 10:
+    #        #matlab_1_consolidate(4)
+    #        #matlab_2_consolidate(4)
+    #        matlab_1_consolidate_comparison(8)
+    #        #matlab_2_consolidate_comparison(4)
+    #    time_count += 1
+    #display(host_list)
+    #
+    #
+    #setup_environment_1()
+    #time_count = 0
+    #display(host_list)
+    #
+    #host1_cpuUtil_1 = []
+    #host2_cpuUtil_1 = []
+    #host3_cpuUtil_1 = []
+    #host4_cpuUtil_1 = []
+    #total_distance_1 = []
+    #time_1 = []
+    #
+    #while time_count < 100:
+    #    host1_cpuUtil_1.append(host_list['host_1'].getStatisticData('history', ResourceType.CPU_UTIL, time_count, 1))
+    #    host2_cpuUtil_1.append(host_list['host_2'].getStatisticData('history', ResourceType.CPU_UTIL, time_count, 1))
+    #    host3_cpuUtil_1.append(host_list['host_3'].getStatisticData('history', ResourceType.CPU_UTIL, time_count, 1))
+    #    host4_cpuUtil_1.append(host_list['host_4'].getStatisticData('history', ResourceType.CPU_UTIL, time_count, 1))
+    #    total_distance_1.append(getTotalDistance())
+    #    time_1.append(time_count)
+    #    if time_count > 10:
+    #        matlab_1_consolidate(4)
+    #        matlab_2_consolidate(4)
+    #        #matlab_1_consolidate_comparison(8)
+    #        #matlab_2_consolidate_comparison(4)
+    #    time_count += 1
+    #display(host_list)
+    #
+    #plt.subplot(311)
+    #plt.plot(time, host1_cpuUtil, label = 'host-1')
+    #plt.plot(time, host2_cpuUtil, label = 'host-2')
+    #plt.plot(time, host3_cpuUtil, label = 'host-3')
+    #plt.plot(time, host4_cpuUtil, label = 'host-4')
+    #plt.legend()
+    #plt.grid(True)
+    #
+    #plt.subplot(312)
+    #plt.plot(time, host1_cpuUtil_1, label = 'host-1')
+    #plt.plot(time, host2_cpuUtil_1, label = 'host-2')
+    #plt.plot(time, host3_cpuUtil_1, label = 'host-3')
+    #plt.plot(time, host4_cpuUtil_1, label = 'host-4')
+    #plt.legend()
+    #plt.grid(True)
+    #
+    #plt.subplot(313)
+    #plt.plot(time, total_distance, label = 'cluster-1')
+    #plt.plot(time, total_distance_1, label = 'cluster-2')
+    #plt.legend()
+    #plt.grid(True)
+    #
+    #plt.show()
+    #
 
     #setup_environment_2()
     #
@@ -566,11 +782,50 @@ if __name__ == '__main__':
     #    time_count += 1
     #display(host_list)
     #
-    #plt.plot(time, host1_bandwidth)
-    #plt.plot(time, host2_bandwidth)
-    #plt.plot(time, host3_bandwidth)
+    #plt.plot(time, host1_bandwidth, label = 'host-1')
+    #plt.plot(time, host2_bandwidth, label = 'host-2')
+    #plt.plot(time, host3_bandwidth, label = 'host-3')
+    #plt.grid(True)
+    #plt.legend()
+    #
     #plt.show()
 
+    setup_environment_3()
+    display(host_list)
+
+    totalDistance = []
+    time = []
+
+    while time_count < 30:
+        totalDistance.append(getTotalFileDistance())
+        time.append(time_count)
+
+        hadoop_consolidation(2)
+        #hadoop_consolidation_old(10)
+        time_count += 1
+    display(host_list)
+
+    setup_environment_3()
+    display(host_list)
+    time_count = 0
+
+    totalDistance_1 = []
+    time_1 = []
+
+    while time_count < 30:
+        totalDistance_1.append(getTotalFileDistance())
+        time_1.append(time_count)
+
+        #hadoop_consolidation(2)
+        hadoop_consolidation_old(2)
+        time_count += 1
+    display(host_list)
+
+    plt.plot(time, totalDistance, label = 'exp_1')
+    plt.plot(time_1, totalDistance_1, label = 'exp_2')
+    plt.grid(True)
+    plt.legend()
+    plt.show()
 
 
 
