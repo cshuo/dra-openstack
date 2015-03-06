@@ -21,6 +21,9 @@ host_distance_matrix = [[0.5, 2, 3, 4],
 
 host_mapper = {'host_1' : 0, 'host_2' : 1, 'host_3' : 2, 'host_4' : 3}
 
+game_migration_num = 0
+storage_migration_num = 0
+
 #enum
 class ResourceType:
     (CPU_UTIL, BANDWIDTH, DISK_IO) = ('CPU_UTIL', 'BANDWIDTH', 'DISK_IO')
@@ -279,6 +282,16 @@ def filter_host_cpu(host_list, flag, time_count, interval, threshold):
             result.append(host)
     return result
 
+# less than threshold
+def filter_host_bandwidth(host_list, flag, time_count, interval, threshold):
+    result = []
+    for hostId in host_list:
+        host = host_list[hostId]
+        bandwidth = host.getStatisticData(flag, ResourceType.BANDWIDTH, time_count, interval)
+        if bandwidth < threshold :
+            result.append(host)
+    return result
+
 # instance no more than num
 def filter_host_instanceNum(host_list, num, type):
     result = []
@@ -355,6 +368,36 @@ def select_host_max_cpu(host_list, flag, time_count, interval):
             resultHost = host
     return resultHost
 
+def select_host_min_bandwidth(host_list, flag, time_count, interval):
+    minBandwidth = 10000
+    resultHost = None
+
+    if type(host_list) == list:
+        temp = {}
+        for host in host_list:
+            temp[host.getId()] = host
+        host_list = temp
+
+    for hostId in host_list:
+        host = host_list[hostId]
+        bandwidth = host.getStatisticData(flag, ResourceType.BANDWIDTH, time_count, interval)
+        if bandwidth < minBandwidth:
+            minBandwidth = bandwidth
+            resultHost = host
+    return resultHost
+
+def select_host_max_bandwidth(host_list, flag, time_count, interval):
+    maxBandwidth = 0
+    resultHost = None
+
+    for host in host_list:
+        bandwidth = host.getStatisticData(flag, ResourceType.BANDWIDTH, time_count, interval)
+        if bandwidth > maxBandwidth:
+            maxBandwidth = bandwidth
+            resultHost = host
+    return resultHost
+
+
 # select the best host : rank = cpuutil - distance * 50
 def select_host_cpu_distance(host, host_list, distance_matrix, flag, time_count, interval):
     maxRank = -1000
@@ -419,6 +462,13 @@ def migrate_instance(srcHost, destHost, instance):
         destHost.addInstance(instance)
         instance.setHost(destHost)
         print '%s\t==>\t%s\t==>\t%s' % (srcHost.id, instance.getId(), destHost.getId())
+
+        if instance.getType() == InstanceType.GAME_1:
+            global game_migration_num
+            game_migration_num += 1
+        if instance.getType() == InstanceType.STORAGE_1:
+            global storage_migration_num
+            storage_migration_num += 1
 
 ############################################### work thread ###############################################
 
@@ -494,6 +544,25 @@ def storage_1_consolidation(period):
                 migrateInstance = select_instance_random(srcHost, InstanceType.STORAGE_1)
                 destHost = host
                 migrate_instance(srcHost, destHost, migrateInstance)
+
+def game_1_guarantee_qos_old(period):
+    if (time_count % period == 0):
+        game_hostList = filter_host_instanceType(host_list, InstanceType.GAME_1, True)
+        for host in game_hostList:
+            if host.getStatisticData('future', ResourceType.BANDWIDTH, time_count, 2) > 700:
+                srcHost = host
+                migrateInstance = select_instance_random(host, InstanceType.ALL)
+                dest_host_list = filter_host_bandwidth(host_list, 'future', time_count, 2, 600)
+                destHost = select_host_min_bandwidth(dest_host_list, 'future', time_count, 2)
+                migrate_instance(srcHost, destHost, migrateInstance)
+
+def storage_1_consolidation_old(period):
+    if (time_count % period == 0):
+        srcHost = select_host_min_bandwidth(host_list, 'future', time_count, 2)
+        migrateInstance = select_instance_random(srcHost, InstanceType.ALL)
+        dest_host_list = filter_host_bandwidth(host_list, 'future', time_count, 2, 600)
+        destHost = select_host_max_bandwidth(dest_host_list, 'future', time_count, 2)
+        migrate_instance(srcHost, destHost, migrateInstance)
 
 def hadoop_consolidation(period):
     if (time_count % period == 0):
@@ -608,6 +677,7 @@ def setup_environment_2():
     host_1 = Host('host_1', host_list)
     host_2 = Host('host_2', host_list)
     host_3 = Host('host_3', host_list)
+    host_4 = Host('host_4', host_list)
 
     instance_1 = Instance_Game_1('instance_1', InstanceType.GAME_1, host_1, instance_list)
     instance_2 = Instance_Game_1('instance_2', InstanceType.GAME_1, host_1, instance_list)
@@ -763,69 +833,78 @@ if __name__ == '__main__':
     #plt.show()
     #
 
-    #setup_environment_2()
-    #
+    setup_environment_2()
+
+    display(host_list)
+    host1_bandwidth = []
+    host2_bandwidth = []
+    host3_bandwidth = []
+    host4_bandwidth = []
+    time = []
+    while time_count < 80:
+        #plot the host bandwidth pic
+        host1_bandwidth.append(host_list['host_1'].getStatisticData('history', ResourceType.BANDWIDTH, time_count, 1))
+        host2_bandwidth.append(host_list['host_2'].getStatisticData('history', ResourceType.BANDWIDTH, time_count, 1))
+        host3_bandwidth.append(host_list['host_3'].getStatisticData('history', ResourceType.BANDWIDTH, time_count, 1))
+        host4_bandwidth.append(host_list['host_4'].getStatisticData('history', ResourceType.BANDWIDTH, time_count, 1))
+        time.append(time_count)
+        if time_count > 23:
+            #game_1_guarantee_qos(1)
+            #storage_1_consolidation(2)
+            game_1_guarantee_qos_old(1)
+            storage_1_consolidation_old(2)
+        time_count += 1
+    display(host_list)
+
+    print 'game instance migration num: ' + str(game_migration_num)
+    print 'storage instance migration num: ' + str(storage_migration_num)
+
+    plt.plot(time, host1_bandwidth, label = 'host-1')
+    plt.plot(time, host2_bandwidth, label = 'host-2')
+    plt.plot(time, host3_bandwidth, label = 'host-3')
+    plt.plot(time, host4_bandwidth, label = 'host-4')
+    plt.grid(True)
+    plt.legend()
+
+    plt.show()
+
+    #setup_environment_3()
     #display(host_list)
-    #host1_bandwidth = []
-    #host2_bandwidth = []
-    #host3_bandwidth = []
+    #
+    #totalDistance = []
     #time = []
-    #while time_count < 80:
-    #    #plot the host bandwidth pic
-    #    host1_bandwidth.append(host_list['host_1'].getStatisticData('history', ResourceType.BANDWIDTH, time_count, 1))
-    #    host2_bandwidth.append(host_list['host_2'].getStatisticData('history', ResourceType.BANDWIDTH, time_count, 1))
-    #    host3_bandwidth.append(host_list['host_3'].getStatisticData('history', ResourceType.BANDWIDTH, time_count, 1))
+    #
+    #while time_count < 30:
+    #    totalDistance.append(getTotalFileDistance())
     #    time.append(time_count)
-    #    if time_count > 23:
-    #        game_1_guarantee_qos(1)
-    #        storage_1_consolidation(2)
+    #
+    #    hadoop_consolidation(2)
+    #    #hadoop_consolidation_old(10)
     #    time_count += 1
     #display(host_list)
     #
-    #plt.plot(time, host1_bandwidth, label = 'host-1')
-    #plt.plot(time, host2_bandwidth, label = 'host-2')
-    #plt.plot(time, host3_bandwidth, label = 'host-3')
+    #setup_environment_3()
+    #display(host_list)
+    #time_count = 0
+    #
+    #totalDistance_1 = []
+    #time_1 = []
+    #
+    #while time_count < 30:
+    #    totalDistance_1.append(getTotalFileDistance())
+    #    time_1.append(time_count)
+    #
+    #    #hadoop_consolidation(2)
+    #    hadoop_consolidation_old(2)
+    #    time_count += 1
+    #display(host_list)
+    #
+    #plt.plot(time, totalDistance, label = 'exp_1')
+    #plt.plot(time_1, totalDistance_1, label = 'exp_2')
+    #plt.axis([0, 30, 0, 110])
     #plt.grid(True)
     #plt.legend()
-    #
     #plt.show()
-
-    setup_environment_3()
-    display(host_list)
-
-    totalDistance = []
-    time = []
-
-    while time_count < 30:
-        totalDistance.append(getTotalFileDistance())
-        time.append(time_count)
-
-        hadoop_consolidation(2)
-        #hadoop_consolidation_old(10)
-        time_count += 1
-    display(host_list)
-
-    setup_environment_3()
-    display(host_list)
-    time_count = 0
-
-    totalDistance_1 = []
-    time_1 = []
-
-    while time_count < 30:
-        totalDistance_1.append(getTotalFileDistance())
-        time_1.append(time_count)
-
-        #hadoop_consolidation(2)
-        hadoop_consolidation_old(2)
-        time_count += 1
-    display(host_list)
-
-    plt.plot(time, totalDistance, label = 'exp_1')
-    plt.plot(time_1, totalDistance_1, label = 'exp_2')
-    plt.grid(True)
-    plt.legend()
-    plt.show()
 
 
 
