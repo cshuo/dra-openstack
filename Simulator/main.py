@@ -8,6 +8,10 @@ import threading
 import random
 import matplotlib.pyplot as plt
 
+#exp = 1
+exp = 2
+#exp = 3
+
 #global host and instance list
 host_list = {}
 instance_list = {}
@@ -21,8 +25,8 @@ host_distance_matrix = [[0.5, 2, 3, 4],
 
 host_mapper = {'host_1' : 0, 'host_2' : 1, 'host_3' : 2, 'host_4' : 3}
 
-game_migration_num = 0
-storage_migration_num = 0
+game_migration = []
+storage_migration = []
 
 #enum
 class ResourceType:
@@ -465,10 +469,10 @@ def migrate_instance(srcHost, destHost, instance):
 
         if instance.getType() == InstanceType.GAME_1:
             global game_migration_num
-            game_migration_num += 1
+            game_migration.append(time_count)
         if instance.getType() == InstanceType.STORAGE_1:
             global storage_migration_num
-            storage_migration_num += 1
+            storage_migration.append(time_count)
 
 ############################################### work thread ###############################################
 
@@ -756,183 +760,160 @@ def display(host_list):
 
 
 if __name__ == '__main__':
-    #setup_environment_1()
-    #display(host_list)
-    #
-    #host1_cpuUtil = []
-    #host2_cpuUtil = []
-    #host3_cpuUtil = []
-    #host4_cpuUtil = []
-    #total_distance = []
-    #time = []
-    #
-    #while time_count < 100:
-    #    host1_cpuUtil.append(host_list['host_1'].getStatisticData('history', ResourceType.CPU_UTIL, time_count, 1))
-    #    host2_cpuUtil.append(host_list['host_2'].getStatisticData('history', ResourceType.CPU_UTIL, time_count, 1))
-    #    host3_cpuUtil.append(host_list['host_3'].getStatisticData('history', ResourceType.CPU_UTIL, time_count, 1))
-    #    host4_cpuUtil.append(host_list['host_4'].getStatisticData('history', ResourceType.CPU_UTIL, time_count, 1))
-    #    total_distance.append(getTotalDistance())
-    #    time.append(time_count)
-    #    if time_count > 10:
-    #        #matlab_1_consolidate(4)
-    #        #matlab_2_consolidate(4)
-    #        matlab_1_consolidate_comparison(8)
-    #        #matlab_2_consolidate_comparison(4)
-    #    time_count += 1
-    #display(host_list)
-    #
-    #
-    #setup_environment_1()
-    #time_count = 0
-    #display(host_list)
-    #
-    #host1_cpuUtil_1 = []
-    #host2_cpuUtil_1 = []
-    #host3_cpuUtil_1 = []
-    #host4_cpuUtil_1 = []
-    #total_distance_1 = []
-    #time_1 = []
-    #
-    #while time_count < 100:
-    #    host1_cpuUtil_1.append(host_list['host_1'].getStatisticData('history', ResourceType.CPU_UTIL, time_count, 1))
-    #    host2_cpuUtil_1.append(host_list['host_2'].getStatisticData('history', ResourceType.CPU_UTIL, time_count, 1))
-    #    host3_cpuUtil_1.append(host_list['host_3'].getStatisticData('history', ResourceType.CPU_UTIL, time_count, 1))
-    #    host4_cpuUtil_1.append(host_list['host_4'].getStatisticData('history', ResourceType.CPU_UTIL, time_count, 1))
-    #    total_distance_1.append(getTotalDistance())
-    #    time_1.append(time_count)
-    #    if time_count > 10:
-    #        matlab_1_consolidate(4)
-    #        matlab_2_consolidate(4)
-    #        #matlab_1_consolidate_comparison(8)
-    #        #matlab_2_consolidate_comparison(4)
-    #    time_count += 1
-    #display(host_list)
-    #
-    #plt.subplot(311)
-    #plt.plot(time, host1_cpuUtil, label = 'host-1')
-    #plt.plot(time, host2_cpuUtil, label = 'host-2')
-    #plt.plot(time, host3_cpuUtil, label = 'host-3')
-    #plt.plot(time, host4_cpuUtil, label = 'host-4')
-    #plt.legend()
-    #plt.grid(True)
-    #
-    #plt.subplot(312)
-    #plt.plot(time, host1_cpuUtil_1, label = 'host-1')
-    #plt.plot(time, host2_cpuUtil_1, label = 'host-2')
-    #plt.plot(time, host3_cpuUtil_1, label = 'host-3')
-    #plt.plot(time, host4_cpuUtil_1, label = 'host-4')
-    #plt.legend()
-    #plt.grid(True)
-    #
-    #plt.subplot(313)
-    #plt.plot(time, total_distance, label = 'cluster-1')
-    #plt.plot(time, total_distance_1, label = 'cluster-2')
-    #plt.legend()
-    #plt.grid(True)
-    #
-    #plt.show()
-    #
 
-    setup_environment_2()
+    ####################################### experiment-0 #######################################
+    if exp == 1:
+        setup_environment_1()
+        display(host_list)
 
-    display(host_list)
-    host1_bandwidth = []
-    host2_bandwidth = []
-    host3_bandwidth = []
-    host4_bandwidth = []
-    time = []
-    while time_count < 80:
-        #plot the host bandwidth pic
-        host1_bandwidth.append(host_list['host_1'].getStatisticData('history', ResourceType.BANDWIDTH, time_count, 1))
-        host2_bandwidth.append(host_list['host_2'].getStatisticData('history', ResourceType.BANDWIDTH, time_count, 1))
-        host3_bandwidth.append(host_list['host_3'].getStatisticData('history', ResourceType.BANDWIDTH, time_count, 1))
-        host4_bandwidth.append(host_list['host_4'].getStatisticData('history', ResourceType.BANDWIDTH, time_count, 1))
-        time.append(time_count)
-        if time_count > 23:
-            #game_1_guarantee_qos(1)
-            #storage_1_consolidation(2)
-            game_1_guarantee_qos_old(1)
-            storage_1_consolidation_old(2)
-        time_count += 1
-    display(host_list)
+        host1_cpuUtil = []
+        host2_cpuUtil = []
+        host3_cpuUtil = []
+        host4_cpuUtil = []
+        total_distance = []
+        time = []
 
-    print 'game instance migration num: ' + str(game_migration_num)
-    print 'storage instance migration num: ' + str(storage_migration_num)
-
-    plt.plot(time, host1_bandwidth, label = 'host-1')
-    plt.plot(time, host2_bandwidth, label = 'host-2')
-    plt.plot(time, host3_bandwidth, label = 'host-3')
-    plt.plot(time, host4_bandwidth, label = 'host-4')
-    plt.grid(True)
-    plt.legend()
-
-    plt.show()
-
-    #setup_environment_3()
-    #display(host_list)
-    #
-    #totalDistance = []
-    #time = []
-    #
-    #while time_count < 30:
-    #    totalDistance.append(getTotalFileDistance())
-    #    time.append(time_count)
-    #
-    #    hadoop_consolidation(2)
-    #    #hadoop_consolidation_old(10)
-    #    time_count += 1
-    #display(host_list)
-    #
-    #setup_environment_3()
-    #display(host_list)
-    #time_count = 0
-    #
-    #totalDistance_1 = []
-    #time_1 = []
-    #
-    #while time_count < 30:
-    #    totalDistance_1.append(getTotalFileDistance())
-    #    time_1.append(time_count)
-    #
-    #    #hadoop_consolidation(2)
-    #    hadoop_consolidation_old(2)
-    #    time_count += 1
-    #display(host_list)
-    #
-    #plt.plot(time, totalDistance, label = 'exp_1')
-    #plt.plot(time_1, totalDistance_1, label = 'exp_2')
-    #plt.axis([0, 30, 0, 110])
-    #plt.grid(True)
-    #plt.legend()
-    #plt.show()
+        while time_count < 100:
+            host1_cpuUtil.append(host_list['host_1'].getStatisticData('history', ResourceType.CPU_UTIL, time_count, 1))
+            host2_cpuUtil.append(host_list['host_2'].getStatisticData('history', ResourceType.CPU_UTIL, time_count, 1))
+            host3_cpuUtil.append(host_list['host_3'].getStatisticData('history', ResourceType.CPU_UTIL, time_count, 1))
+            host4_cpuUtil.append(host_list['host_4'].getStatisticData('history', ResourceType.CPU_UTIL, time_count, 1))
+            total_distance.append(getTotalDistance())
+            time.append(time_count)
+            if time_count > 10:
+                #matlab_1_consolidate(4)
+                #matlab_2_consolidate(4)
+                matlab_1_consolidate_comparison(8)
+                #matlab_2_consolidate_comparison(4)
+            time_count += 1
+        display(host_list)
 
 
+        setup_environment_1()
+        time_count = 0
+        display(host_list)
+
+        host1_cpuUtil_1 = []
+        host2_cpuUtil_1 = []
+        host3_cpuUtil_1 = []
+        host4_cpuUtil_1 = []
+        total_distance_1 = []
+        time_1 = []
+
+        while time_count < 100:
+            host1_cpuUtil_1.append(host_list['host_1'].getStatisticData('history', ResourceType.CPU_UTIL, time_count, 1))
+            host2_cpuUtil_1.append(host_list['host_2'].getStatisticData('history', ResourceType.CPU_UTIL, time_count, 1))
+            host3_cpuUtil_1.append(host_list['host_3'].getStatisticData('history', ResourceType.CPU_UTIL, time_count, 1))
+            host4_cpuUtil_1.append(host_list['host_4'].getStatisticData('history', ResourceType.CPU_UTIL, time_count, 1))
+            total_distance_1.append(getTotalDistance())
+            time_1.append(time_count)
+            if time_count > 10:
+                matlab_1_consolidate(4)
+                matlab_2_consolidate(4)
+                #matlab_1_consolidate_comparison(8)
+                #matlab_2_consolidate_comparison(4)
+            time_count += 1
+        display(host_list)
+
+        plt.subplot(311)
+        plt.plot(time, host1_cpuUtil, label = 'host-1')
+        plt.plot(time, host2_cpuUtil, label = 'host-2')
+        plt.plot(time, host3_cpuUtil, label = 'host-3')
+        plt.plot(time, host4_cpuUtil, label = 'host-4')
+        plt.legend()
+        plt.grid(True)
+
+        plt.subplot(312)
+        plt.plot(time, host1_cpuUtil_1, label = 'host-1')
+        plt.plot(time, host2_cpuUtil_1, label = 'host-2')
+        plt.plot(time, host3_cpuUtil_1, label = 'host-3')
+        plt.plot(time, host4_cpuUtil_1, label = 'host-4')
+        plt.legend()
+        plt.grid(True)
+
+        plt.subplot(313)
+        plt.plot(time, total_distance, label = 'cluster-1')
+        plt.plot(time, total_distance_1, label = 'cluster-2')
+        plt.legend()
+        plt.grid(True)
+
+        plt.show()
 
 
+    ####################################### experiment-1 #######################################
+    if exp == 2:
+        setup_environment_2()
+
+        display(host_list)
+        host1_bandwidth = []
+        host2_bandwidth = []
+        host3_bandwidth = []
+        host4_bandwidth = []
+        time = []
+        while time_count < 80:
+            #plot the host bandwidth pic
+            host1_bandwidth.append(host_list['host_1'].getStatisticData('history', ResourceType.BANDWIDTH, time_count, 1))
+            host2_bandwidth.append(host_list['host_2'].getStatisticData('history', ResourceType.BANDWIDTH, time_count, 1))
+            host3_bandwidth.append(host_list['host_3'].getStatisticData('history', ResourceType.BANDWIDTH, time_count, 1))
+            host4_bandwidth.append(host_list['host_4'].getStatisticData('history', ResourceType.BANDWIDTH, time_count, 1))
+            time.append(time_count)
+            if time_count > 23:
+                #game_1_guarantee_qos(1)
+                #storage_1_consolidation(2)
+                game_1_guarantee_qos_old(1)
+                storage_1_consolidation_old(2)
+            time_count += 1
+        display(host_list)
+
+        print 'game instance migration num: ' + str(game_migration_num)
+        print 'storage instance migration num: ' + str(storage_migration_num)
+
+        plt.plot(time, host1_bandwidth, label = 'host-1')
+        plt.plot(time, host2_bandwidth, label = 'host-2')
+        plt.plot(time, host3_bandwidth, label = 'host-3')
+        plt.plot(time, host4_bandwidth, label = 'host-4')
+        plt.grid(True)
+        plt.legend()
+
+        plt.show()
 
 
+    ####################################### experiment-2 #######################################
+    if exp == 3:
+        setup_environment_3()
+        display(host_list)
 
+        totalDistance = []
+        time = []
 
+        while time_count < 30:
+            totalDistance.append(getTotalFileDistance())
+            time.append(time_count)
 
+            hadoop_consolidation(2)
+            #hadoop_consolidation_old(10)
+            time_count += 1
+        display(host_list)
 
+        setup_environment_3()
+        display(host_list)
+        time_count = 0
 
+        totalDistance_1 = []
+        time_1 = []
 
+        while time_count < 30:
+            totalDistance_1.append(getTotalFileDistance())
+            time_1.append(time_count)
 
+            #hadoop_consolidation(2)
+            hadoop_consolidation_old(2)
+            time_count += 1
+        display(host_list)
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+        plt.plot(time, totalDistance, label = 'exp_1')
+        plt.plot(time_1, totalDistance_1, label = 'exp_2')
+        plt.axis([0, 30, 0, 110])
+        plt.grid(True)
+        plt.legend()
+        plt.show()

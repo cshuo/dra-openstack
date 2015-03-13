@@ -1,7 +1,6 @@
 __author__ = 'pike'
 
 import clips
-from ExternalFunction import *
 
 def clipsFunction(x):
     #print type(x)
@@ -9,6 +8,10 @@ def clipsFunction(x):
     #print str
     #return str
     print x
+    return x
+
+def test(x):
+    eval(x)
 
 
 class ClipsEngine:
@@ -57,8 +60,7 @@ if __name__ == "__main__":
         (defrule new_vm
         (newVM cpubound vmInfo)
         =>
-        (bind ?hosts 45)
-        (python-call clipsFunction hello?hosts))
+        (python-call test "clipsFunction('hello')"))
     """
 
     #"""
@@ -88,6 +90,7 @@ if __name__ == "__main__":
 
     engine = ClipsEngine()
     engine.registerPythonFunction(clipsFunction)
+    engine.registerPythonFunction(test)
     #engine.registerPythonFunction(Host_CpuUtil_Filter)
     #engine.registerPythonFunction(Host_CpuUtil_Cost)
     #engine.registerPythonFunction(Get_Host_Resource)
