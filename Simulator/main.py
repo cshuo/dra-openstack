@@ -8,9 +8,7 @@ import threading
 import random
 import matplotlib.pyplot as plt
 
-#exp = 1
-exp = 2
-#exp = 3
+exp = 3
 
 #global host and instance list
 host_list = {}
@@ -224,6 +222,12 @@ class Instance_Storage_1(Instance):
 class Instance_Hadoop(Instance):
     def __init__(self, instanceId, instanceType, host, instance_list):
         super(Instance_Hadoop, self).__init__(instanceId, instanceType, host, instance_list)
+
+    def setFileHostList(self, hostList):
+        self.hostList = hostList
+
+    def getFileHostList(self):
+        return self.hostList
 
 class Host_Hadoop(Host):
     def __init__(self, hostId, host_list):
@@ -568,26 +572,38 @@ def storage_1_consolidation_old(period):
         destHost = select_host_max_bandwidth(dest_host_list, 'future', time_count, 2)
         migrate_instance(srcHost, destHost, migrateInstance)
 
-def hadoop_consolidation(period):
+def hadoop_consolidation(period, tmpInstance):
     if (time_count % period == 0):
-        file_host1 = filter_host_containsFile(host_list, 'file2', True)[0]
-        file_host2 = filter_host_containsFile(host_list, 'file3', True)[0]
-        file_host3 = filter_host_containsFile(host_list, 'file6', True)[0]
+        #for instanceId in instance_list:
+        for i in range(4):
+            if len(tmpInstance) == 0: break
+            instanceId = tmpInstance.pop()
+            instance = instance_list[instanceId]
+            file_host_list = instance.getFileHostList()
 
-        file_host_list = [file_host1, file_host2, file_host3]
+            #file_host1 = filter_host_containsFile(host_list, fileList[0], True)[0]
+            #file_host2 = filter_host_containsFile(host_list, fileList[1], True)[0]
 
-        srcHostList = filter_host_instanceType(host_list, InstanceType.HADOOP, True)
-        srcHost = select_host_file_distance_max(file_host_list, srcHostList, host_distance_matrix)
+            #file_host_list = [file_host1, file_host2]
 
-        migrateInstance = select_instance_random(srcHost, InstanceType.HADOOP)
+            #srcHostList = filter_host_instanceType(host_list, InstanceType.HADOOP, True)
+            #srcHost = select_host_file_distance_max(file_host_list, srcHostList, host_distance_matrix)
+            srcHost = instance.getHost()
 
-        destHostList = filter_host_instanceNum(host_list, 8, InstanceType.HADOOP)
-        destHost = select_host_file_distance_min(file_host_list, destHostList, host_distance_matrix)
+            #migrateInstance = select_instance_random(srcHost, InstanceType.HADOOP)
+            migrateInstance = instance
 
-        if srcHost.getInstanceNum(InstanceType.HADOOP) == 8:
-            return
+            srcHost.removeInstance(migrateInstance)
 
-        migrate_instance(srcHost, destHost, migrateInstance)
+            destHostList = filter_host_instanceNum(host_list, 8, InstanceType.HADOOP)
+            destHost = select_host_file_distance_min(file_host_list, destHostList, host_distance_matrix)
+
+            srcHost.addInstance(migrateInstance)
+
+            #if srcHost.getInstanceNum(InstanceType.HADOOP) == 8:
+            #    return
+
+            migrate_instance(srcHost, destHost, migrateInstance)
 
 def hadoop_consolidation_old(period):
     if (time_count % period == 0):
@@ -630,13 +646,13 @@ def getTotalDistance():
 
 def getTotalFileDistance():
     totalDistance = 0
-    fileHost1 = host_list['host_2']
-    fileHost2 = host_list['host_2']
-    fileHost3 = host_list['host_3']
     for instanceId in instance_list:
         instance = instance_list[instanceId]
         host = instance.getHost()
-        totalDistance += getDistance(host, fileHost1, host_distance_matrix) + getDistance(host, fileHost2, host_distance_matrix) + getDistance(host, fileHost3, host_distance_matrix)
+        fileHostList = instance.getFileHostList()
+        fileHost1 = fileHostList[0]
+        fileHost2 = fileHostList[1]
+        totalDistance += getDistance(host, fileHost1, host_distance_matrix) + getDistance(host, fileHost2, host_distance_matrix)
     return totalDistance
 
 
@@ -747,7 +763,26 @@ def setup_environment_3():
     instance_15 = Instance_Hadoop('instance_15', InstanceType.HADOOP, host_4, instance_list)
     instance_16 = Instance_Hadoop('instance_16', InstanceType.HADOOP, host_4, instance_list)
 
-    file_list = ['file2', 'file3', 'file6']
+    file_list_1 = [host_2, host_3]
+    file_list_2 = [host_2, host_4]
+    file_list_3 = [host_1, host_1]
+
+    instance_1.setFileHostList(file_list_1)
+    instance_2.setFileHostList(file_list_2)
+    instance_3.setFileHostList(file_list_2)
+    instance_4.setFileHostList(file_list_3)
+    instance_5.setFileHostList(file_list_2)
+    instance_6.setFileHostList(file_list_1)
+    instance_7.setFileHostList(file_list_3)
+    instance_8.setFileHostList(file_list_3)
+    instance_9.setFileHostList(file_list_1)
+    instance_10.setFileHostList(file_list_1)
+    instance_11.setFileHostList(file_list_2)
+    instance_12.setFileHostList(file_list_3)
+    instance_13.setFileHostList(file_list_2)
+    instance_14.setFileHostList(file_list_2)
+    instance_15.setFileHostList(file_list_1)
+    instance_16.setFileHostList(file_list_3)
 
 def display(host_list):
     print '\n'
@@ -761,7 +796,7 @@ def display(host_list):
 
 if __name__ == '__main__':
 
-    ####################################### experiment-0 #######################################
+    ####################################### experiment-1 #######################################
     if exp == 1:
         setup_environment_1()
         display(host_list)
@@ -773,7 +808,7 @@ if __name__ == '__main__':
         total_distance = []
         time = []
 
-        while time_count < 100:
+        while time_count < 80:
             host1_cpuUtil.append(host_list['host_1'].getStatisticData('history', ResourceType.CPU_UTIL, time_count, 1))
             host2_cpuUtil.append(host_list['host_2'].getStatisticData('history', ResourceType.CPU_UTIL, time_count, 1))
             host3_cpuUtil.append(host_list['host_3'].getStatisticData('history', ResourceType.CPU_UTIL, time_count, 1))
@@ -800,7 +835,7 @@ if __name__ == '__main__':
         total_distance_1 = []
         time_1 = []
 
-        while time_count < 100:
+        while time_count < 80:
             host1_cpuUtil_1.append(host_list['host_1'].getStatisticData('history', ResourceType.CPU_UTIL, time_count, 1))
             host2_cpuUtil_1.append(host_list['host_2'].getStatisticData('history', ResourceType.CPU_UTIL, time_count, 1))
             host3_cpuUtil_1.append(host_list['host_3'].getStatisticData('history', ResourceType.CPU_UTIL, time_count, 1))
@@ -815,32 +850,39 @@ if __name__ == '__main__':
             time_count += 1
         display(host_list)
 
-        plt.subplot(311)
-        plt.plot(time, host1_cpuUtil, label = 'host-1')
-        plt.plot(time, host2_cpuUtil, label = 'host-2')
-        plt.plot(time, host3_cpuUtil, label = 'host-3')
-        plt.plot(time, host4_cpuUtil, label = 'host-4')
-        plt.legend()
-        plt.grid(True)
+        #plt.subplot(211)
+        #plt.plot(time, host1_cpuUtil, label = 'host-1', linewidth = 2)
+        #plt.plot(time, host2_cpuUtil, label = 'host-2', linewidth = 2)
+        #plt.plot(time, host3_cpuUtil, label = 'host-3', linewidth = 2)
+        #plt.plot(time, host4_cpuUtil, label = 'host-4', linewidth = 2)
+        #plt.xlabel('time(h)')
+        #plt.ylabel('cpu_util(%)')
+        #plt.legend()
+        #plt.grid(True)
+        #
+        #plt.subplot(212)
+        #plt.plot(time, host1_cpuUtil_1, label = 'host-1', linewidth = 2)
+        #plt.plot(time, host2_cpuUtil_1, label = 'host-2', linewidth = 2)
+        #plt.plot(time, host3_cpuUtil_1, label = 'host-3', linewidth = 2)
+        #plt.plot(time, host4_cpuUtil_1, label = 'host-4', linewidth = 2)
+        #plt.xlabel('time(h)')
+        #plt.ylabel('cpu_util(%)')
+        #plt.legend()
+        #plt.grid(True)
 
-        plt.subplot(312)
-        plt.plot(time, host1_cpuUtil_1, label = 'host-1')
-        plt.plot(time, host2_cpuUtil_1, label = 'host-2')
-        plt.plot(time, host3_cpuUtil_1, label = 'host-3')
-        plt.plot(time, host4_cpuUtil_1, label = 'host-4')
-        plt.legend()
-        plt.grid(True)
-
-        plt.subplot(313)
-        plt.plot(time, total_distance, label = 'cluster-1')
-        plt.plot(time, total_distance_1, label = 'cluster-2')
+        #plt.subplot(313)
+        plt.plot(time, total_distance, label = 'policy_1', linewidth = 2)
+        plt.plot(time, total_distance_1, label = 'policy_2', linewidth = 2)
+        plt.xlabel('time(h)')
+        plt.ylabel('total_distance')
+        plt.axis([20, 80, 0, 70])
         plt.legend()
         plt.grid(True)
 
         plt.show()
 
 
-    ####################################### experiment-1 #######################################
+    ####################################### experiment-2 #######################################
     if exp == 2:
         setup_environment_2()
 
@@ -865,20 +907,98 @@ if __name__ == '__main__':
             time_count += 1
         display(host_list)
 
-        print 'game instance migration num: ' + str(game_migration_num)
-        print 'storage instance migration num: ' + str(storage_migration_num)
+        #plt.subplot(211)
+        #plt.plot(time, host1_bandwidth, label = 'host-1', linewidth = 2)
+        #plt.plot(time, host2_bandwidth, label = 'host-2', linewidth = 2)
+        #plt.plot(time, host3_bandwidth, label = 'host-3', linewidth = 2)
+        #plt.plot(time, host4_bandwidth, label = 'host-4', linewidth = 2)
+        #plt.xlabel('time(h)')
+        #plt.ylabel('bandwidth(MHZ)')
+        #plt.grid(True)
+        #plt.legend()
 
-        plt.plot(time, host1_bandwidth, label = 'host-1')
-        plt.plot(time, host2_bandwidth, label = 'host-2')
-        plt.plot(time, host3_bandwidth, label = 'host-3')
-        plt.plot(time, host4_bandwidth, label = 'host-4')
+        #setup_environment_2()
+        #time_count = 0
+        #
+        #display(host_list)
+        #host1_bandwidth_1 = []
+        #host2_bandwidth_1 = []
+        #host3_bandwidth_1 = []
+        #host4_bandwidth_1 = []
+        #time_1 = []
+        #while time_count < 80:
+        #    #plot the host bandwidth pic
+        #    host1_bandwidth_1.append(host_list['host_1'].getStatisticData('history', ResourceType.BANDWIDTH, time_count, 1))
+        #    host2_bandwidth_1.append(host_list['host_2'].getStatisticData('history', ResourceType.BANDWIDTH, time_count, 1))
+        #    host3_bandwidth_1.append(host_list['host_3'].getStatisticData('history', ResourceType.BANDWIDTH, time_count, 1))
+        #    host4_bandwidth_1.append(host_list['host_4'].getStatisticData('history', ResourceType.BANDWIDTH, time_count, 1))
+        #    time_1.append(time_count)
+        #    if time_count > 23:
+        #        game_1_guarantee_qos(1)
+        #        storage_1_consolidation(2)
+        #        #game_1_guarantee_qos_old(1)
+        #        #storage_1_consolidation_old(2)
+        #    time_count += 1
+        #display(host_list)
+        #
+        #plt.subplot(212)
+        #plt.plot(time_1, host1_bandwidth_1, label = 'host-1', linewidth = 2)
+        #plt.plot(time_1, host2_bandwidth_1, label = 'host-2', linewidth = 2)
+        #plt.plot(time_1, host3_bandwidth_1, label = 'host-3', linewidth = 2)
+        #plt.plot(time_1, host4_bandwidth_1, label = 'host-4', linewidth = 2)
+        #plt.xlabel('time(h)')
+        #plt.ylabel('bandwidth(MHZ)')
+        #plt.grid(True)
+        #plt.legend()
+
+        print game_migration
+        x = [0]
+        y = [10]
+
+        i = 0
+        while i < len(game_migration):
+            t = game_migration[i]
+
+            k = i + 1
+            i = k
+            mul = 1
+            while k < len(game_migration) and game_migration[k] == t:
+                mul += 1
+                k += 1
+                i = k
+
+            x.append(t)
+            y.append(10)
+            x.append(t)
+            y.append(0)
+            x.append(t + 0.2 * mul)
+            y.append(0)
+            x.append(t + 0.2 * mul)
+            y.append(10)
+
+
+        plt.subplot(211)
+        plt.plot(x, y, label = 'game_server', linewidth = 2, color = 'red')
+        plt.axis([20, 60, -5, 15])
+        plt.xlabel('time(h)')
+        plt.ylabel('status')
+        plt.yticks(range(-5, 15, 5), ['', 'down', '', 'running', ''])
+        plt.grid(True)
+        plt.legend()
+
+        plt.subplot(212)
+        plt.plot([0, 60], [10, 10], label = 'game_server', linewidth = 2, color = 'red')
+        plt.axis([20, 60, -5, 15])
+        plt.xlabel('time(h)')
+        plt.ylabel('status')
+        plt.yticks(range(-5, 15, 5), ['', 'down', '', 'running', ''])
         plt.grid(True)
         plt.legend()
 
         plt.show()
 
 
-    ####################################### experiment-2 #######################################
+    ####################################### experiment-3 #######################################
     if exp == 3:
         setup_environment_3()
         display(host_list)
@@ -886,34 +1006,87 @@ if __name__ == '__main__':
         totalDistance = []
         time = []
 
+        tmpInstance = []
+        for instanceId in instance_list:
+            tmpInstance.append(instanceId)
+
         while time_count < 30:
+            if time_count == 10:
+                display(host_list)
+                host_list_1 = [host_list['host_2'], host_list['host_3']]
+                host_list_2 = [host_list['host_2'], host_list['host_1']]
+                host_list_3 = [host_list['host_4'], host_list['host_4']]
+
+                instance_list['instance_1'].setFileHostList(host_list_1)
+                instance_list['instance_2'].setFileHostList(host_list_3)
+                instance_list['instance_3'].setFileHostList(host_list_3)
+                instance_list['instance_4'].setFileHostList(host_list_2)
+                instance_list['instance_5'].setFileHostList(host_list_3)
+                instance_list['instance_6'].setFileHostList(host_list_3)
+                instance_list['instance_7'].setFileHostList(host_list_2)
+                instance_list['instance_8'].setFileHostList(host_list_1)
+                instance_list['instance_9'].setFileHostList(host_list_2)
+                instance_list['instance_10'].setFileHostList(host_list_3)
+                instance_list['instance_11'].setFileHostList(host_list_3)
+                instance_list['instance_12'].setFileHostList(host_list_1)
+                instance_list['instance_13'].setFileHostList(host_list_3)
+                instance_list['instance_14'].setFileHostList(host_list_2)
+                instance_list['instance_15'].setFileHostList(host_list_2)
+                instance_list['instance_16'].setFileHostList(host_list_3)
+
+                for instanceId in instance_list:
+                    tmpInstance.append(instanceId)
+
             totalDistance.append(getTotalFileDistance())
             time.append(time_count)
 
-            hadoop_consolidation(2)
+            hadoop_consolidation(2, tmpInstance)
             #hadoop_consolidation_old(10)
             time_count += 1
         display(host_list)
 
         setup_environment_3()
-        display(host_list)
+        #display(host_list)
         time_count = 0
 
         totalDistance_1 = []
         time_1 = []
 
         while time_count < 30:
+            if time_count == 10:
+                display(host_list)
+                host_list_1 = [host_list['host_2'], host_list['host_3']]
+                host_list_2 = [host_list['host_2'], host_list['host_1']]
+                host_list_3 = [host_list['host_4'], host_list['host_4']]
+
+                instance_list['instance_1'].setFileHostList(host_list_1)
+                instance_list['instance_2'].setFileHostList(host_list_3)
+                instance_list['instance_3'].setFileHostList(host_list_3)
+                instance_list['instance_4'].setFileHostList(host_list_2)
+                instance_list['instance_5'].setFileHostList(host_list_3)
+                instance_list['instance_6'].setFileHostList(host_list_3)
+                instance_list['instance_7'].setFileHostList(host_list_2)
+                instance_list['instance_8'].setFileHostList(host_list_1)
+                instance_list['instance_9'].setFileHostList(host_list_2)
+                instance_list['instance_10'].setFileHostList(host_list_3)
+                instance_list['instance_11'].setFileHostList(host_list_3)
+                instance_list['instance_12'].setFileHostList(host_list_1)
+                instance_list['instance_13'].setFileHostList(host_list_3)
+                instance_list['instance_14'].setFileHostList(host_list_2)
+                instance_list['instance_15'].setFileHostList(host_list_2)
+                instance_list['instance_16'].setFileHostList(host_list_3)
+
             totalDistance_1.append(getTotalFileDistance())
             time_1.append(time_count)
 
             #hadoop_consolidation(2)
             hadoop_consolidation_old(2)
             time_count += 1
-        display(host_list)
+        #display(host_list)
 
-        plt.plot(time, totalDistance, label = 'exp_1')
-        plt.plot(time_1, totalDistance_1, label = 'exp_2')
-        plt.axis([0, 30, 0, 110])
+        plt.plot(time, totalDistance, label = 'exp_1', marker = 's', linewidth = 2)
+        plt.plot(time_1, totalDistance_1, label = 'exp_2', marker = 'v', linewidth = 2)
+        plt.axis([0, 20, 0, 110])
         plt.grid(True)
         plt.legend()
         plt.show()

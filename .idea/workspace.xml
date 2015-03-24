@@ -33,7 +33,7 @@
     <SUITE FILE_PATH="coverage/Dynamic Resource Allocation$InstanceDataReceiver.coverage" NAME="InstanceDataReceiver Coverage Results" MODIFIED="1387199350815" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Monitor" />
     <SUITE FILE_PATH="coverage/Dynamic Resource Allocation$Pyclips.coverage" NAME="Pyclips Coverage Results" MODIFIED="1426087177341" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/PolicyEngine" />
     <SUITE FILE_PATH="coverage/Dynamic Resource Allocation$ArbiterPMA.coverage" NAME="ArbiterPMA Coverage Results" MODIFIED="1416408388884" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Hades/Cmd" />
-    <SUITE FILE_PATH="coverage/Dynamic Resource Allocation$main.coverage" NAME="main Coverage Results" MODIFIED="1426252340536" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Simulator" />
+    <SUITE FILE_PATH="coverage/Dynamic Resource Allocation$main.coverage" NAME="main Coverage Results" MODIFIED="1427181982133" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Simulator" />
     <SUITE FILE_PATH="coverage/Dynamic Resource Allocation$experiment_0.coverage" NAME="experiment_0 Coverage Results" MODIFIED="1426149157231" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Simulator" />
     <SUITE FILE_PATH="coverage/Dynamic Resource Allocation$RpcApi__1_.coverage" NAME="RpcApi (1) Coverage Results" MODIFIED="1418918145676" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Hades/EventService" />
     <SUITE FILE_PATH="coverage/Dynamic Resource Allocation$PolicyManager.coverage" NAME="PolicyManager Coverage Results" MODIFIED="1417869795058" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/PolicyEngine" />
@@ -67,24 +67,6 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="startScript.py" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Hades/Cmd/startScript.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="20" column="20" selection-start="605" selection-end="605" vertical-scroll-proportion="0.0" vertical-offset="300" max-vertical-offset="405">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Api.py" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Hades/EventService/Api.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="105">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="arbiter.py" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Hades/Cmd/arbiter.py">
           <provider selected="true" editor-type-id="text-editor">
@@ -106,19 +88,35 @@
       <file leaf-file-name="Pyclips.py" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/PolicyEngine/Pyclips.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="58" column="14" selection-start="1034" selection-end="1034" vertical-scroll-proportion="0.0" vertical-offset="870" max-vertical-offset="1635">
+            <state line="70" column="32" selection-start="1291" selection-end="1291" vertical-scroll-proportion="0.0" vertical-offset="1050" max-vertical-offset="1635">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="main.py" pinned="false" current="false" current-in-tab="false">
+      <file leaf-file-name="PolicyManager.py" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/PolicyEngine/PolicyManager.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1170">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="testPolicy.xml" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Resource/testPolicy.xml">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="24" column="0" selection-start="78" selection-end="825" vertical-scroll-proportion="0.0" vertical-offset="360" max-vertical-offset="780">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="main.py" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/Simulator/main.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="39" column="14" selection-start="1158" selection-end="1158" vertical-scroll-proportion="0.0" vertical-offset="330" max-vertical-offset="13860">
-              <folding>
-                <element signature="e#237#253#0" expanded="true" />
-              </folding>
+            <state line="1091" column="18" selection-start="45773" selection-end="45773" vertical-scroll-proportion="16.407854" vertical-offset="10904" max-vertical-offset="16425">
+              <folding />
             </state>
           </provider>
         </entry>
@@ -126,7 +124,7 @@
       <file leaf-file-name="setup.py" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Setup/setup.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="9" column="27" selection-start="263" selection-end="263" vertical-scroll-proportion="0.0" vertical-offset="196" max-vertical-offset="1125">
+            <state line="9" column="27" selection-start="263" selection-end="263" vertical-scroll-proportion="0.0" vertical-offset="135" max-vertical-offset="1125">
               <folding />
             </state>
           </provider>
@@ -141,10 +139,10 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Manager.py" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="Manager.py" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Hades/Arbiter/Manager.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="19" column="42" selection-start="564" selection-end="564" vertical-scroll-proportion="0.42372882" vertical-offset="0" max-vertical-offset="531">
+            <state line="10" column="0" selection-start="194" selection-end="194" vertical-scroll-proportion="0.0" vertical-offset="150" max-vertical-offset="480">
               <folding />
             </state>
           </provider>
@@ -191,7 +189,7 @@
   <component name="ProjectFrameBounds">
     <option name="y" value="22" />
     <option name="width" value="1280" />
-    <option name="height" value="711" />
+    <option name="height" value="714" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="false">
     <OptionsSetting value="true" id="Add" />
@@ -235,6 +233,62 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="Dynamic Resource Allocation" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Dynamic Resource Allocation" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Dynamic Resource Allocation" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Simulator" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Dynamic Resource Allocation" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Dynamic Resource Allocation" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Setup" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Dynamic Resource Allocation" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Dynamic Resource Allocation" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Resource" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Dynamic Resource Allocation" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Dynamic Resource Allocation" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="PolicyEngine" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -605,7 +659,7 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="22" width="1280" height="711" extended-state="6" />
+    <frame x="0" y="22" width="1280" height="714" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
@@ -613,11 +667,11 @@
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32715008" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3298217" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.22204214" sideWeight="0.98477155" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.16450568" sideWeight="0.66498315" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.38409474" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="1" side_tool="true" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="9" side_tool="true" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.015228426" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.33501685" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -674,16 +728,6 @@
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/Hades/Manager.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="825" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Hades/EventService/Manager.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="630" />
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/Hades/Config.py">
       <provider selected="true" editor-type-id="text-editor">
         <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1125" />
@@ -706,16 +750,12 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/Hades/Cmd/startScript.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="20" column="20" selection-start="605" selection-end="605" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="390">
-          <folding />
-        </state>
+        <state line="20" column="20" selection-start="605" selection-end="605" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="390" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/Hades/EventService/Api.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="370">
-          <folding />
-        </state>
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="370" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/Hades/Cmd/arbiter.py">
@@ -729,29 +769,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state line="25" column="54" selection-start="650" selection-end="650" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="495">
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/PolicyEngine/Pyclips.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="58" column="14" selection-start="1034" selection-end="1034" vertical-scroll-proportion="0.0" vertical-offset="750" max-vertical-offset="1635">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Hades/EventService/RpcApi.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="30" column="33" selection-start="803" selection-end="803" vertical-scroll-proportion="0.0" vertical-offset="78" max-vertical-offset="555">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Simulator/main.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="39" column="14" selection-start="1158" selection-end="1158" vertical-scroll-proportion="0.0" vertical-offset="330" max-vertical-offset="13860">
-          <folding>
-            <element signature="e#237#253#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -771,7 +788,42 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/Hades/Arbiter/Manager.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="19" column="42" selection-start="564" selection-end="564" vertical-scroll-proportion="0.42372882" vertical-offset="0" max-vertical-offset="531">
+        <state line="10" column="0" selection-start="194" selection-end="194" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="420">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/PolicyEngine/Pyclips.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="70" column="32" selection-start="1291" selection-end="1291" vertical-scroll-proportion="0.0" vertical-offset="998" max-vertical-offset="1635">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/PolicyEngine/PolicyManager.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1155">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Resource/testPolicy.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="24" column="0" selection-start="78" selection-end="825" vertical-scroll-proportion="0.0" vertical-offset="141" max-vertical-offset="780">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Hades/EventService/RpcApi.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="30" column="33" selection-start="803" selection-end="803" vertical-scroll-proportion="0.0" vertical-offset="78" max-vertical-offset="555">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Simulator/main.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="1091" column="18" selection-start="45773" selection-end="45773" vertical-scroll-proportion="16.407854" vertical-offset="10904" max-vertical-offset="16425">
           <folding />
         </state>
       </provider>
