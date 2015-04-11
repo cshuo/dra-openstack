@@ -21,7 +21,6 @@ class ArbiterManager(Manager.Manager):
                                                **kwargs)
 
     def testArbiter(self, ctxt, host, arg):
-        print "manager: testArbiter\n"
+        #print "manager: testArbiter\n"
         host = self.schedulePolicy.randomSchedule()
-        print host
         return host

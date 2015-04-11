@@ -98,8 +98,10 @@ def Collect_Data_Statistics(meter_name, queryFilter, groupBy = None, period = No
     #print meter_name
     #print queryFilter
 
-    data = ceilometer.getMeterStatistics(meter_name, queryFilter, groupBy, period, aggregate)
-    return data[result]
+    #data = ceilometer.getMeterStatistics(meter_name, queryFilter, groupBy, period, aggregate)
+    #print data[result]
+    #return data[result]
+    return 1
 
 def Get_Vms_On_Host(hostId):
 
