@@ -26,6 +26,6 @@ class Ssh_tool:
         self.sshclient.close()
 
 if __name__=="__main__":
-    ssh = Ssh_tool("114.212.189.132",22,"root","cs")
+    ssh = Ssh_tool("114.212.189.134",22,"root","njuics08")
     ssh.remote_cmd("df")
     ssh.close()
