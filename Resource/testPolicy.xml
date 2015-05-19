@@ -14,10 +14,11 @@
         (defrule migrate_0
         (host_violation ?resourceId ?meter_name)
         =>
-        (python-call Migrate "c7ccb7d6-ade5-4f7f-927d-a677758f6579" "compute1_compute1"))
-        (python-call Migrate "a87f4d0a-6241-448a-a78d-5a3cc7244c91" "compute1_compute1"))
-        (python-call Migrate "007a49ac-9f7e-4440-8b3d-514b4737879f" "compute1_compute1"))
-
+        (bind ?vms (python-call Get_Vms_On_Host ?resourceId))
+        (bind ?vm (python-call Vm_Random_Selector ?vms))
+        (bind ?hostIds (python-call Host_Filter "['compute1_compute1', 'compute2_compute2']" "{'compute.node.cpu.percent' : {'min' : 0, 'max' : 90}}"))
+        (bind ?destHost (python-call Host_Generic_Selector ?hostIds "['Host_CpuUtil_Cost']" "[1]"))
+        (python-call Migrate ?vm ?destHost))
     </rule>
 
 

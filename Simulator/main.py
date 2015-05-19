@@ -179,10 +179,14 @@ class Instance_Matlab_1(Instance):
                     95, 95, 95, 95, 95, 95,
                     95, 95, 95, 95, 95, 95]
 
-        self.bandwidth = [30, 30, 30, 30, 30, 30,
-                          40, 40, 40, 40, 40, 40,
-                          30, 30, 30, 30, 30, 30,
-                          40, 40, 40, 40, 40, 40,]
+        #self.bandwidth = [30, 30, 30, 30, 30, 30,
+        #                  40, 40, 40, 40, 40, 40,
+        #                  30, 30, 30, 30, 30, 30,
+        #                  40, 40, 40, 40, 40, 40,]
+        self.bandwidth = [45, 40, 40, 40, 40, 40,
+                          50, 50, 50, 55, 60, 60,
+                          60, 70, 70, 65, 65, 70,
+                          70, 70, 70, 70, 60, 50]
 
     def generateCpuUtil(self, time):
         result = self.cpu[time % 24] + random.randint(0, 5)
@@ -530,11 +534,20 @@ def migrate_instance(srcHost, destHost, instance):
         if not instance:
             print 'no instance to migrate'
             return
+        if srcHost == None:
+            print 'no srcHost'
+            return
+        if destHost == None:
+            print 'no destHost'
+            return
+
         if srcHost.getId() == destHost.getId():
             return
+
         if srcHost == None or destHost == None:
             print 'no host to migrate'
             return
+
         srcHost.removeInstance(instance)
         destHost.addInstance(instance)
         instance.setHost(destHost)
@@ -705,12 +718,10 @@ def getTotalDistance():
             host = instance.getHost()
             distance = host_distance_matrix[host_mapper[host_1.getId()]][host_mapper[host.getId()]]
             totalDistance += distance
-            print totalDistance
         elif instance.getType() == InstanceType.MATLAB_2:
             host = instance.getHost()
             distance = host_distance_matrix[host_mapper[host_2.getId()]][host_mapper[host.getId()]]
             totalDistance += distance
-            print totalDistance
     return totalDistance
 
 def getMatlabDistance():
@@ -726,7 +737,6 @@ def getMatlabDistance():
             host = instance.getHost()
             distance = host_distance_matrix[host_mapper[host_1.getId()]][host_mapper[host.getId()]]
             totalDistance += distance
-            print totalDistance
     return totalDistance
 
 def getTotalFileDistance():
@@ -917,6 +927,11 @@ def setup_environment_4():
     instance_6 = Instance_Game_1('instance_6', InstanceType.GAME_1, host_1, instance_list)
     instance_7 = Instance_Game_1('instance_7', InstanceType.GAME_1, host_2, instance_list)
     instance_8 = Instance_Game_1('instance_8', InstanceType.GAME_1, host_2, instance_list)
+    instance_29 = Instance_Game_1('instance_29', InstanceType.GAME_1, host_1, instance_list)
+    instance_30 = Instance_Game_1('instance_30', InstanceType.GAME_1, host_1, instance_list)
+    instance_31 = Instance_Game_1('instance_31', InstanceType.GAME_1, host_3, instance_list)
+    instance_32 = Instance_Game_1('instance_32', InstanceType.GAME_1, host_3, instance_list)
+
 
     instance_9 = Instance_Matlab_1('instance_9', InstanceType.MATLAB_1, host_1, instance_list)
     instance_10 = Instance_Matlab_1('instance_10', InstanceType.MATLAB_1, host_1, instance_list)
@@ -926,6 +941,10 @@ def setup_environment_4():
     instance_14 = Instance_Matlab_1('instance_14', InstanceType.MATLAB_1, host_4, instance_list)
     instance_15 = Instance_Matlab_1('instance_15', InstanceType.MATLAB_1, host_3, instance_list)
     instance_16 = Instance_Matlab_1('instance_16', InstanceType.MATLAB_1_MASTER, host_3, instance_list)
+    instance_33 = Instance_Matlab_1('instance_33', InstanceType.MATLAB_1, host_3, instance_list)
+    instance_34 = Instance_Matlab_1('instance_34', InstanceType.MATLAB_1, host_1, instance_list)
+    #instance_35 = Instance_Matlab_1('instance_35', InstanceType.MATLAB_1, host_4, instance_list)
+    #instance_36 = Instance_Matlab_1('instance_36', InstanceType.MATLAB_1, host_4, instance_list)
 
     instance_17 = Instance_Hadoop('instance_17', InstanceType.HADOOP, host_1, instance_list)
     instance_18 = Instance_Hadoop('instance_18', InstanceType.HADOOP, host_1, instance_list)
@@ -935,19 +954,29 @@ def setup_environment_4():
     instance_22 = Instance_Hadoop('instance_22', InstanceType.HADOOP, host_3, instance_list)
     instance_23 = Instance_Hadoop('instance_23', InstanceType.HADOOP, host_3, instance_list)
     instance_24 = Instance_Hadoop('instance_24', InstanceType.HADOOP, host_3, instance_list)
+    instance_25 = Instance_Hadoop('instance_25', InstanceType.HADOOP, host_1, instance_list)
+    instance_26 = Instance_Hadoop('instance_26', InstanceType.HADOOP, host_4, instance_list)
+    instance_27 = Instance_Hadoop('instance_27', InstanceType.HADOOP, host_3, instance_list)
+    instance_28 = Instance_Hadoop('instance_28', InstanceType.HADOOP, host_3, instance_list)
 
-    file_list_1 = [host_2, host_3]
-    file_list_2 = [host_3, host_4]
-    file_list_3 = [host_4, host_4]
+
+    file_list_1 = [host_1, host_1]
+    file_list_2 = [host_2, host_2]
+    file_list_3 = [host_3, host_3]
+    file_list_4 = [host_4, host_4]
 
     instance_17.setFileHostList(file_list_1)
-    instance_18.setFileHostList(file_list_2)
+    instance_18.setFileHostList(file_list_1)
     instance_19.setFileHostList(file_list_2)
-    instance_20.setFileHostList(file_list_3)
-    instance_21.setFileHostList(file_list_2)
-    instance_22.setFileHostList(file_list_1)
-    instance_23.setFileHostList(file_list_3)
-    instance_24.setFileHostList(file_list_3)
+    instance_20.setFileHostList(file_list_2)
+    instance_21.setFileHostList(file_list_3)
+    instance_22.setFileHostList(file_list_3)
+    instance_23.setFileHostList(file_list_4)
+    instance_24.setFileHostList(file_list_4)
+    instance_25.setFileHostList(file_list_2)
+    instance_26.setFileHostList(file_list_1)
+    instance_27.setFileHostList(file_list_3)
+    instance_28.setFileHostList(file_list_3)
 
 def final_game(period, socket, time_count):
     if (time_count % period == 0):
@@ -973,6 +1002,10 @@ def final_game(period, socket, time_count):
                     socket.write_message(json.dumps({'type' : 'action', 'value' : 'rank min_file_distance'}))
                     socket.write_message(json.dumps({'type' : 'action', 'value' : 'destHost = %s' % destHost.getId()}))
 
+                    if destHost == srcHost:
+                        migrateInstance = select_instance_random(srcHost, InstanceType.GAME_1)
+                        destHost = select_host_min_bandwidth(host_list, 'future', time_count, 2)
+
                 if migrateInstance.getType() == InstanceType.MATLAB_1:
                     socket.write_message(json.dumps({'type' : 'event', 'value' : '(instance %s evacuate)' % migrateInstance.getId()}))
                     masterHost = filter_host_instanceType(host_list, InstanceType.MATLAB_1_MASTER, True)[0]
@@ -983,9 +1016,9 @@ def final_game(period, socket, time_count):
                     socket.write_message(json.dumps({'type' : 'action', 'value' : 'destHost = %s' % destHost.getId()}))
 
                 migrate_instance(srcHost, destHost, migrateInstance)
-                socket.write_message(json.dumps({'type' : 'action', 'value' : '%s ==> %s ==> %s' % (srcHost.getId(), migrateInstance.getId(), destHost.getId())}))
+                if srcHost != None and destHost != None and migrateInstance != None:
+                    socket.write_message(json.dumps({'type' : 'action', 'value' : '%s ==> %s ==> %s' % (srcHost.getId(), migrateInstance.getId(), destHost.getId())}))
                 socket.write_message(json.dumps(getHostsMapper()))
-                print json.dumps(getHostsMapper())
 
 def final_hadoop(period, socket, time_count):
     if (time_count % period == 0):
@@ -1002,7 +1035,7 @@ def final_hadoop(period, socket, time_count):
         socket.write_message(json.dumps({'type' : 'action', 'value' : 'rank min_file_distance'}))
         socket.write_message(json.dumps({'type' : 'action', 'value' : 'destHost = %s' % destHost.getId()}))
 
-        if destHost.getStatisticData('future', ResourceType.BANDWIDTH, time_count, 2) > 700 and destHost.getInstanceNum(InstanceType.GAME_1) > 0:
+        if destHost.getStatisticData('future', ResourceType.BANDWIDTH, time_count, 2) > 700 or destHost.getInstanceNum(InstanceType.GAME_1) > 0:
             return
         migrate_instance(srcHost, destHost, instance)
         socket.write_message(json.dumps({'type' : 'action', 'value' : '%s ==> %s ==> %s' % (srcHost.getId(), instance.getId(), destHost.getId())}))
@@ -1026,11 +1059,68 @@ def final_matlab(period, socket, time_count):
         socket.write_message(json.dumps({'type' : 'action', 'value' : 'rank min cpu distance'}))
         socket.write_message(json.dumps({'type' : 'action', 'value' : 'destHost = %s' % destHost.getId()}))
 
-        if destHost.getStatisticData('future', ResourceType.BANDWIDTH, time_count, 2) > 700 and destHost.getInstanceNum(InstanceType.GAME_1) > 0:
+        if destHost.getStatisticData('future', ResourceType.BANDWIDTH, time_count, 2) > 700 or destHost.getInstanceNum(InstanceType.GAME_1) > 0:
             return
         migrate_instance(srcHost, destHost, instance)
         socket.write_message(json.dumps({'type' : 'action', 'value' : '%s ==> %s ==> %s' % (srcHost.getId(), instance.getId(), destHost.getId())}))
         socket.write_message(json.dumps(getHostsMapper()))
+
+
+
+def final_game_1(period):
+    if (time_count % period == 0):
+        game_hostList = filter_host_instanceType(host_list, InstanceType.GAME_1, True)
+        for host in game_hostList:
+            if host.getStatisticData('future', ResourceType.BANDWIDTH, time_count, 2) > 700:
+                srcHost = host
+                migrateInstance = select_instance_random_1(host, InstanceType.GAME_1, True)
+                destHost = None
+
+                if migrateInstance.getType() == InstanceType.HADOOP:
+                    file_host_list = migrateInstance.getFileHostList()
+                    destHostList = filter_host_instanceNum(host_list, 8, InstanceType.HADOOP)
+                    destHost = select_host_file_distance_min(file_host_list, destHostList, host_distance_matrix)
+
+                    if destHost == srcHost:
+                        migrateInstance = select_instance_random(srcHost, InstanceType.GAME_1)
+                        destHost = select_host_min_bandwidth(host_list, 'future', time_count, 2)
+
+                if migrateInstance.getType() == InstanceType.MATLAB_1:
+                    masterHost = filter_host_instanceType(host_list, InstanceType.MATLAB_1_MASTER, True)[0]
+                    dest_host_list = filter_host_cpu(host_list, 'future', time_count, 2, 80)
+                    destHost = select_host_cpu_distance(masterHost, dest_host_list, host_distance_matrix, 'future', time_count, 2)
+
+                migrate_instance(srcHost, destHost, migrateInstance)
+
+def final_hadoop_1(period):
+    if (time_count % period == 0):
+        instance = filter_instance_type(InstanceType.HADOOP)
+        srcHost = instance.getHost()
+
+        file_host_list = instance.getFileHostList()
+        destHostList = filter_host_instanceNum(host_list, 8, InstanceType.HADOOP)
+
+        destHost = select_host_file_distance_min(file_host_list, destHostList, host_distance_matrix)
+
+        if destHost.getStatisticData('future', ResourceType.BANDWIDTH, time_count, 2) > 700 or destHost.getInstanceNum(InstanceType.GAME_1) > 0:
+            return
+        migrate_instance(srcHost, destHost, instance)
+        #print json.dumps(getHostsMapper())
+
+
+
+def final_matlab_1(period):
+    if (time_count % period == 0):
+        instance = filter_instance_type(InstanceType.MATLAB_1)
+        srcHost = instance.getHost()
+        masterHost = filter_host_instanceType(host_list, InstanceType.MATLAB_1_MASTER, True)[0]
+
+        dest_host_list = filter_host_cpu(host_list, 'future', time_count, 2, 80)
+        destHost = select_host_cpu_distance(masterHost, dest_host_list, host_distance_matrix, 'future', time_count, 2)
+
+        if destHost.getStatisticData('future', ResourceType.BANDWIDTH, time_count, 2) > 700 or destHost.getInstanceNum(InstanceType.GAME_1) > 0:
+            return
+        migrate_instance(srcHost, destHost, instance)
 
 
 def final_game_old(period):
@@ -1039,8 +1129,10 @@ def final_game_old(period):
         for host in game_hostList:
             if host.getStatisticData('future', ResourceType.BANDWIDTH, time_count, 2) > 700:
                 srcHost = host
-                migrateInstance = select_instance_random_1(host, InstanceType.GAME_1, True)
-                destHost = select_host_random(filter_host_instanceType(host_list, InstanceType.GAME_1, False))
+                #migrateInstance = select_instance_random_1(host, InstanceType.GAME_1, True)
+                migrateInstance = select_instance_random(srcHost, InstanceType.ALL)
+                #destHost = select_host_random(filter_host_instanceType(host_list, InstanceType.GAME_1, False))
+                destHost = select_host_min_bandwidth(host_list, 'future', time_count, 2)
                 migrate_instance(srcHost, destHost, migrateInstance)
 
 def final_consolidation(period):
@@ -1062,8 +1154,33 @@ def display(host_list):
             print instance.getId() + '\t' + str(instance.getType())
     print '\n'
 
+def getStatus(game_migration):
+        x = [0]
+        y = [10]
+        #[24, 24, 26, 33, 34, 34, 36, 39, 40, 40, 42, 44, 46, 63, 64, 64, 65, 65, 66, 70, 74, 78]
 
 
+        i = 0
+        while i < len(game_migration):
+            t = game_migration[i]
+
+            k = i + 1
+            i = k
+            mul = 1
+            while k < len(game_migration) and game_migration[k] == t:
+                mul += 1
+                k += 1
+                i = k
+
+            x.append(t)
+            y.append(10)
+            x.append(t)
+            y.append(0)
+            x.append(t + 0.2 * mul)
+            y.append(0)
+            x.append(t + 0.2 * mul)
+            y.append(10)
+        return (x, y)
 
 ############################################ WEBSOCKET ############################################
 class Index(tornado.web.RequestHandler):
@@ -1305,43 +1422,27 @@ if __name__ == '__main__':
         #plt.grid(True)
         #plt.legend()
 
-        print game_migration
-        x = [0]
-        y = [10]
 
-        i = 0
-        while i < len(game_migration):
-            t = game_migration[i]
+        #print game_migration
 
-            k = i + 1
-            i = k
-            mul = 1
-            while k < len(game_migration) and game_migration[k] == t:
-                mul += 1
-                k += 1
-                i = k
-
-            x.append(t)
-            y.append(10)
-            x.append(t)
-            y.append(0)
-            x.append(t + 0.2 * mul)
-            y.append(0)
-            x.append(t + 0.2 * mul)
-            y.append(10)
+        x, y = getStatus(game_migration)
+        game_migration_1 = [24, 28, 38]
+        x1, y1 = getStatus(game_migration_1)
+        x1.append(60)
+        y1.append(10)
 
 
-        #plt.subplot(211)
-        #plt.plot(x, y, label = 'game_server', linewidth = 2, color = 'red')
-        #plt.axis([20, 60, -5, 15])
-        #plt.xlabel('time(h)')
-        #plt.ylabel('status')
-        #plt.yticks(range(-5, 15, 5), ['', 'down', '', 'running', ''])
-        #plt.grid(True)
-        #plt.legend()
-        #
-        #plt.subplot(212)
-        plt.plot([0, 60], [10, 10], label = 'game_server', linewidth = 2, color = 'red')
+        plt.subplot(211)
+        plt.plot(x, y, label = 'game_server', linewidth = 2, color = 'red')
+        plt.axis([20, 60, -5, 15])
+        plt.xlabel('time(h)')
+        plt.ylabel('status')
+        plt.yticks(range(-5, 15, 5), ['', 'down', '', 'running', ''])
+        plt.grid(True)
+        plt.legend()
+
+        plt.subplot(212)
+        plt.plot(x1, y1, label = 'game_server', linewidth = 2, color = 'red')
         plt.axis([20, 60, -5, 15])
         plt.xlabel('time(h)')
         plt.ylabel('status')
@@ -1506,6 +1607,11 @@ if __name__ == '__main__':
         setup_environment_4()
 
         display(host_list)
+        host1_cpuUtil = []
+        host2_cpuUtil = []
+        host3_cpuUtil = []
+        host4_cpuUtil = []
+
         host1_bandwidth = []
         host2_bandwidth = []
         host3_bandwidth = []
@@ -1514,6 +1620,12 @@ if __name__ == '__main__':
         distance_hadoop = []
         time = []
         while time_count < 80:
+
+            host1_cpuUtil.append(host_list['host_1'].getStatisticData('history', ResourceType.CPU_UTIL, time_count, 1))
+            host2_cpuUtil.append(host_list['host_2'].getStatisticData('history', ResourceType.CPU_UTIL, time_count, 1))
+            host3_cpuUtil.append(host_list['host_3'].getStatisticData('history', ResourceType.CPU_UTIL, time_count, 1))
+            host4_cpuUtil.append(host_list['host_4'].getStatisticData('history', ResourceType.CPU_UTIL, time_count, 1))
+
             #plot the host bandwidth pic
             host1_bandwidth.append(host_list['host_1'].getStatisticData('history', ResourceType.BANDWIDTH, time_count, 1))
             host2_bandwidth.append(host_list['host_2'].getStatisticData('history', ResourceType.BANDWIDTH, time_count, 1))
@@ -1523,20 +1635,22 @@ if __name__ == '__main__':
             distance_matlab.append(getMatlabDistance())
             distance_hadoop.append(getHadoopDistance())
             if time_count > 23:
-                final_game(2)
-                final_hadoop(2)
-                final_matlab(2)
+                final_game_1(2)
+                final_hadoop_1(2)
+                final_matlab_1(2)
                 #final_game_old(1)
                 #final_game_old(1)
                 #final_consolidation(4)
             time_count += 1
         display(host_list)
+        print "**************************************************************************"
 
 
         setup_environment_4()
         time_count = 0
 
         display(host_list)
+
         host1_bandwidth_1 = []
         host2_bandwidth_1 = []
         host3_bandwidth_1 = []
@@ -1557,50 +1671,62 @@ if __name__ == '__main__':
                 #final_game(2)
                 #final_hadoop(2)
                 #final_matlab(2)
-                final_game_old(1)
-                final_game_old(1)
+                final_game_old(2)
+                #final_game_old(2)
                 final_consolidation(4)
             time_count += 1
         display(host_list)
 
-        plt.subplot(411)
-        plt.plot(time, host1_bandwidth, label = 'host-1', linewidth = 2)
-        plt.plot(time, host2_bandwidth, label = 'host-2', linewidth = 2)
-        plt.plot(time, host3_bandwidth, label = 'host-3', linewidth = 2)
-        plt.plot(time, host4_bandwidth, label = 'host-4', linewidth = 2)
-
-        plt.xlabel('time(h)')
-        plt.ylabel('bandwidth(MHZ)')
-        plt.legend()
-        plt.grid(True)
-
-        plt.subplot(412)
-        plt.plot(time, host1_bandwidth_1, label = 'host-1', linewidth = 2)
-        plt.plot(time, host2_bandwidth_1, label = 'host-2', linewidth = 2)
-        plt.plot(time, host3_bandwidth_1, label = 'host-3', linewidth = 2)
-        plt.plot(time, host4_bandwidth_1, label = 'host-4', linewidth = 2)
-
-        plt.xlabel('time(h)')
-        plt.ylabel('bandwidth(MHZ)')
-        plt.legend()
-        plt.grid(True)
-
-
-        plt.subplot(413)
-        plt.plot(time, distance_matlab, label = 'Rule-based', linewidth = 2)
-        plt.plot(time, distance_matlab_1, label = 'MM', linewidth = 2)
-        plt.xlabel('time(h)')
-        plt.ylabel('total_distance')
+        #plt.subplot(211)
+        #plt.plot(time, host1_cpuUtil, label = 'host-1', linewidth = 2)
+        #plt.plot(time, host2_cpuUtil, label = 'host-2', linewidth = 2)
+        #plt.plot(time, host3_cpuUtil, label = 'host-3', linewidth = 2)
+        #plt.plot(time, host4_cpuUtil, label = 'host-4', linewidth = 2)
+        #plt.xlabel('time(h)')
+        #plt.ylabel('cpu_util(%)')
+        #plt.legend()
+        #plt.grid(True)
+        #
+        #plt.subplot(212)
+        #plt.plot(time, host1_bandwidth, label = 'host-1', linewidth = 2)
+        #plt.plot(time, host2_bandwidth, label = 'host-2', linewidth = 2)
+        #plt.plot(time, host3_bandwidth, label = 'host-3', linewidth = 2)
+        #plt.plot(time, host4_bandwidth, label = 'host-4', linewidth = 2)
+        #
         #plt.xlabel('time(h)')
         #plt.ylabel('bandwidth(MHZ)')
-        plt.legend()
-        plt.grid(True)
+        #plt.legend()
+        #plt.grid(True)
 
-        plt.subplot(414)
-        plt.plot(time, distance_hadoop, label = 'Rule-based', linewidth = 2, color = 'orange')
-        plt.plot(time, distance_hadoop_1, label = 'MM', linewidth = 2, color = 'blue')
+        #plt.subplot(412)
+        #plt.plot(time, host1_bandwidth_1, label = 'host-1', linewidth = 2)
+        #plt.plot(time, host2_bandwidth_1, label = 'host-2', linewidth = 2)
+        #plt.plot(time, host3_bandwidth_1, label = 'host-3', linewidth = 2)
+        #plt.plot(time, host4_bandwidth_1, label = 'host-4', linewidth = 2)
+        #
+        #plt.xlabel('time(h)')
+        #plt.ylabel('bandwidth(MHZ)')
+        #plt.legend()
+        #plt.grid(True)
+        #
+        #
+        #plt.subplot(413)
+        #plt.plot(time, distance_matlab, label = 'Rule-based', linewidth = 2, color = 'orange', marker = 's')
+        #plt.plot(time, distance_matlab_1, label = 'MM', linewidth = 2, color = 'blue', marker = 'v')
+        #plt.xlabel('time(h)')
+        #plt.ylabel('communication_cost')
+        ##plt.xlabel('time(h)')
+        ##plt.ylabel('bandwidth(MHZ)')
+        #plt.axis([20, 50, 0, 30])
+        #plt.legend()
+        #plt.grid(True)
+        #
+        #plt.subplot(414)
+        plt.plot(time, distance_hadoop, label = 'Rule-based', linewidth = 2, color = 'orange', marker = 's')
+        plt.plot(time, distance_hadoop_1, label = 'MM', linewidth = 2, color = 'blue', marker = 'v')
         plt.xlabel('time(h)')
-        plt.ylabel('total_distance')
+        plt.ylabel('communication_cost')
+        plt.axis([20, 50, 0, 50])
         #plt.xlabel('time(h)')
         #plt.ylabel('bandwidth(MHZ)')
         plt.legend()
