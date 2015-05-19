@@ -41,16 +41,15 @@ DRA用户手册
  - 载入策略文件，执行Dynamic Resource Allocation/PolicyService/RpcApi.py，其中策略文件在Dynamic Resource Allocation/Resource/testPolicy.xml。其中规则migrate_0中的‘compute1_compute1’, 'compute2_compute2'修改为实际使用的计算节点的id
 
     
-
-    < rule name = "migrate_0">
-        (defrule migrate_0
-        (host_violation ?resourceId ?meter_name)
-        (bind ?vm (python-call Vm_Random_Selector ?vms))
-        (bind ?hostIds (python-call Host_Filter "['compute1_compute1', 'compute2_compute2']" "{'compute.node.cpu.percent' : {'min' : 0, 'max' : 90}}"))
-        (bind ?destHost (python-call Host_Generic_Selector ?hostIds "['Host_CpuUtil_Cost']" "[1]"))
-        (python-call Migrate ?vm ?destHost))
-    < /rule>
-
+    `   < rule name = "migrate_0">
+       (defrule migrate_0
+            (host_violation ?resourceId ?meter_name)
+            (bind ?vm (python-call Vm_Random_Selector ?vms))
+            (bind ?hostIds (python-call Host_Filter "['compute1_compute1', 'compute2_compute2']" "{'compute.node.cpu.percent' : {'min' : 0, 'max' : 90}}"))
+            (bind ?destHost (python-call Host_Generic_Selector ?hostIds "['Host_CpuUtil_Cost']" "[1]"))
+            (python-call Migrate ?vm ?destHost))
+        < /rule>
+    `
     
 
  - 向规则引擎发送事件，执行Dynamic Resource Allocation/EventService/RpcApi.py
