@@ -16,40 +16,42 @@ DRA用户手册
 
  - 运行源码包中的Dynamic Resource Allocation/Setup/setup.py文件，配置openstack中的rabbitmq driver
  - 源码包中的Dynamic Resource Allocation/Openstack/Conf/OpenstackConf.py文件中包含对系统的配置信息，其中：
- -- `CONTROLLER_HOST` 主节点ip
- -- `COMPUTE1_HOST` 计算节点1 ip
- -- `COMPUTE2_HOST` 计算节点2 ip
- -- `AUTH_URL` keystone认证url
- -- `NOVA_URL` nova认证url
- -- `CEILOMETER_URL` ceilometer认证url
- -- `HOST_USERNAME` 主节点用户名
- -- `HOST_PASSWORD` 主节点密码
- -- `COMPUTE1_HOST_USERNAME` 计算节点1用户名
- -- `COMPUTE1_HOST_PASSWORD` 计算节点1密码
- -- `COMPUTE2_HOST_USERNAME` 计算节点2用户名
- -- `COMPUTE2_HOST_PASSWORD` 计算节点2密码
- -- `PARAMS` 命令执行环境变量
+
+
+  + `CONTROLLER_HOST` 主节点ip
+  + `COMPUTE1_HOST` 计算节点1 ip
+  + `COMPUTE2_HOST` 计算节点2 ip
+  + `AUTH_URL` keystone认证url
+  + `NOVA_URL` nova认证url
+  + `CEILOMETER_URL` ceilometer认证url
+  + `HOST_USERNAME` 主节点用户名
+  + `HOST_PASSWORD` 主节点密码
+  + `COMPUTE1_HOST_USERNAME` 计算节点1用户名
+  + `COMPUTE1_HOST_PASSWORD` 计算节点1密码
+  + `COMPUTE2_HOST_USERNAME` 计算节点2用户名
+  + `COMPUTE2_HOST_PASSWORD` 计算节点2密码
+  + `PARAMS` 命令执行环境变量
  
 ####使用
  - 启动服务（在Dynamic Resource Allocation/Hades/Cmd目录下）
- --arbiterPMA
- --monitorPMA
- --arbiter
- --policyService
- --eventService
+   + arbiterPMA
+   + monitorPMA
+   + arbiter
+   + policyService
+   + eventService
  
  - 载入策略文件，执行Dynamic Resource Allocation/PolicyService/RpcApi.py，其中策略文件在Dynamic Resource Allocation/Resource/testPolicy.xml。其中规则migrate_0中的‘compute1_compute1’, 'compute2_compute2'修改为实际使用的计算节点的id
 
-    
-    `   < rule name = "migrate_0">
+    ```
+    < rule name = "migrate_0">
        (defrule migrate_0
             (host_violation ?resourceId ?meter_name)
             (bind ?vm (python-call Vm_Random_Selector ?vms))
             (bind ?hostIds (python-call Host_Filter "['compute1_compute1', 'compute2_compute2']" "{'compute.node.cpu.percent' : {'min' : 0, 'max' : 90}}"))
             (bind ?destHost (python-call Host_Generic_Selector ?hostIds "['Host_CpuUtil_Cost']" "[1]"))
             (python-call Migrate ?vm ?destHost))
-        < /rule>
-    `
+    </rule>
+    ```
     
 
  - 向规则引擎发送事件，执行Dynamic Resource Allocation/EventService/RpcApi.py
