@@ -43,5 +43,5 @@ class Authentication:
 if __name__=="__main__":
 
     auth = Authentication()
-    auth.tokenGet("http://114.212.189.134:35357", "admin", "admin", "ADMIN_PASS")
+    auth.tokenGet("http://20.0.1.11:35357", "admin", "admin", "cshuo")
 

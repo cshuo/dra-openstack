@@ -1,7 +1,7 @@
 __author__ = 'pike'
 
 from Hades.DB import Base
-from oslo.config import cfg
+from oslo_config import cfg
 
 CONF = cfg.CONF
 

@@ -6,7 +6,7 @@ __author__ = 'pike'
 """Starter script for arbiterPMA."""
 
 from startScript import startService
-from oslo.config import cfg
+from oslo_config import cfg
 
 CONF = cfg.CONF
 

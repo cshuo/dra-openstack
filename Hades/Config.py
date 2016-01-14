@@ -1,6 +1,6 @@
 __author__ = 'pike'
 
-from oslo.config import cfg
+from oslo_config import cfg
 from Hades import Rpc
 
 #CONF is a global instance
@@ -50,7 +50,7 @@ manager_opts = [
 
 transport = [
     cfg.StrOpt('hades_rabbit_url',
-               default = 'rabbit://guest:RABBIT_PASS@114.212.189.134:5672/',
+               default = 'rabbit://guest:cshuo@20.0.1.11:5672/',
                help = 'rabbit url'),
     cfg.StrOpt('hades_exchange',
                default = 'hades',

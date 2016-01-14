@@ -1,11 +1,11 @@
 __author__ = 'pike'
 
-from oslo import messaging
-from oslo.config import cfg
+import oslo_messaging as messaging
+from oslo_config import cfg
 from Hades import Rpc
 from Hades import Config
 from Hades import BaseRpcApi
-from oslo.config import cfg
+from oslo_config import cfg
 
 
 CONF =  cfg.CONF
@@ -32,7 +32,7 @@ if __name__ == "__main__":
 
 
     TRANSPORT = messaging.get_transport(CONF,
-                                        url = 'rabbit://guest:RABBIT_PASS@114.212.189.134:5672/',
+                                        url = 'rabbit://guest:cshuo@20.0.1.11:5672/',
                                         allowed_remote_exmods = [],
                                         aliases = {})
     target = messaging.Target(topic = 'hades_scheduler_topic')

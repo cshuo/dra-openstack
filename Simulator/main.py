@@ -4,6 +4,8 @@ __author__ = 'pike'
 # each host has 24 vcpu and allocate 2 vcpu to each instance
 # each host has 1G bandwidth each instance usually use 100M
 
+import matplotlib
+matplotlib.use('Agg')
 import matplotlib.pyplot as plt
 
 import tornado.web
@@ -16,6 +18,7 @@ from Utils.SshUtil import Ssh_tool
 from Entity import *
 from RuleWorker import *
 from Util import *
+
 
 exp = 4
 
@@ -248,7 +251,7 @@ class DataPusher(threading.Thread):
     def __init__(self, socketHandler):
         super(DataPusher, self).__init__()
         self.socketHandler = socketHandler
-        self.sshTool = Ssh_tool("114.212.189.134", 22, "root", "njuics08")
+        self.sshTool = Ssh_tool("20.0.1.11", 22, "root", "cshuo")
 
         self.count = 0
 

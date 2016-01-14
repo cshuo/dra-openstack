@@ -1,6 +1,6 @@
 __author__ = 'pike'
 
-from oslo.config import cfg
+from oslo_config import cfg
 from Hades import BaseRpcApi
 from PolicyEngine.PolicyInterpreter import PolicyInterpreter
 
@@ -25,7 +25,7 @@ if __name__ == "__main__":
     print 'policyService rpcapi\n'
 
 
-    policys = PolicyInterpreter.readPolicyFromFile("../../Resource/testPolicy.xml")
+    policys = PolicyInterpreter.readPolicyFromFile("Resource/testPolicy.xml")
 
 
 

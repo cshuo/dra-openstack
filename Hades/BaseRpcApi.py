@@ -1,7 +1,7 @@
 __author__ = 'pike'
 
 from Hades import Config
-from oslo import messaging
+import oslo_messaging as messaging
 from Hades import Rpc
 
 """

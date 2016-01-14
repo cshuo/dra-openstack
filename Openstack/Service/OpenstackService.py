@@ -13,7 +13,7 @@ class OpenstackService:
         # get the authentication token and tenant id
 
         au = Authentication()
-        au.tokenGet(AUTH_URL, "admin", "admin", "ADMIN_PASS")
+        au.tokenGet(AUTH_URL, "admin", "admin", "cshuo")
 
         self.tenantId = au.getTenantId()
         self.tokenId = au.getTokenId()

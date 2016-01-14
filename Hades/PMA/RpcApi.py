@@ -1,6 +1,6 @@
 __author__ = 'pike'
 
-from oslo.config import cfg
+from oslo_config import cfg
 from Hades import Config
 from Hades import BaseRpcApi
 

@@ -14,7 +14,7 @@ DRA用户手册
  - 配置多节点openstack（至少两台compute节点）
  - 必须配置的服务包括nova，ceilometer，glance，keystone，neutron
  - 实现compute节点间虚拟机热迁移配置
- - 安装python的oslo.config, oslo.messaging, matplotlib包
+ - 安装python的oslo_config, oslo.messaging, matplotlib包
 
 
 ----------

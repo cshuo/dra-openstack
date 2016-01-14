@@ -1,6 +1,6 @@
 __author__ = 'pike'
 
-from oslo import messaging
+import oslo_messaging as messaging
 
 _NAMESPACE = 'baseapi'
 
