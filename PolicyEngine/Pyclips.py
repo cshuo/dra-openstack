@@ -13,6 +13,10 @@ def clipsFunction(x):
 def test(x):
     eval(x)
 
+def new(y):
+    print type(str(y))
+    print y, 'ok'
+
 
 class ClipsEngine:
 
@@ -63,6 +67,14 @@ if __name__ == "__main__":
         (python-call test "clipsFunction('hello')"))
     """
 
+    rule2 = """
+        (defrule test_rule
+        (newVM ?para1 ?para2)
+        =>
+        (python-call new ?para1)
+        (printout stdout ?para1 crlf))
+    """
+
     #"""
     #rule = """
     #    (defrule new_vm
@@ -91,6 +103,7 @@ if __name__ == "__main__":
     engine = ClipsEngine()
     engine.registerPythonFunction(clipsFunction)
     engine.registerPythonFunction(test)
+    engine.registerPythonFunction(new)
     #engine.registerPythonFunction(Host_CpuUtil_Filter)
     #engine.registerPythonFunction(Host_CpuUtil_Cost)
     #engine.registerPythonFunction(Get_Host_Resource)
@@ -98,6 +111,7 @@ if __name__ == "__main__":
     #engine.addRule(rule1)
     #engine.addRule(rule2)
     engine.addRule(rule)
+    engine.addRule(rule2)
     engine.assertFact("(newVM cpubound vmInfo)")
     engine.run()
-
+    print engine.getStdout()

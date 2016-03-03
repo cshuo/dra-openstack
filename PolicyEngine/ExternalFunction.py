@@ -1,5 +1,7 @@
 __author__ = 'pike'
 
+import random
+
 from Hades.EventService.RpcApi import *
 from Openstack.Service.Nova import Nova
 from Openstack.Service.Ceilometer import Ceilometer
@@ -11,6 +13,12 @@ eventService = EventServiceAPI(CONF.hades_eventService_topic, CONF.hades_exchang
 nova = Nova()
 ceilometer = Ceilometer()
 
+
+
+############################### added by cshuo ###############################
+def simple_host_filter():
+    return str(nova.getComputeHosts())
+############################### added by cshuo ###############################
 
 
 ############################### filter ###############################
@@ -55,13 +63,10 @@ def Host_Filter(hostIds, properties):
     return str(filteredHosts)
 
 
-
-
 ############################### cost function ###############################
 
 def Host_CpuUtil_Cost(resourceId):
-    print "Host_CpuUtil_Cost"
-
+    """
     q = '''[{"field": "timestamp",
     "op": "ge",
     "value": "2014-12-12T00:00:00"},
@@ -71,11 +76,10 @@ def Host_CpuUtil_Cost(resourceId):
     {"field": "resource_id",
     "op": "eq",
     "value": "%s"}]''' % resourceId
-
     score = (100 - Collect_Data_Statistics(meter_name='compute.node.cpu.percent', queryFilter=q)) / 100.0
-
     print resourceId + " : " + str(score)
-
+    """
+    score = random.randint(1,99)
     return score
 
 cost_functions = {
@@ -103,18 +107,15 @@ def Collect_Data_Statistics(meter_name, queryFilter, groupBy = None, period = No
     #return data[result]
     return 1
 
+
 def Get_Vms_On_Host(hostId):
-
     print "Get_Vms_On_Host: " + hostId
-
-    hostName = Host_Id_To_Name(hostId)
+    #hostName = Host_Id_To_Name(hostId)
+    hostName = str(hostId)
     instances = nova.getInstancesOnHost(hostName)
     instanceIds = []
     for instance in instances:
-        instanceIds.append(instance.getId())
-
-    print str(instanceIds)
-
+        instanceIds.append(str(instance.getId()))
     return str(instanceIds)
 
 def Host_Set_Threshold(resourceId, meter_name, value, properties):
@@ -148,9 +149,6 @@ def Host_Set_Threshold(resourceId, meter_name, value, properties):
 
 #input params are all lists
 def Host_Generic_Selector(hostIds, costFunctions, factors):
-
-    print "Host_Generic_Selector: " + hostIds
-
     hostIds = eval(hostIds)
     costFunctions = eval(costFunctions)
     factors = eval(factors)
@@ -165,27 +163,25 @@ def Host_Generic_Selector(hostIds, costFunctions, factors):
 
     sortedList = sorted(dict.items(), lambda x,y : cmp(x[1], y[1]))
     destHost = sortedList[-1][0]
-
-    print destHost
-
+    print "dest host is: ", destHost
     return destHost
 
 
 def Vm_Random_Selector(instanceIds):
-
-    print "Vm_Random_Selector"
-
     instanceIds = eval(instanceIds)
     index = random.randint(0, len(instanceIds)-1)
     vm = instanceIds[index]
-
-    print vm
-
+    print "selected vm is: ", vm
     return vm
 
 
 def Migrate(instanceId, hostId):
-    hostName = Host_Id_To_Name(hostId)
+    #hostName = Host_Id_To_Name(hostId)
+    vm_lists = Get_Vms_On_Host(hostId)
+    if instanceId in vm_lists:
+        print "vm already in dest host..."
+        return 
+    hostName = hostId
     print "migrate: " + instanceId + " to " + hostName
     nova = Nova()
     nova.liveMigration(instanceId, hostName)
@@ -201,17 +197,19 @@ def Host_Name_To_Id(hostName):
 
 
 if __name__ == "__main__":
-    properties = '{"cpu_util" : {"min" : 0.5, "max" : 70}}'
+    #properties = '{"cpu_util" : {"min" : 0.5, "max" : 70}}'
     #Host_Set_Threshold("compute1_compute1", "cpu_util" , 5, properties)
     #test = {'a' : 1, 'b' : 2, 'c' : 0}
     #print sorted(test.items(), lambda x,y : cmp(x[1], y[1]))
     #print Host_CpuUtil_Cost('compute1_compute1')
     #print Host_CpuUtil_Cost('compute2_compute2')
-    #hosts = '["compute1_compute1", "compute2_compute2"]'
+    #print simple_host_filter()
+    #hosts = '["compute1", "compute2"]'
     #costFunctions = '["Host_CpuUtil_Cost"]'
     #factors = '[1]'
-
     #print Host_Generic_Selector(hosts, costFunctions, factors)
     #list =  Get_Vms_On_Host('compute2')
     #Migrate("5bdbf476-f046-4986-9e1d-5b078414a298", "compute1")
     #print Host_Filter("['compute1_compute1','compute2_compute2']", properties)
+    vms = Get_Vms_On_Host("compute2")
+    print Vm_Random_Selector(vms)

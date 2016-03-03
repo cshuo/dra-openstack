@@ -1,6 +1,7 @@
 __author__ = 'pike'
 import urllib2
 import json
+import requests
 
 class OpenstackRestful:
 
@@ -15,3 +16,12 @@ class OpenstackRestful:
         response = urllib2.urlopen(serverRequest)
         result = json.loads(response.read())
         return result
+
+    def get_req(self, url):
+        headers = {'Content-type': 'application/json', 'X-Auth-Token': self.tokenId}
+        result = requests.get(url, headers=headers).json()
+        return result
+
+    def post_req(self, url, post_data):
+        headers = {'Content-type': 'application/json', 'X-Auth-Token': self.tokenId}
+        requests.post(url, json=post_data, headers=headers)

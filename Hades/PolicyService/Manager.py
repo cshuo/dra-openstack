@@ -10,7 +10,6 @@ CONF = cfg.CONF
 
 
 class PolicyServiceManager(Manager.Manager):
-
     target = messaging.Target()
 
     def __init__(self, *args, **kwargs):
@@ -22,6 +21,8 @@ class PolicyServiceManager(Manager.Manager):
         self.monitorPMAApi = MonitorPMAAPI(CONF.hades_monitorPMA_topic, CONF.hades_exchange)
 
     def loadPolicy(self, ctxt, host, policys):
+        print "policy loaded is:"
+        print policys
         for policy in policys:
             if policy['target'] == 'arbiterPMA':
                 self.arbiterPMAApi.loadPolicy({}, 'pike', policy)
@@ -29,5 +30,16 @@ class PolicyServiceManager(Manager.Manager):
                 self.monitorPMAApi.loadPolicy({}, 'pike', policy)
             else:
                 return False
-
         return True
+
+
+if __name__ == "__main__":
+    transport = messaging.get_transport(CONF)
+    target = messaging.Target(topic="nothing", server='pike')
+    endpoints = [
+        PolicyServiceManager(),
+    ]
+    server = messaging.get_rpc_server(transport, target, endpoints,
+                                      executor='blocking')
+    server.start()
+    server.wait()

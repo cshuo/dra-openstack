@@ -31,5 +31,5 @@ class PolicyInterpreter:
 
 if __name__ == "__main__":
 
-    policys = PolicyInterpreter.readPolicyFromFile("../Resource/testPolicy.xml")
+    policys = PolicyInterpreter.readPolicyFromFile("Resource/testPolicy.xml")
     print policys

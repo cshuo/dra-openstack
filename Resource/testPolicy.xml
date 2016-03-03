@@ -16,12 +16,10 @@
         =>
         (bind ?vms (python-call Get_Vms_On_Host ?resourceId))
         (bind ?vm (python-call Vm_Random_Selector ?vms))
-        (bind ?hostIds (python-call Host_Filter "['compute1', 'compute2']" "{'compute.node.cpu.percent' : {'min' : 0, 'max' : 90}}"))
+        (bind ?hostIds (python-call simple_host_filter))
         (bind ?destHost (python-call Host_Generic_Selector ?hostIds "['Host_CpuUtil_Cost']" "[1]"))
         (python-call Migrate ?vm ?destHost))
     </rule>
-
-
 </Policy>
 
 <Policy name = "policy2" target = "monitorPMA">
@@ -40,8 +38,6 @@
         (python-call Host_Set_Threshold ?resourceId ?meter_name ?value "{'compute.node.cpu.percent' : {'min' : 10, 'max' : 80}}"))
 
     </rule>
-
 </Policy>
-
 
 </PolicyGroup>

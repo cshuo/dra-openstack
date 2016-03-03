@@ -21,14 +21,10 @@ class PMAManager(Manager.Manager):
 
     ########################### POLICY ##############################
 
-
-
     def loadPolicy(self, ctxt, host, policy):
-
         self.policyManager.loadPolicy(policy)
         print 'loadPolicy'
         return True
-
 
     ########################### EVENT ##############################
 

@@ -1,4 +1,3 @@
-
 __author__ = 'pike'
 
 from Openstack.Service.OpenstackService import *
@@ -68,12 +67,11 @@ class Nova(OpenstackService):
         hosts = []
         for host in hostsList:
             if host['service'] == 'compute':
-                hosts.append(Host(host['host_name']))
-
+                hosts.append(str(host['host_name']))
         return hosts
 
 
-
+    '''
     @staticmethod
     def liveMigration(instanceId, hostName):
 
@@ -92,7 +90,14 @@ class Nova(OpenstackService):
         #execute shell command to migrate the instance
         cmd_migrate = "nova %s live-migration %s %s" % (OpenstackConf.PARAMS, instanceId, hostName)
         ssh_controller.remote_cmd(cmd_migrate)
+    '''
 
+    def liveMigration(self, instance_id, host):
+        """ live migrate an instance to dest host """
+        url = "{base}/v2/{tenant}/servers/{instance}/action".format(base=OpenstackConf.NOVA_URL,
+                tenant=self.tenantId, instance=instance_id)
+        values = {"os-migrateLive":{"block_migration": "true", "host":host, 'disk_over_commit':"false"}}
+        self.restful.post_req(url, values)
 
 
 if __name__ == "__main__":
@@ -109,9 +114,7 @@ if __name__ == "__main__":
     #    print host.getHostName()
     #
     #
-    #nova.liveMigration('5bdbf476-f046-4986-9e1d-5b078414a298', "compute2")
+    nova.liveMigration('c3f12b05-d9ed-4691-a41e-4de8def65d58', "compute2")
     #nova.getInstancesOnHost('compute2')
-    nova.liveMigration('c7ccb7d6-ade5-4f7f-927d-a677758f6579', "compute1")
-    nova.liveMigration('a87f4d0a-6241-448a-a78d-5a3cc7244c91', "compute1")
-    nova.liveMigration('007a49ac-9f7e-4440-8b3d-514b4737879f', "compute1")
-
+    #nova.liveMigration('007a49ac-9f7e-4440-8b3d-514b4737879f', "compute1")
+    #print nova.getComputeHosts()

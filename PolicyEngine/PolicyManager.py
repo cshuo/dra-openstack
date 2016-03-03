@@ -5,6 +5,7 @@ from ExternalFunction import *
 
 registerFunctions = [
     Host_Filter,
+    simple_host_filter,
     Collect_Data,
     Collect_Data_Statistics,
     Get_Vms_On_Host,
@@ -12,7 +13,6 @@ registerFunctions = [
     Host_Generic_Selector,
     Vm_Random_Selector,
     Migrate
-
 ]
 
 class PolicyManager:
@@ -61,10 +61,14 @@ if __name__ == "__main__":
         (defrule new_vm
         (newVM cpubound vmInfo)
         =>
-        (bind ?hosts (python-call Host_CpuUtil_Filter))
-        (bind ?destHost (python-call Host_CpuUtil_Cost ?hosts))
-        (printout stdout ?destHost crlf))
+        (bind ?vms (python-call Get_Vms_On_Host "compute2"))
+        (bind ?vm (python-call Vm_Random_Selector ?vms))
+        (bind ?hosts (python-call simple_host_filter))
+        (bind ?destHost (python-call Host_Generic_Selector ?hosts "['Host_CpuUtil_Cost']" "[1]"))
+        (printout stdout ?destHost crlf)
+        (python-call Migrate ?vm ?destHost))
     """
+   
     policy = PolicyManager()
     policy.loadRule("new_vm", rule)
     policy.assertFact("(newVM cpubound vmInfo)")
