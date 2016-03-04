@@ -7,14 +7,12 @@ def clipsFunction(x):
     #str = "hello world: " + x + "\n"
     #print str
     #return str
-    print x
     return x
 
 def test(x):
     eval(x)
 
 def new(y):
-    print type(str(y))
     print y, 'ok'
 
 
@@ -26,9 +24,15 @@ class ClipsEngine:
 
     def assertFact(self, fact):
         self.env.Assert(fact)
+        print "****** facts in clips *****"
+        self.listFacts()
+        print "****** facts in clips *****"
 
     def addRule(self, rule):
         self.env.Build(rule)
+        print "****** rules in clips *****"
+        self.listRules()
+        print "****** rules in clips *****"
 
     def removeRule(self, ruleName):
         try:
@@ -50,6 +54,11 @@ class ClipsEngine:
     def getStdout(self):
         return clips.StdoutStream.Read()
 
+    def listRules(self):
+        return self.env.PrintRules()
+    
+    def listFacts(self):
+        return self.env.PrintFacts()
 
 
 
@@ -109,9 +118,12 @@ if __name__ == "__main__":
     #engine.registerPythonFunction(Get_Host_Resource)
     #engine.registerPythonFunction(Host_resource_upperBound)
     #engine.addRule(rule1)
-    #engine.addRule(rule2)
-    engine.addRule(rule)
     engine.addRule(rule2)
+    engine.addRule(rule)
     engine.assertFact("(newVM cpubound vmInfo)")
+    engine.assertFact("(newVM cpubound vmInfo1)")
     engine.run()
-    print engine.getStdout()
+    print "***********"
+    print engine.listFacts()
+    print "***********"
+    print engine.listRules()

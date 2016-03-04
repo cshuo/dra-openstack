@@ -14,11 +14,13 @@ EXTRA_EXMODS = []
 def init(conf):
     global TRANSPORT
     exmods = get_allowed_exmods()
+    TRANSPORT = messaging.get_transport(conf)
+    """
     TRANSPORT = messaging.get_transport(conf,
                                         url = CONF.hades_rabbit_url,
                                         allowed_remote_exmods = exmods,
                                         aliases = {})
-    #serializer
+    """
 
 def cleanup():
     global  TRANSPORT
@@ -53,11 +55,13 @@ def get_allowed_exmods():
 
 def get_client(target, version_cap = None, serializer = None):
     assert TRANSPORT is not None
-    #serializer = RequestContextSerializer(serializer)
+    return messaging.RPCClient(TRANSPORT, target)
+    """
     return messaging.RPCClient(TRANSPORT,
                                target,
                                version_cap = version_cap,
                                serializer = serializer)
+    """
 
 def get_server(target, endpoints, serializer = None):
     assert TRANSPORT is not None

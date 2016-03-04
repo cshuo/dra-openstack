@@ -69,9 +69,6 @@ class MonitorPMAManager(PMAManager):
                                                 *args,
                                                 **kwargs)
 
-
-
-
 if __name__ == "__main__":
     manager = ArbiterPMAManager()
     print manager.service_name

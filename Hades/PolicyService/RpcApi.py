@@ -26,6 +26,6 @@ if __name__ == "__main__":
 
     policys = PolicyInterpreter.readPolicyFromFile("Resource/testPolicy.xml")
 
-    api = PolicyServiceAPI("nothing", CONF.hades_exchange)
+    api = PolicyServiceAPI(CONF.hades_policyService_topic, CONF.hades_exchange)
     print policys
     print api.loadPolicy({}, 'pike', policys)

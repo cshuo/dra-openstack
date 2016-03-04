@@ -23,7 +23,8 @@ class EventServiceManager(Manager.Manager):
         self.monitorPMA = MonitorPMAAPI(CONF.hades_monitorPMA_topic, CONF.hades_exchange)
 
     def sendEvent(self, ctxt, host, pma, event):
-        print "sendEvent"
+        print "Event recvd is: "
+        print event
         if pma == 'arbiterPMA':
             self.arbiterPMA.handleEvent({}, 'pike', event)
         elif pma == 'monitorPMA':
@@ -38,3 +39,16 @@ class EventServiceManager(Manager.Manager):
             return self.monitorPMA.handleEventWithResult({}, 'pike', event)
         else:
             return False
+
+if __name__ == "__main__":
+    print CONF.hades_exchange
+    CONF.control_exchange = CONF.hades_exchange
+    transport = messaging.get_transport(CONF)
+    target = messaging.Target(topic=CONF.hades_eventService_topic, server='pike')
+    endpoints = [
+        EventServiceManager(),
+    ]
+    server = messaging.get_rpc_server(transport, target, endpoints,
+                                      executor='blocking')
+    server.start()
+    server.wait()

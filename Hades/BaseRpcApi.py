@@ -24,6 +24,3 @@ class BaseAPI(object):
         return Rpc.get_client(target,
                               version_cap = version_cap,
                               serializer = serializer)
-
-
-

@@ -34,8 +34,9 @@ class PolicyServiceManager(Manager.Manager):
 
 
 if __name__ == "__main__":
+    CONF.control_exchange = CONF.hades_exchange
     transport = messaging.get_transport(CONF)
-    target = messaging.Target(topic="nothing", server='pike')
+    target = messaging.Target(topic=CONF.hades_policyService_topic, server='pike')
     endpoints = [
         PolicyServiceManager(),
     ]
