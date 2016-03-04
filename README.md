@@ -10,11 +10,11 @@ DRA用户手册
 
 
 ###环境配置
-
+ - openstack版本Liberty
  - 配置多节点openstack（至少两台compute节点）
  - 必须配置的服务包括nova，ceilometer，glance，keystone，neutron
  - 实现compute节点间虚拟机热迁移配置
- - 安装python的oslo_config, oslo.messaging, matplotlib包
+ - 安装python的oslo_config, oslo_messaging, matplotlib包
 
 
 ----------
@@ -22,8 +22,7 @@ DRA用户手册
 
 ###系统配置
 
- - 运行源码包中的Dynamic Resource Allocation/Setup/setup.py文件，配置openstack中的rabbitmq driver
- - 源码包中的Dynamic Resource Allocation/Openstack/Conf/OpenstackConf.py文件中包含对系统的配置信息，其中：
+ - 源码包中的dra-openstack/Openstack/Conf/OpenstackConf.py文件中包含对系统的配置信息，其中：
 
 
   + `CONTROLLER_HOST` 主节点ip
@@ -48,14 +47,14 @@ DRA用户手册
 ###使用
 
 ####openstack
- - 启动服务（在Dynamic Resource Allocation/Hades/Cmd目录下）
+ - 启动服务（在dra-openstack/Hades/Cmd目录下）
    + arbiterPMA
    + monitorPMA
    + arbiter
    + policyService
    + eventService
  
- - 载入策略文件，执行Dynamic Resource Allocation/PolicyService/RpcApi.py，其中策略文件在Dynamic Resource Allocation/Resource/testPolicy.xml。其中规则migrate_0中的‘compute1_compute1’, 'compute2_compute2'修改为实际使用的计算节点的id
+ - 载入策略文件，执行dra-openstack/Hades/PolicyService/RpcApi.py，其中策略文件在dra-openstack/Resource/testPolicy.xml。其中规则migrate_0中的‘compute1_compute1’, 'compute2_compute2'修改为实际使用的计算节点的id
 
     ```
     < rule name = "migrate_0">
@@ -69,13 +68,13 @@ DRA用户手册
     ```
     
 
- - 向规则引擎发送事件，执行Dynamic Resource Allocation/EventService/RpcApi.py。其中发送事件中的'compute2_compute2'改为实际计算节点的id
+ - 向规则引擎发送事件，执行dra-openstack/Hades/EventService/RpcApi.py。其中发送事件中的'compute2_compute2'改为实际计算节点的id
 	```
 	api.sendEvent({}, "pike", "monitorPMA", "(host_collect_data_statistics compute2_compute2 compute.node.cpu.percent %s None None None avg)" % query)
 	```
 
 ####simulator
-模拟器模拟了不同应用场景下的虚拟机和物理机的资源使用情况，存放在Dynamic Resource Allocation/Simulator下。
+模拟器模拟了不同应用场景下的虚拟机和物理机的资源使用情况，存放在dra-openstack/Simulator下。
 
 main.py文件为模拟器主文件，通过设置‘exp‘变量实施不同的模拟，其中：
 
