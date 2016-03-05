@@ -32,7 +32,7 @@ if __name__ == "__main__":
 
 
     TRANSPORT = messaging.get_transport(CONF,
-                                        url = 'rabbit://guest:cshuo@20.0.1.11:5672/',
+                                        url = 'rabbit://openstack:cshuo@20.0.1.11:5672/',
                                         allowed_remote_exmods = [],
                                         aliases = {})
     target = messaging.Target(topic = 'hades_scheduler_topic')

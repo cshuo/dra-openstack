@@ -6,13 +6,12 @@ from oslo_config import cfg
 
 from nova.compute import rpcapi as compute_rpcapi
 from nova import exception
-from nova.openstack.common import log as logging
-from nova.openstack.common.gettextutils import _
+from oslo_log import log as logging
 from nova.scheduler import driver
 
 
-
-CONF = cfg.ConfigOpts()
+CONF = cfg.CONF
+#CONF = cfg.ConfigOpts()
 #CONF.import_opt('compute_topic', 'nova.compute.rpcapi')
 #LOG = logging.getLogger(__name__)
 
@@ -45,10 +44,10 @@ class HubScheduler(driver.Scheduler):
 
 
 	TRANSPORT = messaging.get_transport(CONF,
-                                        url = 'rabbit://guest:cshuo@20.0.1.11:5672/',
+                                        url = 'rabbit://openstack:cshuo@20.0.1.11:5672/',
                                         allowed_remote_exmods = [],
                                         aliases = {})
-	target = messaging.Target(topic = 'hades_scheduler_topic')
+	target = messaging.Target(topic = 'hades_arbiter_topic')
 	version_cap = None
 	serializer = None
 	client = messaging.RPCClient(TRANSPORT,
@@ -58,7 +57,7 @@ class HubScheduler(driver.Scheduler):
 
 	cctxt = client.prepare(server = 'pike')
 
-	host = cctxt.call({}, 'testSchedule', host = 'pike', arg = '')
+	host = cctxt.call({}, 'testSchedule', arg='')
 
         return host
 
@@ -110,3 +109,7 @@ class HubScheduler(driver.Scheduler):
                 driver.handle_schedule_error(context, ex, instance_uuid,
                                              request_spec)
 
+
+if __name__ == '__main__':
+    sche = HubScheduler()
+    print sche._schedule()

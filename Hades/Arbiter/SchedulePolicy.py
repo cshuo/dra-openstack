@@ -11,7 +11,7 @@ class SchedulePolicy:
         novaService = Nova.Nova()
         computeHosts = novaService.getComputeHosts()
         index = random.randint(0, len(computeHosts)-1)
-        return computeHosts[index].getHostName()
+        return computeHosts[index]
         #return host
 
 if __name__ == '__main__':

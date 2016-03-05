@@ -11,7 +11,7 @@ CONF = cfg.CONF
 
 class ArbiterManager(Manager.Manager):
 
-    target = messaging.Target(version = '3.34')
+    target = messaging.Target()
 
     def __init__(self, *args, **kwargs):
         self.arbiter_rpcapi = RpcApi.ArbiterAPI()
@@ -20,7 +20,7 @@ class ArbiterManager(Manager.Manager):
                                                *args,
                                                **kwargs)
 
-    def testArbiter(self, ctxt, host, arg):
-        #print "manager: testArbiter\n"
+    def testArbiter(self, ctxt, arg):
         host = self.schedulePolicy.randomSchedule()
+        print "selected host is:", host
         return host
