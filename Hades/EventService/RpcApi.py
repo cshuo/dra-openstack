@@ -32,6 +32,6 @@ if __name__ == "__main__":
 
     api = EventServiceAPI(CONF.hades_eventService_topic, CONF.hades_exchange)
     #print api.sendEvent({}, 'pike', "arbiterPMA", "(newVM cpubound vmInfo)")
-    api.sendEvent({}, 'pike', 'arbiterPMA', "(host_violation compute1 cpu)")
-    #query = '''"[{'field': 'timestamp','op': 'ge','value': '2014-12-12T00:00:00'},{'field': 'timestamp','op': 'lt','value': '2014-12-16T00:00:00'},{'field': 'resource_id','op': 'eq','value': 'compute2'}]"'''
-    #print api.sendEvent({}, "pike", "monitorPMA", "(host_collect_data_statistics compute2 compute.node.cpu.percent %s None None None avg)" % query)
+    #api.sendEvent({}, 'pike', 'arbiterPMA', "(host_violation compute1 cpu)")
+    query = '''"[{'field': 'timestamp','op': 'ge','value': '2016-03-08T10:00:00'},{'field': 'timestamp','op': 'lt','value': '2016-03-08T12:00:00'},{'field': 'resource_id','op': 'eq','value': 'compute2_compute2'}]"'''
+    print api.sendEvent({}, "pike", "monitorPMA", "(host_collect_data_statistics compute2_compute2 compute.node.cpu.percent %s None None None avg)" % query)

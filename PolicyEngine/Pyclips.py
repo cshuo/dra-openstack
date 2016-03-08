@@ -7,13 +7,16 @@ def clipsFunction(x):
     #str = "hello world: " + x + "\n"
     #print str
     #return str
-    return x
+    print x
 
 def test(x):
+    print "test"
     eval(x)
 
-def new(y):
+def new(y, z=None):
     print y, 'ok'
+    if z == None:
+        print "None"
 
 
 class ClipsEngine:
@@ -24,15 +27,9 @@ class ClipsEngine:
 
     def assertFact(self, fact):
         self.env.Assert(fact)
-        print "****** facts in clips *****"
-        self.listFacts()
-        print "****** facts in clips *****"
 
     def addRule(self, rule):
         self.env.Build(rule)
-        print "****** rules in clips *****"
-        self.listRules()
-        print "****** rules in clips *****"
 
     def removeRule(self, ruleName):
         try:
@@ -71,14 +68,14 @@ if __name__ == "__main__":
 
     rule = """
         (defrule new_vm
-        (newVM cpubound vmInfo)
+        (newVM cpubound test.new.ow)
         =>
         (python-call test "clipsFunction('hello')"))
     """
 
     rule2 = """
         (defrule test_rule
-        (newVM ?para1 ?para2)
+        (newVM ?para1 ?para2 ?para3)
         =>
         (python-call new ?para1)
         (printout stdout ?para1 crlf))
@@ -120,10 +117,6 @@ if __name__ == "__main__":
     #engine.addRule(rule1)
     engine.addRule(rule2)
     engine.addRule(rule)
-    engine.assertFact("(newVM cpubound vmInfo)")
-    engine.assertFact("(newVM cpubound vmInfo1)")
+    engine.assertFact("(newVM cpubound test.new.ow)")
+    engine.assertFact("(newVM cpubound vmInfo1 None)")
     engine.run()
-    print "***********"
-    print engine.listFacts()
-    print "***********"
-    print engine.listRules()

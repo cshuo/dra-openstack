@@ -1,8 +1,7 @@
 <PolicyGroup name = "group1">
 
 <Policy name = "policy1" target = "arbiterPMA">
-
-	<rule name = "new_vm">
+    <rule name = "new_vm">
         (defrule new_vm
         (new_vm vm_properties)
         =>
@@ -16,7 +15,7 @@
         =>
         (bind ?vms (python-call Get_Vms_On_Host ?resourceId))
         (bind ?vm (python-call Vm_Random_Selector ?vms))
-        (bind ?hostIds (python-call simple_host_filter))
+        (bind ?hostIds (python-call Host_Filter "['compute1', 'compute2']" "{'compute.node.cpu.percent' : {'min' : 0, 'max' : 90}}"))
         (bind ?destHost (python-call Host_Generic_Selector ?hostIds "['Host_CpuUtil_Cost']" "[1]"))
         (python-call Migrate ?vm ?destHost))
     </rule>
@@ -28,14 +27,14 @@
         (host_collect_data_statistics ?resourceId ?meter_name ?queryFilter ?groupBy ?period ?aggregate ?result)
         =>
         (bind ?value (python-call Collect_Data_Statistics ?meter_name ?queryFilter ?groupBy ?period ?aggregate ?result))
-        (assert (host_collected_data_statistics ?resourceId ?meter_name ?value)))
+        (assert (host_collected_data_analyze ?resourceId ?meter_name ?value)))
     </rule>
 
     <rule name = "threshold_0">
         (defrule threshold_0
-        (host_collected_data_statistics ?resourceId ?meter_name ?value)
+        (host_collected_data_analyze ?resourceId ?meter_name ?value)
         =>
-        (python-call Host_Set_Threshold ?resourceId ?meter_name ?value "{'compute.node.cpu.percent' : {'min' : 10, 'max' : 80}}"))
+        (python-call Host_Set_Threshold ?resourceId ?meter_name ?value "{'compute.node.cpu.percent' : {'min' : 3, 'max' : 6}}"))
 
     </rule>
 </Policy>

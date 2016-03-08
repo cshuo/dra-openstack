@@ -71,27 +71,6 @@ class Nova(OpenstackService):
         return hosts
 
 
-    '''
-    @staticmethod
-    def liveMigration(instanceId, hostName):
-
-        # change comupute nodes's privilege for dir /var/lib/nova/instances
-        ssh_compute1 = Ssh_tool(OpenstackConf.COMPUTE1_HOST, 22, OpenstackConf.COMPUTE1_HOST_USERNAME, OpenstackConf.COMPUTE1_HOST_PASSWORD)
-        ssh_compute2 = Ssh_tool(OpenstackConf.COMPUTE2_HOST, 22, OpenstackConf.COMPUTE2_HOST_USERNAME, OpenstackConf.COMPUTE2_HOST_PASSWORD)
-
-        cmd_chmod = "chmod 777 -R /var/lib/nova/instances"
-        ssh_compute1.remote_cmd(cmd_chmod)
-        ssh_compute2.remote_cmd(cmd_chmod)
-
-
-        # connect to host
-        ssh_controller = Ssh_tool(OpenstackConf.CONTROLLER_HOST, 22, OpenstackConf.HOST_USERNAME, OpenstackConf.HOST_PASSWORD)
-
-        #execute shell command to migrate the instance
-        cmd_migrate = "nova %s live-migration %s %s" % (OpenstackConf.PARAMS, instanceId, hostName)
-        ssh_controller.remote_cmd(cmd_migrate)
-    '''
-
     def liveMigration(self, instance_id, host):
         """ live migrate an instance to dest host """
         url = "{base}/v2/{tenant}/servers/{instance}/action".format(base=OpenstackConf.NOVA_URL,

@@ -46,9 +46,7 @@ class PolicyManager:
         self.clipsEngine.removeRule(ruleName)
 
     def assertFact(self, fact):
-        print "assert fact"
         self.clipsEngine.assertFact(fact)
-        print "assert fact end"
 
     def run(self):
         self.clipsEngine.run()

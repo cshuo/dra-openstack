@@ -53,13 +53,6 @@ class ArbiterPMAManager(PMAManager):
                                                *args,
                                                **kwargs)
 
-    #def handleEvent(self, ctxt, host, event):
-    #    print event
-    #    self.policyManager.assertFact(event)
-    #    self.policyManager.run()
-    #    result = self.policyManager.getStdout()
-    #    return result
-
 class MonitorPMAManager(PMAManager):
 
     target = messaging.Target()
