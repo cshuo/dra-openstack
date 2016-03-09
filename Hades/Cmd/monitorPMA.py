@@ -1,12 +1,10 @@
-
-
 __author__ = 'pike'
 
 
 """Starter script for monitorPMA."""
 
-from startScript import startService
 from oslo_config import cfg
+from dra.Hades.Cmd.startScript import startService
 
 CONF = cfg.CONF
 

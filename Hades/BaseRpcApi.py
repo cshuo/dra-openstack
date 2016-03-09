@@ -1,8 +1,9 @@
 __author__ = 'pike'
 
-from Hades import Config
 import oslo_messaging as messaging
-from Hades import Rpc
+
+from dra.Hades import Config
+from dra.Hades import Rpc
 
 """
     client side of rpc api

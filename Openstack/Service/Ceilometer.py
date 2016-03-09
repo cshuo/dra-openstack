@@ -1,9 +1,9 @@
-__author__ = 'pike'
+__author__ = 'pike,cshuo'
 
 
-from Openstack.Service.OpenstackService import  *
-from Openstack.Conf import OpenstackConf
-from Utils.HttpUtil import OpenstackRestful
+from dra.Openstack.Service.OpenstackService import  *
+from dra.Openstack.Conf import OpenstackConf
+from dra.Utils.HttpUtil import OpenstackRestful
 
 
 class Ceilometer(OpenstackService):

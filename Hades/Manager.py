@@ -1,6 +1,6 @@
 __author__ = 'pike'
 
-from Hades.DB import Base
+from dra.Hades.DB import Base
 from oslo_config import cfg
 
 CONF = cfg.CONF

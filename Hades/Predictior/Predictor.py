@@ -1,9 +1,10 @@
 __author__ = 'pike'
 
-from Utils.FileUtil import VMFile
-from Utils.MathUtil import *
 from matplotlib import pyplot as plt
 import random
+
+from dra.Utils.FileUtil import VMFile
+from dra.Utils.MathUtil import *
 
 class Predictor:
 

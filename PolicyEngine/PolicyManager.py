@@ -1,7 +1,7 @@
 __author__ = 'pike'
 
-from Pyclips import ClipsEngine
-from ExternalFunction import *
+from dra.PolicyEngine.Pyclips import ClipsEngine
+from dra.PolicyEngine.ExternalFunction import *
 
 registerFunctions = [
     Host_Filter,

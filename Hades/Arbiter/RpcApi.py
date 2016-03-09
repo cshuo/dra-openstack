@@ -2,8 +2,9 @@ __author__ = 'pike'
 
 import oslo_messaging as messaging
 from oslo_config import cfg
-from Hades import Rpc
-from Hades import Config
+
+from dra.Hades import Rpc
+from dra.Hades import Config
 
 CONF =  cfg.CONF
 

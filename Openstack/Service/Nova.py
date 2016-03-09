@@ -1,13 +1,13 @@
 __author__ = 'pike'
 
-from Openstack.Service.OpenstackService import *
-from Utils.HttpUtil import OpenstackRestful
-from Openstack.Conf import OpenstackConf
-from Openstack.Entity.Instance import *
-from Openstack.Entity.Host import *
 import urllib2
 import json
 
+from dra.Openstack.Service.OpenstackService import *
+from dra.Utils.HttpUtil import OpenstackRestful
+from dra.Openstack.Conf import OpenstackConf
+from dra.Openstack.Entity.Instance import *
+from dra.Openstack.Entity.Host import *
 
 
 class Nova(OpenstackService):

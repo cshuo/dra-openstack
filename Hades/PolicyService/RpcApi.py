@@ -1,8 +1,9 @@
 __author__ = 'pike'
 
 from oslo_config import cfg
-from Hades import BaseRpcApi
-from PolicyEngine.PolicyInterpreter import PolicyInterpreter
+
+from dra.Hades import BaseRpcApi
+from dra.PolicyEngine.PolicyInterpreter import PolicyInterpreter
 
 CONF =  cfg.CONF
 

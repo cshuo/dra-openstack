@@ -1,8 +1,8 @@
 __author__ = 'pike'
 
-from Openstack.Service.Keystone import *
+from dra.Openstack.Service.Keystone import *
 
-from Openstack.Conf.OpenstackConf import AUTH_URL
+from dra.Openstack.Conf.OpenstackConf import AUTH_URL
 
 
 class OpenstackService:

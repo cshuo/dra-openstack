@@ -1,10 +1,11 @@
 __author__ = 'pike'
 
-from Hades import Manager
 import oslo_messaging as messaging
 from oslo_config import cfg
-from Hades.PMA.RpcApi import ArbiterPMAAPI
-from Hades.PMA.RpcApi import MonitorPMAAPI
+
+from dra.Hades import Manager
+from dra.Hades.PMA.RpcApi import ArbiterPMAAPI
+from dra.Hades.PMA.RpcApi import MonitorPMAAPI
 
 CONF = cfg.CONF
 

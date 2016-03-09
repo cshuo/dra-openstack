@@ -3,8 +3,10 @@ __author__ = 'pike'
 
 import numpy as np
 import matplotlib.pyplot as plt
-from FileUtil import VMFile
 import math
+
+from dra.Utils.FileUtil import VMFile
+
 
 def minusAverage(list):
     result = list[:]

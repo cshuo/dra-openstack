@@ -1,12 +1,12 @@
 __author__ = 'pike'
 
-
-from Utils import ImportUtils
-from Hades.Common import Service as service
 import oslo_messaging as messaging
-from Hades import BaseRpc
-from Hades import Rpc
 from oslo_config import cfg
+
+from dra.Utils import ImportUtils
+from dra.Hades.Common import Service as service
+from dra.Hades import BaseRpc
+from dra.Hades import Rpc
 
 CONF = cfg.CONF
 

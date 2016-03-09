@@ -1,7 +1,8 @@
 __author__ = 'pike'
 
 import paramiko
-from Openstack.Conf import OpenstackConf
+
+from dra.Openstack.Conf import OpenstackConf
 
 class Ssh_tool:
 

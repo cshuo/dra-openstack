@@ -2,17 +2,15 @@ __author__ = 'pike'
 
 import random
 
-from Hades.EventService.RpcApi import *
-from Openstack.Service.Nova import Nova
-from Openstack.Service.Ceilometer import Ceilometer
-from Openstack.Entity.Instance import Instance
-import random
+from dra.Hades.EventService.RpcApi import *
+from dra.Openstack.Service.Nova import Nova
+from dra.Openstack.Service.Ceilometer import Ceilometer
+from dra.Openstack.Entity.Instance import Instance
 
 
 eventService = EventServiceAPI(CONF.hades_eventService_topic, CONF.hades_exchange)
 nova = Nova()
 ceilometer = Ceilometer()
-
 
 
 ############################### added by cshuo ###############################

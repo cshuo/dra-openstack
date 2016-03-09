@@ -1,9 +1,11 @@
 __author__ = 'pike'
 
-from Hades import Manager
 import oslo_messaging as messaging
 from oslo_config import cfg
-from PolicyEngine.PolicyManager import PolicyManager
+
+from dra.Hades import Manager
+from dra.PolicyEngine.PolicyManager import PolicyManager
+
 
 CONF = cfg.CONF
 

@@ -1,7 +1,9 @@
 __author__ = 'pike'
 
-from Openstack.Service import Nova
 import random
+
+from dra.Openstack.Service import Nova
+
 
 class SchedulePolicy:
     def __init__(self):

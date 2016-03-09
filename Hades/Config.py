@@ -1,7 +1,7 @@
 __author__ = 'pike'
 
 from oslo_config import cfg
-from Hades import Rpc
+from dra.Hades import Rpc
 
 #CONF is a global instance
 CONF = cfg.CONF
@@ -29,22 +29,22 @@ rpcapi_opts = [
 
 manager_opts = [
     cfg.StrOpt('hades_scheduler_manager',
-               default = 'Hades.Scheduler.Manager.SchedulerManager',
+               default = 'dra.Hades.Scheduler.Manager.SchedulerManager',
                help = 'hades scheduler manager'),
     cfg.StrOpt('hades_arbiter_manager',
-               default = 'Hades.Arbiter.Manager.ArbiterManager',
+               default = 'dra.Hades.Arbiter.Manager.ArbiterManager',
                help = 'hades arbiter manager'),
     cfg.StrOpt('hades_policyService_manager',
-               default = 'Hades.PolicyService.Manager.PolicyServiceManager',
+               default = 'dra.Hades.PolicyService.Manager.PolicyServiceManager',
                help = 'hades policyService manager'),
     cfg.StrOpt('hades_arbiterPMA_manager',
-               default = 'Hades.PMA.Manager.ArbiterPMAManager',
+               default = 'dra.Hades.PMA.Manager.ArbiterPMAManager',
                help = 'hades arbiterPMA manager'),
     cfg.StrOpt('hades_monitorPMA_manager',
-               default = 'Hades.PMA.Manager.MonitorPMAManager',
+               default = 'dra.Hades.PMA.Manager.MonitorPMAManager',
                help = 'hades monitorPMA manager'),
     cfg.StrOpt('hades_eventService_manager',
-               default = 'Hades.EventService.Manager.EventServiceManager',
+               default = 'dra.Hades.EventService.Manager.EventServiceManager',
                help = 'hades eventService manager')
 ]
 
