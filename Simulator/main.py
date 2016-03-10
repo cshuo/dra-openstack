@@ -13,6 +13,7 @@ import tornado.ioloop
 import tornado.websocket
 
 import time
+import sys
 
 from Utils.SshUtil import Ssh_tool
 from Entity import *
@@ -20,7 +21,7 @@ from RuleWorker import *
 from Util import *
 
 
-exp = 4
+exp = 5
 
 #global host and instance list
 host_list = {}
@@ -241,7 +242,6 @@ class SocketHandler(tornado.websocket.WebSocketHandler):
 
     def open(self):
         self.write_message('Welcome to WebSocket')
-
         thread = DataPusher(self)
         thread.start()
 
@@ -251,21 +251,21 @@ class DataPusher(threading.Thread):
     def __init__(self, socketHandler):
         super(DataPusher, self).__init__()
         self.socketHandler = socketHandler
-        self.sshTool = Ssh_tool("20.0.1.11", 22, "root", "cshuo")
+        self.sshTool = Ssh_tool("114.212.189.132", 22, "root", "cshuo")
 
         self.count = 0
 
     def pushGmetric(self, name, value, host):
         cmd = "gmetric --name %s  --value %d --type uint32 --spoof %s" % (name, value, host)
-        print cmd
         self.sshTool.remote_cmd(cmd)
 
     def pushEvent(self, type, info):
         self.socketHandler.write_message()
 
     def run(self):
+        print "start run job..."
         setup_environment_4()
-        while True:
+        while not exithd:
             #self.socketHandler.write_message("hello" + str(self.count))
 
             bandwidth1 = host_list['host_1'].getStatisticData('history', ResourceType.BANDWIDTH, self.count, 1)
@@ -275,9 +275,7 @@ class DataPusher(threading.Thread):
 
             distance_matlab = getMatlabDistance(instance_list)
             distance_hadoop = getHadoopDistance(instance_list)
-
-            print str(bandwidth1)
-
+            print "bandwidth is: ", str(bandwidth1)
             self.pushGmetric("bandwidth", bandwidth1, "10.0.0.1:host1")
             self.pushGmetric("bandwidth", bandwidth2, "10.0.0.2:host2")
             self.pushGmetric("bandwidth", bandwidth3, "10.0.0.3:host3")
@@ -285,11 +283,9 @@ class DataPusher(threading.Thread):
 
             #self.pushGmetric("communication_cost_matlab", distance_matlab)
             #self.pushGmetric("communication_cost_hadoop", distance_hadoop)
-
-
             #display(host_list)
-
             if self.count > 4:
+                print "start scheduling...."
                 final_game(2, self.socketHandler, self.count, host_list)
                 final_hadoop(2, self.socketHandler, self.count, host_list, instance_list)
                 final_matlab(2, self.socketHandler, self.count, host_list, instance_list)
@@ -298,7 +294,6 @@ class DataPusher(threading.Thread):
             #time_count += 1
             #display(host_list)
             time.sleep(3)
-
 
 if __name__ == '__main__':
 
@@ -736,10 +731,15 @@ if __name__ == '__main__':
         plt.show()
 
     if exp == 5:
+        exithd = False
         app = tornado.web.Application([
         ('/soc', SocketHandler)
         ])
 
-        app.listen(9008)
-        tornado.ioloop.IOLoop.instance().start()
-
+        app.listen(80)
+        print "start tornado..."
+        try:
+            tornado.ioloop.IOLoop.instance().start()
+        except KeyboardInterrupt:
+            exithd = True
+            sys.exit()
