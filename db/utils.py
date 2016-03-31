@@ -1,51 +1,47 @@
 # coding: utf-8
-__author__ = 'cshuo'
-
 
 from .entity import Vm
 
 from sqlalchemy.orm import sessionmaker
-from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy import (
     create_engine, 
     Table, 
     Column, 
-    Integer, 
+    # Integer,
     String, 
     MetaData, 
-    ForeignKey
+    # ForeignKey
 )
 
 
 sqlURL = 'mysql://dra:cshuo@controller/machineDB'
 engine = create_engine(sqlURL)
 
-DBSession = sessionmaker(bind=engine)
 
-
-def creat_vm_table():
-    metaData= MetaData()
-    vmTable = Table('vm', metaData,
+def create_vm_table():
+    meta_data = MetaData()
+    vm_table = Table(
+            'vm', meta_data,
             Column('name', String(32), primary_key=True),
             Column('vm_type', String(32)),
             Column('host', String(32)),
-            )
-    metaData.create_all(engine)
+    )
+    meta_data.create_all(engine)
 
 
 class DbUtil(object):
     def __init__(self):
-        self.engine = engine
+        self.DBSession = sessionmaker(bind=engine)
 
     def add_vm(self, name, vm_type, host):
-        session = DBSession()
+        session = self.DBSession()
         new_vm = Vm(name=name, vm_type=vm_type, host=host)
-	try:
+        try:
             session.add(new_vm)
             session.commit()
-  	except:
-	    session.close()
-	    return False
+        except:
+            session.close()
+            return False
         session.close()
         return True
 
@@ -53,27 +49,32 @@ class DbUtil(object):
         """
         return True for delete vm successfully, or return False
         """
-        session = DBSession()
+        session = self.DBSession()
         try:
-            vm_inst = session.query(Vm).filter(Vm.name==vm_name).one()
+            vm_inst = session.query(Vm).filter(Vm.name == vm_name).one()
         except:
             session.close()
             return False
         session.delete(vm_inst)
+        session.commit()
         session.close()
         return True
 
     def query_vm(self, vm_name):
         """
         return dict of vm info, None for None
+        :param vm_name: the name of the virtual machine
+         :type vm_name: str[32]
+        :return: the information of the virtual machine
+         :rtype: dict(str: *)
         """
-        session = DBSession()
+        session = self.DBSession()
         try:
-            vm_inst = session.query(Vm).filter(Vm.name==vm_name).one()
+            vm_inst = session.query(Vm).filter(Vm.name == vm_name).one()
         except:
             session.close()
             return None
-        vm_info = {}
+        vm_info = dict()
         vm_info['name'] = vm_inst.name
         vm_info['type'] = vm_inst.vm_type
         vm_info['host'] = vm_inst.host
@@ -84,9 +85,9 @@ class DbUtil(object):
         """ NOTE: for dra, the only changes for vm is the host info after
             the vm is migrated
         """
-        session = DBSession()
+        session = self.DBSession()
         try:
-            vm_inst = session.query(Vm).filter(Vm.name==vm_name).one()
+            vm_inst = session.query(Vm).filter(Vm.name == vm_name).one()
         except:
             session.close()
             return False
@@ -96,11 +97,11 @@ class DbUtil(object):
         return True
 
 
-
 if __name__ == '__main__':
-    creat_vm_table()
+    create_vm_table()
     db = DbUtil()
     if db.add_vm('test1', 'normal', 'compute1'):
-	print "add ok"
-    print db.query_vm('test')
-
+        print "add ok"
+    if db.rm_vm('test1'):
+        print "rm ok"
+    print db.query_vm('test1')

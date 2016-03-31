@@ -1,7 +1,5 @@
 # coding: utf-8
-__author__ = 'cshuo'
 
-from sqlalchemy.orm import sessionmaker
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy import (
     create_engine, 
@@ -22,5 +20,3 @@ class Vm(Base):
     name = Column(String(32), primary_key=True)
     vm_type = Column(String(32))
     host = Column(String(32))
-
-

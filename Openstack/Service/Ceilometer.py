@@ -5,6 +5,7 @@ from dra.Openstack.Service.OpenstackService import  *
 from dra.Openstack.Conf import OpenstackConf
 from dra.Utils.HttpUtil import OpenstackRestful
 
+import time, datetime
 
 class Ceilometer(OpenstackService):
 
@@ -12,7 +13,6 @@ class Ceilometer(OpenstackService):
 
         OpenstackService.__init__(self)
         self.restful = OpenstackRestful(self.tokenId)
-
 
     def getAllMeters(self):
         url = "%s/v2/meters" % OpenstackConf.CEILOMETER_URL
@@ -43,7 +43,6 @@ class Ceilometer(OpenstackService):
         result = self.restful.getResult(url)
         return result[0]
 
-
     def getMeterStatistics(self, meter_name, queryFilter, groupby = None, period = None, aggregate = None):
         url = "%s/v2/meters/%s/statistics" % (OpenstackConf.CEILOMETER_URL, meter_name)
 
@@ -66,12 +65,30 @@ class Ceilometer(OpenstackService):
         else:
             print "query result is None"
             return None
+    
+    def last_n_average_statistic(self, n, hostname, meter_name='compute.node.cpu.percent'):
+        now_t = time.gmtime()
+        end_t = datetime.datetime(*now_t[:6])
+        begin_t = end_t - datetime.timedelta(hours=n)
+
+        resoure_id = hostname + '_' + hostname
+        qry = '''[{"field": "timestamp",
+        "op": "ge",
+        "value": "%s"},
+        {"field": "timestamp",
+        "op": "lt",
+        "value": "%s"},
+        {"field": "resource_id",
+        "op": "eq",
+        "value": "%s"}]''' % (begin_t.isoformat(), end_t.isoformat(), resoure_id)
+
+        return self.getMeterStatistics(meter_name, qry)['avg']
+
 
 
 if __name__=="__main__":
 
-    import time, datetime
-   
+
     now_t = time.gmtime()
     end_t = datetime.datetime(*now_t[:6])
     begin_t = end_t - datetime.timedelta(hours=1)
@@ -85,14 +102,15 @@ if __name__=="__main__":
     "value": "%s"},
     {"field": "resource_id",
     "op": "eq",
-    "value": "compute1_compute1"}]''' % (begin_t.isoformat(), end_t.isoformat())
-    print q
-      
+    "value": "compute2_compute2"}]''' % (begin_t.isoformat(), end_t.isoformat())
+
     q2 = '''[{"field": "resource_id",
     "op": "eq",
     "value": "compute1_compute1"}]'''
 
-    print ceilometerTest.getMeterStatistics("compute.node.cpu.percent", q)['avg']
-    #print ceilometerTest.getMeter("compute.node.cpu.percent", q2)
-    #print ceilometerTest.getCpuStat("2014-12-12T00:00:00", "2014-12-16T00:00:00", "feebf6dc-2f04-4e1d-977e-6c7fde4e4cb3")
-    #print ceilometerTest.getAllResources()
+    #print ceilometerTest.getMeterStatistics("compute.node.cpu.percent", q)['avg']
+    print ceilometerTest.last_n_average_statistic(1, 'compute1')
+    # print ceilometerTest.getMeter("compute.node.cpu.percent", q2)
+    # print ceilometerTest.getCpuStat("2014-12-12T00:00:00", "2014-12-16T00:00:00",
+    #                                 "feebf6dc-2f04-4e1d-977e-6c7fde4e4cb3")
+    # print ceilometerTest.getAllResources()
