@@ -44,25 +44,10 @@ class Nova(OpenstackService):
 
         return instances
 
-    #def getHosts(self):
-    #
-    #    url = "%s/v2/%s/os-hosts" % (OpenstackConf.NOVA_URL, self.tenantId)
-    #
-    #    result = self.restful.getResult(url)
-    #
-    #    hostsList = result['hosts']
-    #    hosts = []
-    #    for host in hostsList:
-    #        hosts.append(Host(host['host_name'], host['service']))
-    #
-    #    return hosts
 
     def getComputeHosts(self):
-
         url = "%s/v2/%s/os-hosts" % (OpenstackConf.NOVA_URL, self.tenantId)
-
         result = self.restful.getResult(url)
-
         hostsList = result['hosts']
         hosts = []
         for host in hostsList:
@@ -91,7 +76,6 @@ if __name__ == "__main__":
     #hosts = nova.getHosts()
     #for host in hosts:
     #    print host.getHostName()
-    #
     #
     nova.liveMigration('c3f12b05-d9ed-4691-a41e-4de8def65d58', "compute2")
     #nova.getInstancesOnHost('compute2')
