@@ -27,8 +27,8 @@ class Nova(OpenstackService):
         servers = result['servers']
 
         instances = []
-        for i in range(len(servers)):
-            instances.append(Instance(servers[i]['id']))
+        for s in servers:
+            instances.append(str(s['name']))
 
         return instances
 
@@ -39,8 +39,8 @@ class Nova(OpenstackService):
         servers = result['servers']
 
         instances = []
-        for i in range(len(servers)):
-            instances.append(Instance(servers[i]['id']))
+        for s in servers:
+            instances.append(str(s['name']))
 
         return instances
 
@@ -66,7 +66,7 @@ class Nova(OpenstackService):
 
 if __name__ == "__main__":
     nova = Nova()
-    #instances = nova.getInstances()
+    print nova.getInstances()
     #for instance in instances:
     #    print instance.getId()
     #
@@ -77,7 +77,7 @@ if __name__ == "__main__":
     #for host in hosts:
     #    print host.getHostName()
     #
-    nova.liveMigration('c3f12b05-d9ed-4691-a41e-4de8def65d58', "compute2")
-    #nova.getInstancesOnHost('compute2')
+    # nova.liveMigration('c3f12b05-d9ed-4691-a41e-4de8def65d58', "compute2")
+    print nova.getInstancesOnHost('compute1')
     #nova.liveMigration('007a49ac-9f7e-4440-8b3d-514b4737879f', "compute1")
     #print nova.getComputeHosts()

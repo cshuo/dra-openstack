@@ -1,7 +1,8 @@
 # coding: utf-8
 # this file contains algorithms for detecting when a host is underload
 
-from ..Openstack.Service import Ceilometer
+from ..Openstack.Service.Ceilometer import Ceilometer
+
 
 def last_n_average_threshold(threshold, n, hostname):
     """
