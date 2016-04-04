@@ -16,11 +16,10 @@ class PolicyServiceAPI(BaseRpcApi.BaseAPI):
     def __init__(self, topic, exchange):
         super(PolicyServiceAPI, self).__init__(topic, exchange)
 
-
     def loadPolicy(self, ctxt, host, policys):
-        cctxt = self.client.prepare(server = host)
+        cctxt = self.client.prepare(server=host)
         return cctxt.call(ctxt, 'loadPolicy',
-                   host = host, policys = policys)
+                          host=host, policys=policys)
 
 if __name__ == "__main__":
     print 'policyService rpcapi\n'

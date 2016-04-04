@@ -41,5 +41,14 @@
         </value>
       </option>
     </inspection_tool>
+    <inspection_tool class="PyUnresolvedReferencesInspection" enabled="true" level="WARNING" enabled_by_default="true">
+      <option name="ignoredIdentifiers">
+        <list>
+          <option value="Hades.scheduler.rpcapi.oslo_config" />
+          <option value="Hades.scheduler.manager.oslo_config" />
+          <option value="oslo_messaging" />
+        </list>
+      </option>
+    </inspection_tool>
   </profile>
 </component>

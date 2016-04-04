@@ -64,6 +64,23 @@ class Nova(OpenstackService):
         self.restful.post_req(url, values)
 
 
+    def inspect_hosts(self, host):
+        """
+        Get the detail msg of a specific host
+        """
+        import random
+        # TODO get real msg of the host
+        mem_list = [2048, 4096]  # in MB
+        cpu_list = [4, 8]  # virtual cpu core in num
+        disk_list = [4, 8]  # in GB
+        info = dict()
+        cpu_total, mem_total, disk_total = random.choice(cpu_list), random.choice(mem_list), random.choice(disk_list)
+
+        info['cpu'] = {'total': cpu_total, 'used': random.randint(0, cpu_total)}
+        info['mem'] = {'total': mem_total, 'used': random.randint(0, mem_total)}
+        info['disk'] = {'total': disk_total, 'used': random.randint(0, disk_total)}
+        return info
+
 if __name__ == "__main__":
     nova = Nova()
     print nova.getInstances()

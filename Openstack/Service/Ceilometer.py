@@ -114,6 +114,11 @@ class Ceilometer(OpenstackService):
         ram_size_list = [512, 1024, 2048]
         return random.choice(ram_size_list)
 
+    def get_vm_cpu(self, vm_name):
+        # TODO get real cpu num used by vm_name
+        cpu_num_list = [1,2]
+        return random.choice(cpu_num_list)
+
     def get_interhost_bandwidth(self, host):
         """
         Get bandwidth between the specific host and others

@@ -1,6 +1,7 @@
 # coding: utf-8
 
 import socket
+import time
 
 from . import (
     overload,
@@ -16,17 +17,23 @@ from ..Openstack.Service import (
 
 
 # TODO read from conf file
+LOOP_INTERVAL = 240  # seconds
 UNDERLOAD_THRESHOLD = 0.2
 OVERLOAD_THRESHOLD = 0.9
-# for 1 hour statistics
-TIME_LENGTH = 1
+TIME_LENGTH = 1  # for 1 hour statistics
 HOSTNAME = socket.gethostname()
 
 _nova = Nova.Nova()
 _ceil = Ceilometer.Ceilometer()
 
+
 def start():
-    pass
+    """
+    start local manager to detect underload or overload
+    """
+    while True:
+        execute()
+        time.sleep(LOOP_INTERVAL)
 
 
 def execute():

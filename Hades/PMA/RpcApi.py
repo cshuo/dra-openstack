@@ -7,7 +7,7 @@ from dra.Hades import BaseRpcApi
 CONF =  cfg.CONF
 
 
-#base class for PMAAPI
+# base class for PMAAPI
 class PMAAPI(BaseRpcApi.BaseAPI):
     def __init__(self, topic, exchange):
         super(PMAAPI, self).__init__(topic, exchange)
