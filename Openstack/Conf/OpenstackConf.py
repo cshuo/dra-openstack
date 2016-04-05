@@ -1,5 +1,4 @@
-__author__ = 'pike'
-
+# -*- coding: utf-8 -*-
 CONTROLLER_HOST = "20.0.1.11"
 COMPUTE1_HOST = "20.0.1.21"
 COMPUTE2_HOST = "20.0.1.31"

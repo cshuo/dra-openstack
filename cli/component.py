@@ -4,7 +4,8 @@ from oslo_config import cfg
 import logging
 from cliff.command import Command
 
-from dra.cli.startScript import startService
+#from dra.cli.startScript import startService
+from ..cli.startScript import startService
 
 CONF = cfg.CONF
 

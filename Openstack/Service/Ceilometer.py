@@ -1,8 +1,8 @@
 # coding: utf-8
 
-from dra.Openstack.Service.OpenstackService import  *
-from dra.Openstack.Conf import OpenstackConf
-from dra.Utils.HttpUtil import OpenstackRestful
+from .OpenstackService import *
+from ..Conf import OpenstackConf
+from ...Utils.HttpUtil import OpenstackRestful
 from .Nova import Nova
 
 import time

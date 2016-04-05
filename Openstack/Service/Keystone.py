@@ -1,4 +1,3 @@
-__author__ = 'pike'
 import urllib2
 import urllib
 import json

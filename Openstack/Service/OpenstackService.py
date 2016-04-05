@@ -1,9 +1,6 @@
-__author__ = 'pike'
-
-from dra.Openstack.Service.Keystone import *
-
-from dra.Openstack.Conf.OpenstackConf import AUTH_URL
-
+# -*- coding: utf-8 -*-
+from .Keystone import *
+from ..Conf.OpenstackConf import AUTH_URL
 
 class OpenstackService:
 
@@ -19,5 +16,5 @@ class OpenstackService:
         self.tokenId = au.getTokenId()
 
 
-
-if __name__=="__main__":pass
+if __name__ == "__main__":
+    pass

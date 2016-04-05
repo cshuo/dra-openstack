@@ -1,5 +1,7 @@
 # -*- coding: utf-8 -*-
-
+# This file contains vm selection algorithm when a host is detected overload,
+# the local manager will select am algorithm here and select a proper vm on 
+# the host to migrate.
 
 def best_fit_decreasing(hosts_cpu, hosts_ram, vms_cpu_ram):
     """
