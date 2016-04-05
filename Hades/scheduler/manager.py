@@ -43,7 +43,7 @@ class DynamicSchedulerManager(Manager):
         # get available cpu and ram msg of all candidate hosts
         hosts_cpu, hosts_ram = dict(), dict()
         for h in hosts:
-            h_info = _nova.inspect_hosts(h)
+            h_info = _nova.inspect_host(h)
             hosts_cpu[h] = h_info['cpu']['total'] - h_info['cpu']['used']
             hosts_ram[h] = h_info['mem']['total'] - h_info['mem']['used']
 
@@ -74,7 +74,7 @@ class DynamicSchedulerManager(Manager):
         hosts.remove(host)
         hosts_cpu, hosts_ram = dict(), dict()
         for h in hosts:
-            h_info = _nova.inspect_hosts(h)
+            h_info = _nova.inspect_host(h)
             hosts_cpu[h] = h_info['cpu']['total'] - h_info['cpu']['used']
             hosts_ram[h] = h_info['mem']['total'] - h_info['mem']['used']
 

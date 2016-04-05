@@ -47,21 +47,23 @@ def migrate_vms(sche_place):
     # migrate only 1 vm at a time, as multi migration at same time mail fail
     for vm, dest in sche_place.items():
         start_time = time.time()
-        vm_uuid = _nova.vm_name_to_uuid(vm)
-        _nova.liveMigration(vm_uuid, dest)
+        _nova.liveMigration(vm, dest)
 
         # wait 10 seconds for migrating ok
         time.sleep(10)
 
         while True:
-            if _nova.vm_hostname(vm) == dest and _nova.vm_status(vm) == 'ACTIVE':
+            # get detail information of a vm
+            vm_info = _nova.inspect_instance(vm)
+            if vm_info['OS-EXT-SRV-ATTR:hypervisor_hostname'] == dest and vm_info['status'] == 'ACTIVE':
                 print "vm {0} migrated to host {1} successfully!".format(vm, dest)
                 break
-            elif time.time() - start_time > 240 and _nova.vm_hostname(vm) != dest and _nova.vm_status(vm) == 'ACTIVE':
+            elif time.time() - start_time > 240 and vm_info['OS-EXT-SRV-ATTR:hypervisor_hostname'] != dest \
+                    and vm_info['status'] == 'ACTIVE':
                 retry_placement[vm] = dest
                 print "vm {0} migrate to host {1} timeout...".format(vm, dest)
                 break
-            elif _nova.vm_status(vm) == 'ERROR':
+            elif vm_info['status'] == 'ERROR':
                 failure_placement[vm] = dest
                 print "vm {0} state error during migration".format(vm)
                 break

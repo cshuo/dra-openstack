@@ -97,7 +97,9 @@ class Ceilometer(OpenstackService):
         """
         NOTE: overload_time and total_time is not actually time, but num of samples
         during n hours
-        TODO: get real data
+        :param n: last n hours
+        :param hostname: host to get otf time
+        :return: two time value
         """
         overload_time, total_time = 0, 0
         # TODO: cal the real time specifically
@@ -132,7 +134,6 @@ class Ceilometer(OpenstackService):
             # TODO get real bandwidth between hosts(MB/s)
             bd[h] = random.uniform(5, 10)
         return bd
-
 
 
 

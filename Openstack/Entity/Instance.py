@@ -1,16 +1,15 @@
-__author__ = 'pike,cshuo'
+# -*- utf-8 : -*-
+class Instance(object):
+    def __init__(self, uuid, name):
+        self.uuid = uuid
+        self.name = name
 
-class Instance:
-    def __init__(self, id):
-        self.id = id
-
-    def getId(self):
+    def get_uuid(self):
         return self.id
 
-    def getName(self):
+    def get_name(self):
         return self.name
 
 
-
-if __name__=="__main__":
+if __name__ == "__main__":
     instance = Instance()

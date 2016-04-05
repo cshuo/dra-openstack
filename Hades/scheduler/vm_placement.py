@@ -3,6 +3,7 @@
 # the local manager will select am algorithm here and select a proper vm on 
 # the host to migrate.
 
+
 def best_fit_decreasing(hosts_cpu, hosts_ram, vms_cpu_ram):
     """
     The Best Fit Decreasing(BFD) algorithm for selecting optimal schedule for specific vms
