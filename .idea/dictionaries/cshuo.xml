@@ -2,6 +2,7 @@
   <dictionary name="cshuo">
     <words>
       <w>algo</w>
+      <w>cclient</w>
       <w>cctxt</w>
       <w>ceilometer</w>
       <w>cshuo</w>
@@ -15,6 +16,9 @@
       <w>underlaod</w>
       <w>underld</w>
       <w>underload</w>
+      <w>vcpu</w>
+      <w>vcpus</w>
+      <w>vpus</w>
     </words>
   </dictionary>
 </component>

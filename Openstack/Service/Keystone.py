@@ -26,12 +26,8 @@ class Authentication:
         result=json.loads(request.read())
         request.close()
 
-        self.tokenId=result["access"]["token"]["id"]
-        self.tenantId=result["access"]["token"]["tenant"]["id"]
-
-        #print result
-        #print result["access"]["token"]["id"]
-        #print result["access"]["token"]["tenant"]["id"]
+        self.tokenId = result["access"]["token"]["id"]
+        self.tenantId = result["access"]["token"]["tenant"]["id"]
 
     def getTokenId(self):
         return self.tokenId

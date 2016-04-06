@@ -4,6 +4,9 @@
 from ..Openstack.Service.Ceilometer import Ceilometer
 
 
+METER_NAME = 'compute.node.cpu.percent'
+
+
 def last_n_average_threshold(threshold, n, hostname):
     """
     judging whether a host is underlaod according to its n hours average cpu statistics
@@ -13,6 +16,6 @@ def last_n_average_threshold(threshold, n, hostname):
     :return: bool value
     """
     ceilometer_inst = Ceilometer()
-    if ceilometer_inst.last_n_average_statistic(n, hostname) < threshold:
+    if ceilometer_inst.last_n_average_statistic(n, hostname+'_'+hostname, METER_NAME) < threshold:
         return True
     return False

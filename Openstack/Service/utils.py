@@ -19,7 +19,7 @@ def get_host_vms_cpu(host, n):
     vms = _nova.getInstancesOnHost(host)
     vms_cpu = dict()
     for vm in vms:
-        vms_cpu[vm] = _ceil.last_n_vm_cpu_statistic(n, vm)['avg']
+        vms_cpu[vm] = _ceil.last_n_average_statistic(n, vm, 'cpu_util')
     return vms_cpu
 
 
@@ -32,7 +32,7 @@ def get_host_vms_ram(host):
     vms = _nova.getInstancesOnHost(host)
     vms_ram = dict()
     for vm in vms:
-        vms_ram[vm] = _ceil.get_vm_ram(vm)
+        vms_ram[vm] = _nova.inspect_instance(vm)['ram']
     return vms_ram
 
 

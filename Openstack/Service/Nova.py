@@ -24,14 +24,6 @@ class Nova(OpenstackService):
             instances.append(str(s['id']))
         return instances
 
-    def inspect_instance(self, vm_uuid):
-        """
-        Get detail info of a instance
-        :param vm_uuid: the uuid of the instance
-        :return: dict info of the instance
-        """
-        url = "{0}/v2/{1}/servers/{2}".format(OpenstackConf.NOVA_URL, self.tenantId, vm_uuid)
-        return self.restful.get_req(url)['server']
 
     def getInstancesOnHost(self, host):
         url = "%s/v2/%s/servers?host=%s" % (OpenstackConf.NOVA_URL, self.tenantId, host)
@@ -72,6 +64,31 @@ class Nova(OpenstackService):
         info['disk'] = {'total': results[0]['resource']['disk_gb'], 'used': results[1]['resource']['disk_gb']}
         return info
 
+    def inspect_flavor(self, flavor_id):
+        """
+        Get openstack flavor info by its id, flavor contains vm's config of cpu virtual core num, ram and disk size
+        :param flavor_id: id of the flavor
+        :return: flavor info, disk in GB, RAM in MB, vpus num
+        """
+        url = "{0}/v2/{1}/flavors/{2}".format(OpenstackConf.NOVA_URL, self.tenantId, flavor_id)
+        results = self.restful.get_req(url)['flavor']
+        return results
+
+    def inspect_instance(self, vm_uuid):
+        """
+        Get detail info of a instance
+        :param vm_uuid: the uuid of the instance
+        :return: dict info of the instance
+        """
+        url = "{0}/v2/{1}/servers/{2}".format(OpenstackConf.NOVA_URL, self.tenantId, vm_uuid)
+        info = self.restful.get_req(url)['server']
+        flavor_id = info['flavor']['id']
+        flavor_info = self.inspect_flavor(flavor_id)
+        info['disk'] = flavor_info['disk']
+        info['cpu'] = flavor_info['vcpus']
+        info['ram'] = flavor_info['ram']
+        return info
+
     def liveMigration(self, instance_id, host):
         """ live migrate an instance to dest host """
         url = "{base}/v2/{tenant}/servers/{instance}/action".format(base=OpenstackConf.NOVA_URL,
@@ -99,4 +116,4 @@ if __name__ == "__main__":
     # print nova.getComputeHosts()
     # nova.test('compute1')
     # print nova.inspect_host('compute1')
-    print nova.inspect_instance('c3f12b05-d9ed-4691-a41e-4de8def65d58')['status']
+    print nova.inspect_instance('c3f12b05-d9ed-4691-a41e-4de8def65d58')['disk']

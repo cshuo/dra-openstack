@@ -34,7 +34,8 @@ class DynamicSchedulerManager(Manager):
         vms = _nova.getInstancesOnHost(host)
         vms_cpu_ram = []
         for vm in vms:
-            vms_cpu_ram.append((_ceil.get_vm_cpu(vm), _ceil.get_vm_ram(vm), vm))
+            vm_info = _nova.inspect_instance(vm)
+            vms_cpu_ram.append((vm_info['cpu'], vm_info['ram'], vm))
 
         hosts = _nova.getComputeHosts()
         # exclude the underload host
@@ -68,7 +69,8 @@ class DynamicSchedulerManager(Manager):
         # NOTE may consolidate with upper underload methods
         vms_cpu_ram = []
         for vm in vms:
-            vms_cpu_ram.append((_ceil.get_vm_cpu(vm), _ceil.get_vm_ram(vm), vm))
+            vm_info = _nova.inspect_instance(vm)
+            vms_cpu_ram.append((vm_info['cpu'], vm_info['ram'], vm))
 
         hosts = _nova.getComputeHosts()
         hosts.remove(host)
