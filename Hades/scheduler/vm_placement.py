@@ -18,7 +18,9 @@ def best_fit_decreasing(hosts_cpu, hosts_ram, vms_cpu_ram):
         mapped = False
         while not mapped:
             for _, _, h in hosts:
-                if hosts_cpu[h] >= v_cpu and hosts_ram[h] >= v_ram:
+                # NOTE: Actually, when vcpus num of a compute host is 0, it is also possible to hold a new vm
+                # if hosts_cpu[h] >= v_cpu and hosts_ram[h] >= v_ram:
+                if hosts_ram[h] >= v_ram:
                     mapping[vm_name] = h
                     hosts_cpu[h] -= v_cpu
                     hosts_ram[h] -= v_ram

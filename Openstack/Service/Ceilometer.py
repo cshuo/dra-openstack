@@ -7,23 +7,18 @@ from .Nova import Nova
 
 import time
 import datetime
-import random
 import ceilometerclient.client
 
 
 CEILOMETER_CLIENT_VERSION = 2
-# generate random cpu usage for testing
-RANDOM_MIN, RANDOM_MAX = 0.1, 0.9
 # TODO read threshold from conf file
-OVERLOAD_OTF_THRESHOLD = 0.8
-_nova = Nova()
+OVERLOAD_OTF_THRESHOLD = 80
 
 
 class Ceilometer(OpenstackService):
 
     def __init__(self):
         OpenstackService.__init__(self)
-        self.restful = OpenstackRestful(self.tokenId)
         self.cclient = ceilometerclient.client.get_client(
                 CEILOMETER_CLIENT_VERSION,
                 os_username=OpenstackConf.USERNAME,
@@ -32,14 +27,27 @@ class Ceilometer(OpenstackService):
                 os_auth_url=OpenstackConf.AUTH_URL+'/v2.0/'
         )
 
+    def get_rest_data(self, url):
+        """
+        Use GET Method to fetch data from url
+        @param url:
+        @return:
+        """
+        try:
+            return self.restful.get_req(url)
+        except:
+            print "Token expires, update it now.."
+            self.update_token()
+            return self.restful.get_req(url)
+
     def getAllMeters(self):
         url = "%s/v2/meters" % OpenstackConf.CEILOMETER_URL
-        result = self.restful.getResult(url)
+        result = self.get_rest_data(url)
         return result
 
     def getAllResources(self):
         url = "%s/v2/resources" % OpenstackConf.CEILOMETER_URL
-        result = self.restful.getResult(url)
+        result = self.get_rest_data(url)
         return result
 
     def getMeter(self, meter_name, queryFilter):
@@ -57,7 +65,7 @@ class Ceilometer(OpenstackService):
 
         url = url + "?" + params
 
-        result = self.restful.getResult(url)
+        result = self.get_rest_data(url)
         return result[0]
 
     def getMeterStatistics(self, meter_name, queryFilter, groupby = None, period = None, aggregate = None):
@@ -76,7 +84,7 @@ class Ceilometer(OpenstackService):
 
         url = url + "?" + params
 
-        result = self.restful.getResult(url)
+        result = self.get_rest_data(url)
         if result:
             return result[0]
         else:
@@ -109,6 +117,10 @@ class Ceilometer(OpenstackService):
     def last_n_average_statistic(self, n, resource_id, meter_name='compute.node.cpu.percent'):
         """
         get last n hours meter statistics
+        @param n:
+        @param meter_name:
+        @param resource_id:
+        @return:
         """
         now_time = time.gmtime()
         end_time = datetime.datetime(*now_time[:6])
@@ -124,8 +136,10 @@ class Ceilometer(OpenstackService):
         "op": "eq",
         "value": "%s"}]''' % (begin_time.isoformat(), end_time.isoformat(), resource_id)
         statistics = self.getMeterStatistics(meter_name, qry)
-        print statistics
-        return statistics['avg']
+        if statistics:
+            return statistics['avg']
+        else:
+            return None
 
     def last_n_otf_statistic(self, n, hostname, meter_name='compute.node.cpu.percent'):
         """
@@ -134,6 +148,7 @@ class Ceilometer(OpenstackService):
         :param n: last n hours
         :param hostname: host to get otf time
         :return: two time value
+        @param otf_threshold:
         """
         overload_num = 0
         samples = self.get_resource_meter_sample_list(hostname+'_'+hostname, n, meter_name)
@@ -143,20 +158,6 @@ class Ceilometer(OpenstackService):
                 overload_num += 1
         return overload_num, total_num
 
-    def get_interhost_bandwidth(self, host):
-        """
-        Get bandwidth between the specific host and others
-        :param host: the specific host
-        :return dict type of bandwidth msg
-        """
-        # TODO get real bandwidth between hosts(MB/s)
-        hosts = _nova.getComputeHosts()
-        hosts.remove(host)
-        bd = dict()
-        for h in hosts:
-            bd[h] = random.uniform(5, 10)
-        return bd
-
 
 if __name__ == "__main__":
     now_t = time.gmtime()
@@ -164,6 +165,8 @@ if __name__ == "__main__":
     begin_t = end_t - datetime.timedelta(hours=1)
 
     ceilometerTest = Ceilometer()
+
+    """
     q = '''[{"field": "timestamp",
     "op": "ge",
     "value": "%s"},
@@ -173,13 +176,23 @@ if __name__ == "__main__":
     {"field": "resource_id",
     "op": "eq",
     "value": "34033067-3f85-4fa9-a6af-22ef4f6d9f94"}]''' % (begin_t.isoformat(), end_t.isoformat())
+    """
+    q = '''[{"field": "timestamp",
+    "op": "ge",
+    "value": "2016-04-06T00:00:00"},
+    {"field": "timestamp",
+    "op": "lt",
+    "value": "2016-04-06T02:00:00"},
+    {"field": "resource_id",
+    "op": "eq",
+    "value": "compute1_compute1"}]'''
 
     q2 = '''[{"field": "resource_id",
     "op": "eq",
     "value": "4071a9ba-5fa2-4dbd-a9be-36c230e0eafe"}]'''
 
-    print ceilometerTest.getMeterStatistics("cpu_util", q)
-    # print ceilometerTest.last_n_average_statistic(1, 'compute1')
+    # print ceilometerTest.getMeterStatistics("compute.node.cpu.percent", q)
+    print ceilometerTest.last_n_average_statistic(1, 'compute1_compute1')
     # print ceilometerTest.getMeter("compute.node.cpu.percent", q)
     # print ceilometerTest.getCpuStat("2014-12-12T00:00:00", "2014-12-16T00:00:00",
     #                                 "feebf6dc-2f04-4e1d-977e-6c7fde4e4cb3")

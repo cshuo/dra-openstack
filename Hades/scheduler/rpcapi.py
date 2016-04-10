@@ -5,7 +5,7 @@ from ..BaseRpcApi import BaseAPI
 
 CONF = cfg.CONF
 
-DEFAULT_SERVER = 'cshuo'
+DEFAULT_SERVER = 'pike'
 
 
 class DynamicSchedulerApi(BaseAPI):
@@ -24,7 +24,15 @@ class DynamicSchedulerApi(BaseAPI):
         cctxt = self.client.prepare(server=DEFAULT_SERVER)
         cctxt.cast(ctxt, 'handle_overload', host=host, vms=vms)
 
+    def test(self, ctxt):
+        cctxt = self.client.prepare(server=DEFAULT_SERVER)
+        print "send arg now..."
+        cctxt.cast(ctxt, 'test_sche', arg='cshuo')
+
 
 if __name__ == '__main__':
-    pass
+    cclient = DynamicSchedulerApi(CONF.hades_scheduler_topic, CONF.hades_exchange)
+    # cclient.test({})
+    # cclient.handle_underload({}, 'compute2')
+    cclient.handle_overload({}, 'compute1', ['83ff087d-c739-45d9-a695-d2c4dea35aff'])
 

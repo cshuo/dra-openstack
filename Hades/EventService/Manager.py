@@ -31,7 +31,6 @@ class EventServiceManager(Manager.Manager):
         elif pma == 'monitorPMA':
             self.monitorPMA.handleEvent({}, 'pike', event)
 
-
     def sendEventForResult(self, ctxt, host, pma, event):
         print "sendEventForResult"
         if pma == 'arbiterPMA':

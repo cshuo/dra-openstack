@@ -5,22 +5,27 @@ import time
 from .Ceilometer import Ceilometer
 from .Nova import Nova
 
+
 _nova = Nova()
 _ceil = Ceilometer()
 
 
-def get_host_vms_cpu(host, n):
+def get_host_vms_cpu_ram(host, n):
     """
     Get all vms' cpu statistic of a overload host
     :param host: overload host
     :param n: last n hours to statistic
-    :return: dict type cpu msg
+    :return: dict type cpu,ram msg
     """
     vms = _nova.getInstancesOnHost(host)
-    vms_cpu = dict()
+    vms_cpu, vms_ram = dict(), dict()
     for vm in vms:
-        vms_cpu[vm] = _ceil.last_n_average_statistic(n, vm, 'cpu_util')
-    return vms_cpu
+        cpu_avg = _ceil.last_n_average_statistic(n, vm, 'cpu_util')
+        # NOTE code using this function has to judge whether return res is empty
+        if cpu_avg:
+            vms_cpu[vm] = cpu_avg
+        vms_ram[vm] = _nova.inspect_instance(vm)['ram']
+    return vms_cpu, vms_ram
 
 
 def get_host_vms_ram(host):
@@ -76,3 +81,11 @@ def migrate_vms(sche_place):
         print "Retrying the following migrations {0}..".format(str(retry_placement))
         migrate_vms(retry_placement)
 
+
+if __name__ == '__main__':
+    s_time = time.time()
+    get_host_vms_cpu_ram('compute1', 1)
+    print time.time() - s_time
+    s_time = time.time()
+    get_host_vms_ram('compute1')
+    print time.time() - s_time

@@ -32,6 +32,7 @@ class DynamicSchedulerManager(Manager):
         :param host: the underload host name
         """
         vms = _nova.getInstancesOnHost(host)
+        print "vms on underload host is: ", vms
         vms_cpu_ram = []
         for vm in vms:
             vm_info = _nova.inspect_instance(vm)
@@ -45,11 +46,13 @@ class DynamicSchedulerManager(Manager):
         hosts_cpu, hosts_ram = dict(), dict()
         for h in hosts:
             h_info = _nova.inspect_host(h)
+            print h_info
             hosts_cpu[h] = h_info['cpu']['total'] - h_info['cpu']['used']
             hosts_ram[h] = h_info['mem']['total'] - h_info['mem']['used']
 
         # get placement decision using specific algo
         sche_place = best_fit_decreasing(hosts_cpu, hosts_ram, vms_cpu_ram)
+        print 'schedule plan is: \n', sche_place
 
         if not sche_place:
             print "No available hosts to hold vms on underload hosts..."
@@ -57,7 +60,7 @@ class DynamicSchedulerManager(Manager):
             print "start underload vm migrations"
             migrate_vms(sche_place)
             print "complete underload vm migrations"
-            # TODO there may add operation of deactivate underload hosts using STR(Suspend to Ram)
+        # TODO there may add operation of deactivate underload hosts using STR(Suspend to Ram)
 
     def handle_overload(self, ctxt, host, vms):
         """
@@ -73,6 +76,7 @@ class DynamicSchedulerManager(Manager):
             vms_cpu_ram.append((vm_info['cpu'], vm_info['ram'], vm))
 
         hosts = _nova.getComputeHosts()
+        # exclude the overload host
         hosts.remove(host)
         hosts_cpu, hosts_ram = dict(), dict()
         for h in hosts:
@@ -89,3 +93,6 @@ class DynamicSchedulerManager(Manager):
             print "start overload vm migrations"
             migrate_vms(sche_place)
             print "complete overload vm migrations"
+
+    def test_sche(self, ctxt, arg):
+        print 'arg recved is: ', arg

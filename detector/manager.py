@@ -22,8 +22,9 @@ CONF = cfg.CONF
 
 # TODO read from conf file
 LOOP_INTERVAL = 240  # seconds
-UNDERLOAD_THRESHOLD = 0.2
-OVERLOAD_THRESHOLD = 0.9
+UNDERLOAD_THRESHOLD = 20
+OVERLOAD_THRESHOLD = 90
+OTF_THRESHOLD = 0.8
 TIME_LENGTH = 1  # for 1 hour statistics
 HOSTNAME = socket.gethostname()
 
@@ -38,8 +39,12 @@ def start():
     start local manager to detect underload or overload
     """
     while True:
-        execute()
-        time.sleep(LOOP_INTERVAL)
+        try:
+            execute()
+            time.sleep(LOOP_INTERVAL)
+        except (KeyboardInterrupt, SystemExit):
+            print "Local manager exit now..."
+            break
 
 
 def execute():
@@ -47,25 +52,32 @@ def execute():
     Execute an iteration of compute node's load detection
     """
     vms_ram = utils.get_host_vms_ram(HOSTNAME)
-    bandwidths = _ceil.get_interhost_bandwidth(HOSTNAME)
+    bandwidths = _nova.get_interhost_bandwidth(HOSTNAME)
     migration_time = cal_migration_time(vms_ram.values(), bandwidths.values())
 
     # FIXME: read from conf file
     underload_detect = underload.last_n_average_threshold
-    overload_detect = overload.last_n_average_threshold
+    # overload_detect = overload.last_n_average_threshold
+    overload_detect = overload.otf
 
     underld = underload_detect(UNDERLOAD_THRESHOLD, TIME_LENGTH, HOSTNAME)
-    overld = overload_detect(migration_time, OVERLOAD_THRESHOLD, TIME_LENGTH, HOSTNAME)
+    # overld = overload_detect(migration_time, OVERLOAD_THRESHOLD, TIME_LENGTH, HOSTNAME)
+    overld = overload_detect(migration_time, OTF_THRESHOLD, TIME_LENGTH, HOSTNAME)
 
     if underld:
         # FIXME here should add some response info
-        _sche_api.handle_underload(HOSTNAME)
+        print 'underload detected...'
         _sche_api.handle_underload({}, HOSTNAME)
     elif overld:
         # NOTE here selecting only one vm, may modify later...
         selected_vm = list()
         # FIXME: use vm selection algo defined in conf file
         selected_vm.append(vm_selection.random_selection(HOSTNAME, TIME_LENGTH))
+        print 'underload detected..., selected vm list is: ', str(selected_vm)
         _sche_api.handle_overload({}, HOSTNAME, selected_vm)
     else:
-        pass
+        print 'system resource status ok...'
+
+
+if __name__ == '__main__':
+    start()

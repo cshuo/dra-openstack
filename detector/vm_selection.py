@@ -1,9 +1,10 @@
-# coding: utf-8
+# -*- coding: utf-8 -*-
 """
 Inside this file are some vm selection algorithms when a host is overload
 """
 
 import random
+import time
 
 from ..Openstack.Service import utils
 from ..Openstack.Service.Nova import Nova
@@ -24,15 +25,16 @@ def random_selection(host, n):
 def minimum_migration_time_max_cpu(host, n):
     """
     Select a vm with the minimum ram usage and maximum cpu usage
-    :param host: host that overloaded
-    :param n: last n hours cpu usage to analyze
-    :return: selected vm
+    @param host: host that overloaded
+    @param n: last n hours cpu usage to analyze
+    @return: selected vm
     """
-    vms_cpu = utils.get_host_vms_cpu(host, n)
-    vms_ram = utils.get_host_vms_ram(host)
-    min_ram = min(vms_ram.values())
+    vms_cpu, vms_ram = utils.get_host_vms_cpu_ram(host, n)
+    print vms_cpu.keys(), vms_ram.keys()
+    select_vm = min(vms_ram, key=vms_ram.get)
+    min_ram = vms_ram[select_vm]
     max_cpu = 0
-    select_vm = None
+
     for vm, cpu in vms_cpu.items():
         if vms_ram[vm] > min_ram:
             continue
@@ -40,3 +42,9 @@ def minimum_migration_time_max_cpu(host, n):
             max_cpu = cpu
             select_vm = vm
     return select_vm
+
+
+if __name__ == '__main__':
+    # vm = random_selection('compute1', 1)
+    vm_s = minimum_migration_time_max_cpu('compute1', 1)
+    print vm_s

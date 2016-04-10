@@ -14,13 +14,11 @@ EXTRA_EXMODS = []
 def init(conf):
     global TRANSPORT
     exmods = get_allowed_exmods()
-    TRANSPORT = messaging.get_transport(conf)
-    """
+    # TRANSPORT = messaging.get_transport(conf)
     TRANSPORT = messaging.get_transport(conf,
-                                        url = CONF.hades_rabbit_url,
+                                        url=CONF.hades_rabbit_url,
                                         allowed_remote_exmods = exmods,
-                                        aliases = {})
-    """
+                                        aliases={})
 
 def cleanup():
     global  TRANSPORT
