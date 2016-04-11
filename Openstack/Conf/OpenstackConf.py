@@ -25,6 +25,12 @@ USERNAME = "admin"
 TENANTNAME = "admin"
 PASSWORD = "cshuo"
 
+RABBIT_HTTP_PORT = 15672
+RABBIT_HTTP_USER = "guest"
+RABBIT_HTTP_PASSWORD = "guest"
+
+DEFAULT_RPC_SERVER = 'pike'
+
 # environment variables
 PARAMS = "--os-username %s " % USERNAME + \
          "--os-tenant-name %s " % TENANTNAME + \

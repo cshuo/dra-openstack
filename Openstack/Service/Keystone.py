@@ -35,8 +35,10 @@ class Authentication:
     def getTenantId(self):
         return self.tenantId
 
-if __name__=="__main__":
 
+if __name__ == "__main__":
     auth = Authentication()
     auth.tokenGet("http://20.0.1.11:35357", "admin", "admin", "cshuo")
+    print auth.getTenantId()
+    print auth.getTokenId()
 

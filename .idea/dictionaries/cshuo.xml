@@ -11,6 +11,7 @@
       <w>hypervisor</w>
       <w>openstack</w>
       <w>overld</w>
+      <w>rabbitmq</w>
       <w>rpcapi</w>
       <w>sche</w>
       <w>sttic</w>
@@ -19,6 +20,7 @@
       <w>underload</w>
       <w>vcpu</w>
       <w>vcpus</w>
+      <w>vhost</w>
       <w>vpus</w>
     </words>
   </dictionary>

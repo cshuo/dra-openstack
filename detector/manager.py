@@ -42,6 +42,7 @@ def start():
         try:
             execute()
             time.sleep(LOOP_INTERVAL)
+            print "looping..."
         except (KeyboardInterrupt, SystemExit):
             print "Local manager exit now..."
             break
@@ -67,14 +68,22 @@ def execute():
     if underld:
         # FIXME here should add some response info
         print 'underload detected...'
-        _sche_api.handle_underload({}, HOSTNAME)
+        ret_dict = _sche_api.handle_underload({}, HOSTNAME)
+        if ret_dict['done']:
+            print "underload exception processed ok..."
+        elif ret_dict['info'] == 'delay':
+            print "delay detector to get new statistics, as new vms were placed..."
+            time.sleep(LOOP_INTERVAL)  # NOTE: sleep sometime to wait new statistics
+        else:
+            print ret_dict['info']
     elif overld:
         # NOTE here selecting only one vm, may modify later...
         selected_vm = list()
         # FIXME: use vm selection algo defined in conf file
         selected_vm.append(vm_selection.random_selection(HOSTNAME, TIME_LENGTH))
         print 'underload detected..., selected vm list is: ', str(selected_vm)
-        _sche_api.handle_overload({}, HOSTNAME, selected_vm)
+        ret_dict = _sche_api.handle_overload({}, HOSTNAME, selected_vm)
+        print ret_dict['info']
     else:
         print 'system resource status ok...'
 
