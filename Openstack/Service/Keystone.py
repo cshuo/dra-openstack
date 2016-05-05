@@ -38,7 +38,7 @@ class Authentication:
 
 if __name__ == "__main__":
     auth = Authentication()
-    auth.tokenGet("http://20.0.1.11:35357", "admin", "admin", "cshuo")
+    auth.tokenGet("http://20.0.1.11:35357", "admin", "admin", "artemis")
     print auth.getTenantId()
     print auth.getTokenId()
 

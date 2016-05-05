@@ -23,7 +23,7 @@ COMPUTE2_HOST_PASSWORD = "cshuo"
 
 USERNAME = "admin"
 TENANTNAME = "admin"
-PASSWORD = "cshuo"
+PASSWORD = "artemis"
 
 RABBIT_HTTP_PORT = 15672
 RABBIT_HTTP_USER = "guest"

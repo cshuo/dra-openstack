@@ -67,6 +67,7 @@ class Nova(OpenstackService):
         :param host: host to inspect
         :return: dict info of a host
         """
+	print self.tokenId
         url = "%s/v2/%s/os-hosts/%s" % (OpenstackConf.NOVA_URL, self.tenantId, host)
         results = self.get_rest_data(url)['host']
         assert results[0]['resource']['project'] == '(total)'

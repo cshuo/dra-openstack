@@ -77,12 +77,13 @@ if __name__ == "__main__":
         (defrule test_rule
         (newVM ?para1 ?para2 ?para3)
         =>
-        (python-call new ?para1)
-        (printout stdout ?para1 crlf))
+    	(printout stdout ?para1 crlf)
+        (python-call new ?para2 ))
     """
 
     #"""
     #rule = """
+    #    (printout stdout ?para1 crlf))
     #    (defrule new_vm
     #    (newVM cpubound vmInfo)
     #    =>
@@ -120,3 +121,6 @@ if __name__ == "__main__":
     engine.assertFact("(newVM cpubound test.new.ow)")
     engine.assertFact("(newVM cpubound vmInfo1 None)")
     engine.run()
+    print engine.getStdout()
+    print engine.listFacts()
+    print engine.listRules()

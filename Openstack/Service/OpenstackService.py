@@ -12,14 +12,14 @@ class OpenstackService:
 
         # get the authentication token and tenant id
 
-        self.au.tokenGet(AUTH_URL, "admin", "admin", "cshuo")
+        self.au.tokenGet(AUTH_URL, "admin", "admin", "artemis")
         self.tenantId = self.au.getTenantId()
         self.tokenId = self.au.getTokenId()
         self.restful = OpenstackRestful(self.tokenId)
         # self.restful = OpenstackRestful('234j234j234h23g4234bb')
 
     def update_token(self):
-        self.au.tokenGet(AUTH_URL, 'admin', 'admin', 'cshuo')
+        self.au.tokenGet(AUTH_URL, 'admin', 'admin', 'artemis')
         self.tokenId = self.au.getTokenId()
         self.tenantId = self.au.getTenantId()
         self.restful.update_token(self.tokenId)
