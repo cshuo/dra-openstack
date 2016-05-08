@@ -24,7 +24,7 @@ class PolicyServiceAPI(BaseRpcApi.BaseAPI):
 if __name__ == "__main__":
     print 'policyService rpcapi\n'
 
-    policys = PolicyInterpreter.readPolicyFromFile("Resource/testPolicy.xml")
+    policys = PolicyInterpreter.readPolicyFromFile("dra/Resource/testPolicy.xml")
 
     api = PolicyServiceAPI(CONF.hades_policyService_topic, CONF.hades_exchange)
     print policys

@@ -1,21 +1,20 @@
 # -*-coding: utf-8-*-
-
 import socket
 import time
 from oslo_config import cfg
 
-from . import (
-    overload,
-    underload,
-    vm_selection
-)
 from ..Utils.common import cal_migration_time
+from ..Hades.EventService.RpcApi import EventServiceAPI
 from ..Openstack.Service import (
     utils,
     Ceilometer,
     Nova
 )
-from ..Hades.scheduler.rpcapi import DynamicSchedulerApi
+from . import (
+    overload,
+    underload,
+    vm_selection
+)
 
 
 CONF = cfg.CONF
@@ -30,7 +29,7 @@ HOSTNAME = socket.gethostname()
 
 _nova = Nova.Nova()
 _ceil = Ceilometer.Ceilometer()
-_sche_api = DynamicSchedulerApi(CONF.hades_scheduler_topic, CONF.hades_exchange)
+_event_api = EventServiceAPI(CONF.hades_eventService_topic, CONF.hades_exchange)
 
 
 def start():
@@ -61,28 +60,17 @@ def execute():
     overload_detect = overload.otf
 
     underld = underload_detect(UNDERLOAD_THRESHOLD, TIME_LENGTH, HOSTNAME)
-    # overld = overload_detect(migration_time, OVERLOAD_THRESHOLD, TIME_LENGTH, HOSTNAME)
     overld = overload_detect(migration_time, OTF_THRESHOLD, TIME_LENGTH, HOSTNAME)
 
     if underld:
-        # FIXME here should add some response info
-        print 'underload detected...'
-        ret_dict = _sche_api.handle_underload({}, HOSTNAME)
-        if ret_dict['done']:
-            print "underload exception processed ok..."
-        elif ret_dict['info'] == 'delay':
-            print "delay detector to get new statistics, as new vms were placed..."
-            time.sleep(LOOP_INTERVAL)  # NOTE: sleep sometime to wait new statistics
-        else:
-            print ret_dict['info']
+        pass
     elif overld:
         # NOTE here selecting only one vm, may modify later...
-        selected_vm = list()
         # FIXME: use vm selection algo defined in conf file
-        selected_vm.append(vm_selection.random_selection(HOSTNAME, TIME_LENGTH))
+        selected_vm, vm_type = vm_selection.random_selection(HOSTNAME, TIME_LENGTH)
         print 'overload detected..., selected vm list is: ', str(selected_vm)
-        ret_dict = _sche_api.handle_overload({}, HOSTNAME, selected_vm)
-        print ret_dict['info']
+        _event_api.sendEvent({}, 'pike', "arbiterPMA",
+                             "(evacuate (instance {id}) (type {type}))".format(id=selected_vm, type=vm_type))
     else:
         print 'system resource status ok...'
 

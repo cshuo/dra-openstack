@@ -19,24 +19,12 @@
         (bind ?destHost (python-call Host_Generic_Selector ?hostIds "['Host_CpuUtil_Cost']" "[1]"))
         (python-call Migrate ?vm ?destHost))
     </rule>
-</Policy>
 
-<Policy name = "policy2" target = "monitorPMA">
-    <rule name = "collect_0">
-        (defrule collect_0
-        (host_collect_data_statistics ?resourceId ?meter_name ?queryFilter ?groupBy ?period ?aggregate ?result)
+    <rule name = "migrate_1">
+        (defrule migrate_1
+        (evacuate (instance ?instance) (type ?type))
         =>
-        (bind ?value (python-call Collect_Data_Statistics ?meter_name ?queryFilter ?groupBy ?period ?aggregate ?result))
-        (assert (host_collected_data_analyze ?resourceId ?meter_name ?value)))
-    </rule>
-
-    <rule name = "threshold_0">
-        (defrule threshold_0
-        (host_collected_data_analyze ?resourceId ?meter_name ?value)
-        =>
-        (python-call Host_Set_Threshold ?resourceId ?meter_name ?value "{'compute.node.cpu.percent' : {'min' : 3, 'max' : 6}}"))
-
+        (python-call test_eva ?instance ?type))
     </rule>
 </Policy>
-
 </PolicyGroup>

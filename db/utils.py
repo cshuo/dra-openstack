@@ -40,12 +40,12 @@ class DbUtil(object):
     def add_vm(self, ids, name, vm_type):
         session = DBSession()
         new_vm = Vm(ids=ids, name=name, vm_type=vm_type)
-	try:
+        try:
             session.add(new_vm)
             session.commit()
-  	except:
-	    session.close()
-	    return False
+        except:
+            session.close()
+            return False
         session.close()
         return True
 
@@ -70,27 +70,24 @@ class DbUtil(object):
         """
         session = DBSession()
         try:
-            vm_inst = session.query(Vm).filter(Vm.ids==vm_ids).one()
+            vm_inst = session.query(Vm).filter(Vm.ids == vm_ids).one()
         except:
             session.close()
             return None
-        vm_info = {}
-        vm_info['ids'] = vm_inst.ids
-        vm_info['name'] = vm_inst.name
-        vm_info['type'] = vm_inst.vm_type
+        vm_info = {'ids': vm_inst.ids, 'name': vm_inst.name, 'type': vm_inst.vm_type}
         session.close()
         return vm_info
 
     def list_all(self):
-	"""
-	"""
-	session = DBSession()
-	try:
-	    vms = session.query(Vm).all()
-	except:
-	    vms = []
-	session.close()
-	return vms
+        """
+        """
+        session = DBSession()
+        try:
+            vms = session.query(Vm).all()
+        except:
+            vms = []
+        session.close()
+        return vms
 
 
 if __name__ == '__main__':
@@ -98,10 +95,10 @@ if __name__ == '__main__':
     db = DbUtil()
     # db.rm_vm('76655412-6515-4be0-bcbf-f85e26a901a8')
     for i in db.list_all():
-	print i.name, i.ids, i.vm_type
+    print i.name, i.ids, i.vm_type
     # Vm.__table__.drop(engine)
     """
     if db.add_vm('1212-1212-2121', 'test1', 'normal'):
 	print "add ok"
     """
-    # print db.query_vm('80464332-f957-4af7-8b62-e9b6e84239b8')
+    print db.query_vm('c4d73b6b-4d28-4cde-a8a8-b31613162da8')

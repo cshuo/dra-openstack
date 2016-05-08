@@ -16,6 +16,11 @@ ceilometer = Ceilometer()
 ############################### added by cshuo ###############################
 def simple_host_filter():
     return str(nova.getComputeHosts())
+
+def test_eva(instance, vm_type):
+    print "--------------------------test_eva-----------------------"
+    print "Hi, I am " + instance
+    print "type of {0} is {1}".format(instance, vm_type)
 ############################### added by cshuo ###############################
 
 

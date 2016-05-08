@@ -4,6 +4,7 @@ from dra.PolicyEngine.Pyclips import ClipsEngine
 from dra.PolicyEngine.ExternalFunction import *
 
 registerFunctions = [
+    test_eva,
     Host_Filter,
     simple_host_filter,
     Collect_Data,
@@ -47,6 +48,9 @@ class PolicyManager:
 
     def assertFact(self, fact):
         self.clipsEngine.assertFact(fact)
+
+    def buildTemplate(self, name, slots, comment=''):
+        self.clipsEngine.buildTemplate(name, slots, comment)
 
     def run(self):
         self.clipsEngine.run()

@@ -1,13 +1,13 @@
 # -*- coding: utf-8 -*-
 #
-#Inside this file are some vm selection algorithms when a host is overload
+# Inside this file are some vm selection algorithms when a host is overload
 #
 
 import random
-import time
 
 from ..Openstack.Service import utils
 from ..Openstack.Service.Nova import Nova
+from ..db.utils import DbUtil
 
 
 def random_selection(host, n):
@@ -19,7 +19,9 @@ def random_selection(host, n):
     nova = Nova()
     vms = nova.getInstancesOnHost(host)
     select_vm = random.choice(vms)
-    return select_vm
+    dbu = DbUtil()
+    vm_type = dbu.query_vm(select_vm)['type']
+    return select_vm, vm_type
 
 
 def minimum_migration_time_max_cpu(host, n):
@@ -27,7 +29,7 @@ def minimum_migration_time_max_cpu(host, n):
     Select a vm with the minimum ram usage and maximum cpu usage
     @param host: host that overloaded
     @param n: last n hours cpu usage to analyze
-    @return: selected vm
+    @return: selected vm id
     """
     vms_cpu, vms_ram = utils.get_host_vms_cpu_ram(host, n)
     print vms_cpu.keys(), vms_ram.keys()
@@ -41,7 +43,9 @@ def minimum_migration_time_max_cpu(host, n):
         if cpu > max_cpu:
             max_cpu = cpu
             select_vm = vm
-    return select_vm
+    dbu = DbUtil()
+    vm_type = dbu.query_vm(select_vm)['type']
+    return select_vm, vm_type
 
 
 if __name__ == '__main__':

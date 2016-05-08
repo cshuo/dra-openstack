@@ -26,10 +26,19 @@ class ClipsEngine:
         self.env.Clear()
 
     def assertFact(self, fact):
-	try:
+        try:
             self.env.Assert(fact)
-	except:
-	    print "assert fact failed..."
+        except:
+            print "assert fact failed..."
+
+    def buildTemplate(self, name, slots, comment=""):
+        """
+        @param name:
+        @param slots:
+        @param comment:
+        @return:
+        """
+        self.env.BuildTemplate(name, slots, comment)
 
     def addRule(self, rule):
         self.env.Build(rule)

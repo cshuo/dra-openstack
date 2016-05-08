@@ -15,7 +15,7 @@ class PolicyServiceManager(Manager.Manager):
 
     def __init__(self, *args, **kwargs):
 
-        super(PolicyServiceManager, self).__init__(service_name = 'hades_policy_service',
+        super(PolicyServiceManager, self).__init__(service_name='hades_policy_service',
                                                *args,
                                                **kwargs)
         self.arbiterPMAApi = ArbiterPMAAPI(CONF.hades_arbiterPMA_topic, CONF.hades_exchange)
@@ -28,7 +28,9 @@ class PolicyServiceManager(Manager.Manager):
             if policy['target'] == 'arbiterPMA':
                 self.arbiterPMAApi.loadPolicy({}, 'pike', policy)
             elif policy['target'] == 'monitorPMA':
+                print "process monitorPMA ..................................................."
                 self.monitorPMAApi.loadPolicy({}, 'pike', policy)
+                print "end process monitorPMA ..................................................."
             else:
                 return False
         return True
