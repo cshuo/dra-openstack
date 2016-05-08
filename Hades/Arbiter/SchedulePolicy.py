@@ -1,4 +1,4 @@
-__author__ = 'pike'
+# -*- coding: utf-8 -*-
 
 import random
 

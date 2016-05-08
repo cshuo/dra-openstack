@@ -1,4 +1,4 @@
-__author__ = 'pike'
+# -*- coding: utf-8 -*-
 
 import oslo_messaging as messaging
 from oslo_config import cfg

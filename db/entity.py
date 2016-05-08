@@ -22,6 +22,5 @@ class Vm(Base):
     ids = Column(String(40), primary_key=True)
     name = Column(String(32))
     vm_type = Column(String(32))
-    host = Column(String(32))
 
 

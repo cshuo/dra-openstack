@@ -26,7 +26,10 @@ class ClipsEngine:
         self.env.Clear()
 
     def assertFact(self, fact):
-        self.env.Assert(fact)
+	try:
+            self.env.Assert(fact)
+	except:
+	    print "assert fact failed..."
 
     def addRule(self, rule):
         self.env.Build(rule)
@@ -120,7 +123,19 @@ if __name__ == "__main__":
     engine.addRule(rule)
     engine.assertFact("(newVM cpubound test.new.ow)")
     engine.assertFact("(newVM cpubound vmInfo1 None)")
-    engine.run()
-    print engine.getStdout()
+    #engine.reset()
+    #engine.run()
+    # print engine.getStdout()
     print engine.listFacts()
     print engine.listRules()
+
+    eng = ClipsEngine()
+    eng.registerPythonFunction(clipsFunction)
+    eng.registerPythonFunction(test)
+    eng.registerPythonFunction(new)
+    eng.addRule(rule2)
+    eng.addRule(rule)
+    eng.assertFact("(newVM cpubound test.new.ow)")
+    eng.assertFact("(newVM cpubound vmInfo1 None)")
+    print eng.listFacts()
+    print eng.listRules()

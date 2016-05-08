@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
-"""
-Inside this file are some vm selection algorithms when a host is overload
-"""
+#
+#Inside this file are some vm selection algorithms when a host is overload
+#
 
 import random
 import time
