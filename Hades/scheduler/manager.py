@@ -41,7 +41,7 @@ class DynamicSchedulerManager(Manager):
         """
         print "-------------------------before process, inv hosts: ", self._involved_hosts
         if host in self._involved_hosts:
-            # rabbitmq is not empty
+            # rabbitmq is empty
             if not get_queue_msg_num(CONF.hades_scheduler_topic + '.' + OpenstackConf.DEFAULT_RPC_SERVER):
                 self._involved_hosts = []
             return {'done': False, 'info': 'delay'}

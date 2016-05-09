@@ -67,7 +67,7 @@ class Nova(OpenstackService):
         :param host: host to inspect
         :return: dict info of a host
         """
-	print self.tokenId
+        print self.tokenId
         url = "%s/v2/%s/os-hosts/%s" % (OpenstackConf.NOVA_URL, self.tenantId, host)
         results = self.get_rest_data(url)['host']
         assert results[0]['resource']['project'] == '(total)'
@@ -145,10 +145,10 @@ if __name__ == "__main__":
     #    print host.getHostName()
     #
     # nova.liveMigration('4071a9ba-5fa2-4dbd-a9be-36c230e0eafe', "compute1")
-    print nova.inspect_host('compute1')
+    # print nova.inspect_host('compute1')
     # print nova.getInstancesOnHost('compute1')
     # nova.liveMigration('007a49ac-9f7e-4440-8b3d-514b4737879f', "compute1")
     # print nova.getComputeHosts()
     # nova.test('compute1')
     # print nova.inspect_host('compute1')
-    # print nova.inspect_instance('c3f12b05-d9ed-4691-a41e-4de8def65d58')['disk']
+    print nova.inspect_instance('6a8adcce-a89a-407f-9136-1e771206a66d')['OS-EXT-SRV-ATTR:host']

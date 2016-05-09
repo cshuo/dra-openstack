@@ -95,10 +95,10 @@ if __name__ == '__main__':
     db = DbUtil()
     # db.rm_vm('76655412-6515-4be0-bcbf-f85e26a901a8')
     for i in db.list_all():
-    print i.name, i.ids, i.vm_type
+        print i.name, i.ids, i.vm_type
     # Vm.__table__.drop(engine)
     """
     if db.add_vm('1212-1212-2121', 'test1', 'normal'):
-	print "add ok"
+        print "add ok"
     """
     print db.query_vm('c4d73b6b-4d28-4cde-a8a8-b31613162da8')

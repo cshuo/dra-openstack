@@ -1,30 +1,44 @@
 <PolicyGroup name = "group1">
 
 <Policy name = "policy1" target = "arbiterPMA">
-    <rule name = "new_vm">
-        (defrule new_vm
-        (new_vm vm_properties)
+
+    <rule name = "matlab">
+        (defrule matlab
+        (evacuation (instance ?instance) (type MATLAB_SLAVE))
         =>
-        (bind ?hosts (python-call Host_CpuUtil_Filter))
-        (printout stdout ?hosts crlf))
+        (bind ?hostList (python-call getAllHost ?instance))
+        (bind ?masterHost (python-call hostFilter ?hostList "hostHasInstanceType($HOST, 'master') > 0" select))
+        (bind ?dest_hostList (python-call hostFilter ?hostList "last_n_avg_statistic($HOST, 'cpu_util', 2) &lt; 85" filter))
+        (bind ?destHost (python-call hostRankFilter ?dest_hostList ?masterHost "getTimeDelay($HOST, $MASTER)"))
+        (bind ?srcHost (python-call getVmHost ?instance))
+        (python-call generateEvent migration ?instance ?srcHost ?destHost))
     </rule>
 
-    <rule name = "migrate_0">
-        (defrule migrate_0
-        (host_violation ?resourceId ?meter_name)
+    <rule name="migration">
+        (defrule migration
+        (migration (instance ?instance) (src ?srcHost) (dest ?destHost))
         =>
-        (bind ?vms (python-call Get_Vms_On_Host ?resourceId))
-        (bind ?vm (python-call Vm_Random_Selector ?vms))
-        (bind ?hostIds (python-call Host_Filter "['compute1', 'compute2']" "{'compute.node.cpu.percent' : {'min' : 0, 'max' : 90}}"))
-        (bind ?destHost (python-call Host_Generic_Selector ?hostIds "['Host_CpuUtil_Cost']" "[1]"))
-        (python-call Migrate ?vm ?destHost))
+        (python-call Migrate ?srcHost ?instance ?destHost))
     </rule>
 
-    <rule name = "migrate_1">
-        (defrule migrate_1
-        (evacuate (instance ?instance) (type ?type))
+    <rule name="game_guarantee">
+        (defrule game_guarantee
+        (declare (salience 100))
+        ?migration &lt;- (migration (instance ?instance) (src ?srcHost) (dest ?destHost))
         =>
-        (python-call test_eva ?instance ?type))
+        (if (= (python-call hostHasInstanceType ?destHost GAME) 0)
+            then
+            (bind ?bandwidth (python-call hostPredictData ?destHost bandwidth 2 avg))
+            (if (> ?bandwidth 800)
+                then
+                (python-call print_log "retract fact..")
+                (retract ?migration)
+                else
+                (python-call print_log "bandwidth ok.."))
+            else
+            (python-call print_log "destHost has no GAME type...")
+        ))
     </rule>
+
 </Policy>
 </PolicyGroup>

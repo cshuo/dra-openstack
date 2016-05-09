@@ -20,10 +20,10 @@ from . import (
 CONF = cfg.CONF
 
 # TODO read from conf file
-LOOP_INTERVAL = 240  # seconds
-UNDERLOAD_THRESHOLD = 20
+LOOP_INTERVAL = 300  # seconds
+UNDERLOAD_THRESHOLD = 0
 OVERLOAD_THRESHOLD = 90
-OTF_THRESHOLD = 0.8
+OTF_THRESHOLD = 0.5
 TIME_LENGTH = 1  # for 1 hour statistics
 HOSTNAME = socket.gethostname()
 
@@ -63,14 +63,14 @@ def execute():
     overld = overload_detect(migration_time, OTF_THRESHOLD, TIME_LENGTH, HOSTNAME)
 
     if underld:
-        pass
+        print 'underload detected...'
     elif overld:
         # NOTE here selecting only one vm, may modify later...
         # FIXME: use vm selection algo defined in conf file
         selected_vm, vm_type = vm_selection.random_selection(HOSTNAME, TIME_LENGTH)
         print 'overload detected..., selected vm list is: ', str(selected_vm)
         _event_api.sendEvent({}, 'pike', "arbiterPMA",
-                             "(evacuate (instance {id}) (type {type}))".format(id=selected_vm, type=vm_type))
+                             "(evacuation (instance {id}) (type MATLAB_SLAVE))".format(id=selected_vm, type=vm_type))
     else:
         print 'system resource status ok...'
 

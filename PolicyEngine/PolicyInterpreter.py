@@ -9,7 +9,7 @@ class PolicyInterpreter:
 
     @staticmethod
     def readPolicyFromFile(file):
-        tree = ET.ElementTree(file = file)
+        tree = ET.ElementTree(file=file)
         policyGroup = tree.getroot()
         policys = []
         for policy in policyGroup:
@@ -20,16 +20,12 @@ class PolicyInterpreter:
                 ruleName = rule.attrib['name']
                 rule = rule.text
                 rules[ruleName] = rule
-            policys.append({'name' : policyName,
-                            'target' : target,
-                            'rules' : rules})
+            policys.append({'name': policyName,
+                            'target': target,
+                            'rules': rules})
         return policys
 
 
-
-
-
 if __name__ == "__main__":
-
-    policys = PolicyInterpreter.readPolicyFromFile("Resource/testPolicy.xml")
+    policys = PolicyInterpreter.readPolicyFromFile("dra/Resource/testPolicy.xml")
     print policys

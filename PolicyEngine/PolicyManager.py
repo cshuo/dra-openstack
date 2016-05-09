@@ -1,20 +1,37 @@
-__author__ = 'pike'
+# -*- coding: utf-8 -*-
 
-from dra.PolicyEngine.Pyclips import ClipsEngine
-from dra.PolicyEngine.ExternalFunction import *
+from .Pyclips import ClipsEngine
+from .ExternalFunction import (
+    print_log,
+    test_eva,
+    Migrate,
+    generateEvent,
+    hostFilter,
+    getAllHost,
+    hostHasInstanceType,
+    last_n_avg_statistic,
+    hostRankFilter,
+    getTimeDelay,
+    hostPredictData,
+    getVmHost
+)
+
 
 registerFunctions = [
+    print_log,
     test_eva,
-    Host_Filter,
-    simple_host_filter,
-    Collect_Data,
-    Collect_Data_Statistics,
-    Get_Vms_On_Host,
-    Host_Set_Threshold,
-    Host_Generic_Selector,
-    Vm_Random_Selector,
-    Migrate
+    Migrate,
+    generateEvent,
+    hostFilter,
+    getAllHost,
+    hostHasInstanceType,
+    last_n_avg_statistic,
+    hostRankFilter,
+    getTimeDelay,
+    getVmHost,
+    hostPredictData
 ]
+
 
 class PolicyManager:
 
@@ -29,6 +46,7 @@ class PolicyManager:
         rules = policy['rules']
         for ruleName in rules.keys():
             rule = rules[ruleName]
+            print rule
             self.loadRule(ruleName, rule)
 
     def loadRule(self, ruleName, rule):
@@ -57,7 +75,6 @@ class PolicyManager:
 
     def getStdout(self):
         return self.clipsEngine.getStdout()
-
 
 
 if __name__ == "__main__":

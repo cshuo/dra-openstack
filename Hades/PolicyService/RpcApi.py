@@ -5,7 +5,8 @@ from oslo_config import cfg
 from dra.Hades import BaseRpcApi
 from dra.PolicyEngine.PolicyInterpreter import PolicyInterpreter
 
-CONF =  cfg.CONF
+CONF = cfg.CONF
+
 
 class PolicyServiceAPI(BaseRpcApi.BaseAPI):
 
@@ -27,5 +28,4 @@ if __name__ == "__main__":
     policys = PolicyInterpreter.readPolicyFromFile("dra/Resource/testPolicy.xml")
 
     api = PolicyServiceAPI(CONF.hades_policyService_topic, CONF.hades_exchange)
-    print policys
     print api.loadPolicy({}, 'pike', policys)

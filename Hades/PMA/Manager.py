@@ -24,7 +24,7 @@ class PMAManager(Manager.Manager):
     def loadPolicy(self, ctxt, host, policy):
         self.policyManager.loadPolicy(policy)
         print 'PMAManager -> loadPolicy'
-        print policy
+        # print policy
         return True
 
     def handleEvent(self, ctxt, host, event):
@@ -53,9 +53,9 @@ class ArbiterPMAManager(PMAManager):
         """
         init system event facts template
         """
-        self.policyManager.buildTemplate('evacuate', """(slot instance (type SYMBOL)) (slot type (type SYMBOL))""",
+        self.policyManager.buildTemplate('evacuation', """(slot instance (type SYMBOL)) (slot type (type SYMBOL))""",
                                          "vm evacuate event facts")
-        self.policyManager.buildTemplate('migrate', """(slot instance (type SYMBOL)) (slot src (type SYMBOL)) (slot dest (type SYMBOL))""",
+        self.policyManager.buildTemplate('migration', """(slot instance (type SYMBOL)) (slot src (type SYMBOL)) (slot dest (type SYMBOL))""",
                                          "vm migrate event facts")
 
 

@@ -1,9 +1,8 @@
-import oslo_messaging as messaging
+# -*- coding:utf-8 -*-
+
 from oslo_config import cfg
 
-from dra.Hades import Rpc
-from dra.Hades import Config
-from dra.Hades import BaseRpcApi
+from .. import BaseRpcApi
 
 CONF = cfg.CONF
 
@@ -31,4 +30,4 @@ if __name__ == "__main__":
     # api.sendEvent({}, 'pike', 'arbiterPMA', "(host_violation compute1 cpu)")
     # query = '''"[{'field': 'timestamp','op': 'ge','value': '2016-03-08T10:00:00'},{'field': 'timestamp','op': 'lt','value': '2016-03-08T12:00:00'},{'field': 'resource_id','op': 'eq','value': 'compute2_compute2'}]"'''
     # print api.sendEvent({}, "pike", "monitorPMA", "(host_collect_data_statistics compute2_compute2 compute.node.cpu.percent %s None None None avg)" % query)
-    api.sendEvent({}, 'pike', 'arbiterPMA', "(evacuate (instance 12-12-12) (type master))")
+    api.sendEvent({}, 'pike', 'arbiterPMA', "(evacuation (instance c4d73b6b-4d28-4cde-a8a8-b31613162da8) (type MATLAB_SLAVE))")

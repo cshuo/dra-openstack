@@ -2,13 +2,18 @@
   <dictionary name="cshuo">
     <words>
       <w>algo</w>
+      <w>catched</w>
       <w>cclient</w>
       <w>cctxt</w>
       <w>ceilometer</w>
+      <w>crlf</w>
       <w>cshuo</w>
       <w>ctxt</w>
+      <w>defrule</w>
       <w>dest</w>
+      <w>hostlist</w>
       <w>hypervisor</w>
+      <w>matlab</w>
       <w>openstack</w>
       <w>overld</w>
       <w>rabbitmq</w>
