@@ -57,6 +57,7 @@ class ArbiterPMAManager(PMAManager):
                                          "vm evacuate event facts")
         self.policyManager.buildTemplate('migration', """(slot instance (type SYMBOL)) (slot src (type SYMBOL)) (slot dest (type SYMBOL))""",
                                          "vm migrate event facts")
+        self.policyManager.buildTemplate('dismiss', """(slot host (type SYMBOL))""", "dismiss underload host")
 
 
 class MonitorPMAManager(PMAManager):

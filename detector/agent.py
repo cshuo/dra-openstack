@@ -21,7 +21,7 @@ CONF = cfg.CONF
 
 # TODO read from conf file
 LOOP_INTERVAL = 300  # seconds
-UNDERLOAD_THRESHOLD = 0
+UNDERLOAD_THRESHOLD = 50
 OVERLOAD_THRESHOLD = 90
 OTF_THRESHOLD = 0.5
 TIME_LENGTH = 1  # for 1 hour statistics
@@ -64,6 +64,8 @@ def execute():
 
     if underld:
         print 'underload detected...'
+        _event_api.sendEvent({}, 'pike', "arbiterPMA",
+                             "(dismiss (host {host}))".format(host=HOSTNAME))
     elif overld:
         # NOTE here selecting only one vm, may modify later...
         # FIXME: use vm selection algo defined in conf file

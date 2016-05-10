@@ -1,20 +1,21 @@
 # -*- coding: utf-8 -*-
 
 from .Pyclips import ClipsEngine
-from .ExternalFunction import (
-    print_log,
-    test_eva,
-    Migrate,
-    generateEvent,
-    hostFilter,
-    getAllHost,
-    hostHasInstanceType,
-    last_n_avg_statistic,
-    hostRankFilter,
-    getTimeDelay,
-    hostPredictData,
-    getVmHost
-)
+from .ExternalFunction import *
+# (
+#     print_log,
+#     test_eva,
+#     Migrate,
+#     generateEvent,
+#     hostFilter,
+#     getAllHost,
+#     hostHasInstanceType,
+#     last_n_avg_statistic,
+#     hostRankFilter,
+#     getTimeDelay,
+#     hostPredictData,
+#     getVmHost
+# )
 
 
 registerFunctions = [
@@ -29,7 +30,10 @@ registerFunctions = [
     hostRankFilter,
     getTimeDelay,
     getVmHost,
-    hostPredictData
+    hostPredictData,
+    hostInvolved,
+    Dismiss,
+    clean_cache
 ]
 
 

@@ -10,4 +10,6 @@ def cal_migration_time(vm_rams, bandwidths):
     :param bandwidths: list of bandwidth between the hosts and others in MB/s
     :return: average migration of a host
     """
-    return np.mean(vm_rams) / np.mean(bandwidths)
+    if vm_rams:
+        return np.mean(vm_rams) / np.mean(bandwidths)
+    return 0
