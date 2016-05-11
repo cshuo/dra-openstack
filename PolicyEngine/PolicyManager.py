@@ -33,7 +33,8 @@ registerFunctions = [
     hostPredictData,
     hostInvolved,
     Dismiss,
-    clean_cache
+    # clean_cache,
+    clearDismissCache
 ]
 
 

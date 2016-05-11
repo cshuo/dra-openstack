@@ -9,12 +9,13 @@ from ..Openstack.Service.Nova import Nova
 from ..Openstack.Service.Ceilometer import Ceilometer
 from ..Openstack.Conf import OpenstackConf
 from ..db.utils import DbUtil
+from ..db.utils import DismissStatus
 
 _eventService = EventServiceAPI(CONF.hades_eventService_topic, CONF.hades_exchange)
 _arbiter_api = ArbiterPMAAPI(CONF.hades_midPMA_topic, CONF.hades_exchange)
 _nova = Nova()
 _ceilometer = Ceilometer()
-_involved_host = []
+# _involved_host = []
 
 
 # added by cshuo #
@@ -47,17 +48,18 @@ def generateEvent(event_name, *args):
     @return:
     """
     if event_name == 'evacuation':
-        # print '----------------------------- begin generate evacuation --------------------'
         event = "(evacuation (instance {id}) (type {type}))".format(id=args[0], type=args[1])
         # _eventService.sendEventForResult({}, OpenstackConf.DEFAULT_RPC_SERVER, 'arbiterPMA', event)
         _arbiter_api.handleEventWithResult({}, OpenstackConf.DEFAULT_RPC_SERVER, event)
-        # print '----------------------------- end generate evacuation --------------------'
     elif event_name == 'migration':
-        # print '----------------------------- begin migration event --------------------'
         event = "(migration (instance {id}) (src {src}) (dest {dest}))".format(id=args[0], src=args[1],
                                                                                dest=args[2])
+        if DismissStatus.query_num() > 0:
+            DismissStatus.add_involved(str(args[2]))
+        else:
+            DismissStatus.clear_involved()
+
         _eventService.sendEvent({}, OpenstackConf.DEFAULT_RPC_SERVER, 'arbiterPMA', event)
-        # print '----------------------------- end migration event --------------------'
 
 
 def hostFilter(host_list, expr, mode):
@@ -169,7 +171,8 @@ def hostInvolved(host):
     @param host:
     @return:
     """
-    if host in _involved_host:
+    print "check host involved....", host, DismissStatus.get_involved()
+    if host in DismissStatus.get_involved():
         return 1
     else:
         return 0
@@ -181,7 +184,6 @@ def Dismiss(host):
     @param host:
     @return:
     """
-    # print "---------------------------------------enter dismiss-----------------------------"
     vms = _nova.getInstancesOnHost(host)
     if not vms:
         return
@@ -190,26 +192,28 @@ def Dismiss(host):
         # NOTE hard code type to test... modify later
         # generateEvent('evacuation', vm, dbu.query_vm(vm)['type'])
         generateEvent('evacuation', vm, 'MATLAB_SLAVE')
-        print '--->>: queue status is: '
-        print get_queue_msg_num('hades_arbiterPMA_topic.pike'), get_queue_msg_num('hades_midPMA_topic.pike'), \
-            get_queue_msg_num('hades_eventService_topic.pike'), get_queue_msg_num('hades_eventService_topic'), \
-            get_queue_msg_num('hades_midPMA_topic'), get_queue_msg_num('hades_arbiterPMA_topic')
-    # print "---------------------------------------leave dismiss-----------------------------"
 
 
-def clean_cache(*args):
-    """
-    reset _involved_host if arbiter queue in rabbitmq is empty
-    """
-    if get_queue_msg_num(CONF.hades_eventService_topic + '.' + OpenstackConf.DEFAULT_RPC_SERVER) == 0 and \
-            get_queue_msg_num(CONF.hades_arbiterPMA_topic + '.' + OpenstackConf.DEFAULT_RPC_SERVER) == 0 and \
-            get_queue_msg_num(CONF.hades_midPMA_topic+'.'+OpenstackConf.DEFAULT_RPC_SERVER) == 0:
-        print ">> cache cleaned.."
-        _involved_host[:] = []
-    else:
-        if args:
-            _involved_host.append(args[0])
-            print "****--->>: involved hosts:" + str(_involved_host)
+def clearDismissCache(host):
+    DismissStatus.rm_dismiss(host)
+    if DismissStatus.query_num() < 1:
+        # _involved_host[:] = []
+        DismissStatus.clear_involved()
+
+
+# def clean_cache(*args):
+#     """
+#     reset _involved_host if arbiter queue in rabbitmq is empty
+#     """
+#     if get_queue_msg_num(CONF.hades_eventService_topic + '.' + OpenstackConf.DEFAULT_RPC_SERVER) == 0 and \
+#             get_queue_msg_num(CONF.hades_arbiterPMA_topic + '.' + OpenstackConf.DEFAULT_RPC_SERVER) == 0 and \
+#             get_queue_msg_num(CONF.hades_midPMA_topic+'.'+OpenstackConf.DEFAULT_RPC_SERVER) == 0:
+#         print ">> cache cleaned.."
+#         _involved_host[:] = []
+#     else:
+#         if args:
+#             _involved_host.append(args[0])
+#             print "****--->>: involved hosts:" + str(_involved_host)
 
 # added by cshuo #
 

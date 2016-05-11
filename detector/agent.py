@@ -5,6 +5,7 @@ from oslo_config import cfg
 
 from ..Utils.common import cal_migration_time
 from ..Hades.EventService.RpcApi import EventServiceAPI
+from ..db.utils import DismissStatus
 from ..Openstack.Service import (
     utils,
     Ceilometer,
@@ -21,7 +22,7 @@ CONF = cfg.CONF
 
 # TODO read from conf file
 LOOP_INTERVAL = 300  # seconds
-UNDERLOAD_THRESHOLD = 50
+UNDERLOAD_THRESHOLD = 0
 OVERLOAD_THRESHOLD = 90
 OTF_THRESHOLD = 0.5
 TIME_LENGTH = 1  # for 1 hour statistics
@@ -64,6 +65,8 @@ def execute():
 
     if underld:
         print 'underload detected...'
+        DismissStatus.add_dismiss(HOSTNAME, time.time())
+        print DismissStatus.query_num(), '******************************'
         _event_api.sendEventForResult({}, 'pike', "arbiterPMA",
                                       "(dismiss (host {host}))".format(host=HOSTNAME))
         print "deal underload ended...."

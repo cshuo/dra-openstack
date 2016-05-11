@@ -10,6 +10,7 @@
             then
             (python-call print_log "The host is involved in early round processing....")
             (retract ?dismiss)
+            (python-call clearDismissCache ?host)
             else
             (python-call print_log "continue deal with the underload...")
         ))
@@ -19,7 +20,8 @@
         (defrule underload
         (dismiss (host ?host))
         =>
-        (python-call Dismiss ?host))
+        (python-call Dismiss ?host)
+        (python-call clearDismissCache ?host))
     </rule>
 
     <rule name = "matlab">

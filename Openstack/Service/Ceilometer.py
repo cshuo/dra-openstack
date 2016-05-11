@@ -12,7 +12,7 @@ import ceilometerclient.client
 
 CEILOMETER_CLIENT_VERSION = 2
 # TODO read threshold from conf file
-OVERLOAD_OTF_THRESHOLD = 80
+OVERLOAD_OTF_THRESHOLD = 4
 
 
 class Ceilometer(OpenstackService):
