@@ -6,10 +6,10 @@ from ...Openstack.Conf import OpenstackConf
 
 def get_queue_msg_num(queue_name):
     url = 'http://{host}:{port}/api/queues/{vhost}/{queue}'.format(
-            host='localhost',
-            port=OpenstackConf.RABBIT_HTTP_PORT,
-            vhost='%2F',
-            queue=queue_name
+        host='localhost',
+        port=OpenstackConf.RABBIT_HTTP_PORT,
+        vhost='%2F',
+        queue=queue_name
     )
     response = requests.get(url, auth=(OpenstackConf.RABBIT_HTTP_USER, OpenstackConf.RABBIT_HTTP_PASSWORD))
     info = response.json()
@@ -22,6 +22,6 @@ def get_queue_msg_num(queue_name):
 
 if __name__ == '__main__':
     while 1:
-        print get_queue_msg_num('hades_arbiterPMA_topic.pike')
+        print get_queue_msg_num('hades_arbiterPMA_topic.pike'), get_queue_msg_num('hades_midPMA_topic.pike'), \
+            get_queue_msg_num('hades_eventService_topic.pike')
         time.sleep(0.5)
-

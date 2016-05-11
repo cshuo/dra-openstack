@@ -12,16 +12,14 @@
             (retract ?dismiss)
             else
             (python-call print_log "continue deal with the underload...")
-        )
-        (python-call clean_cache))
+        ))
     </rule>
 
     <rule name="underload">
         (defrule underload
         (dismiss (host ?host))
         =>
-        (python-call Dismiss ?host)
-        (python-call clean_cache))
+        (python-call Dismiss ?host))
     </rule>
 
     <rule name = "matlab">
@@ -33,8 +31,7 @@
         (bind ?dest_hostList (python-call hostFilter ?hostList "last_n_avg_statistic($HOST, 'cpu_util', 2) &lt; 85" filter))
         (bind ?destHost (python-call hostRankFilter ?dest_hostList ?masterHost "getTimeDelay($HOST, $MASTER)"))
         (bind ?srcHost (python-call getVmHost ?instance))
-        (python-call generateEvent migration ?instance ?srcHost ?destHost)
-        (python-call clean_cache))
+        (python-call generateEvent migration ?instance ?srcHost ?destHost))
     </rule>
 
     <rule name="game_guarantee">
@@ -53,16 +50,14 @@
                 (python-call print_log "bandwidth ok.."))
             else
             (python-call print_log "destHost has no GAME type...")
-        )
-        (python-call clean_cache))
+        ))
     </rule>
 
     <rule name="migration">
         (defrule migration
         (migration (instance ?instance) (src ?srcHost) (dest ?destHost))
         =>
-        (python-call Migrate ?srcHost ?instance ?destHost)
-        (python-call clean_cache))
+        (python-call Migrate ?srcHost ?instance ?destHost))
     </rule>
 
 </Policy>

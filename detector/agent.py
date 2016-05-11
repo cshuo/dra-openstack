@@ -64,15 +64,16 @@ def execute():
 
     if underld:
         print 'underload detected...'
-        _event_api.sendEvent({}, 'pike', "arbiterPMA",
-                             "(dismiss (host {host}))".format(host=HOSTNAME))
+        _event_api.sendEventForResult({}, 'pike', "arbiterPMA",
+                                      "(dismiss (host {host}))".format(host=HOSTNAME))
+        print "deal underload ended...."
     elif overld:
         # NOTE here selecting only one vm, may modify later...
         # FIXME: use vm selection algo defined in conf file
         selected_vm, vm_type = vm_selection.random_selection(HOSTNAME, TIME_LENGTH)
         print 'overload detected..., selected vm list is: ', str(selected_vm)
-        _event_api.sendEvent({}, 'pike', "arbiterPMA",
-                             "(evacuation (instance {id}) (type MATLAB_SLAVE))".format(id=selected_vm, type=vm_type))
+        _event_api.sendEventForResult({}, 'pike', "arbiterPMA",
+                                      "(evacuation (instance {id}) (type MATLAB_SLAVE))".format(id=selected_vm, type=vm_type))
     else:
         print 'system resource status ok...'
 

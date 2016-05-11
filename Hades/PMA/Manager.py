@@ -60,6 +60,25 @@ class ArbiterPMAManager(PMAManager):
         self.policyManager.buildTemplate('dismiss', """(slot host (type SYMBOL))""", "dismiss underload host")
 
 
+class MidPMAManager(PMAManager):
+
+    target = messaging.Target()
+
+    def __init__(self, *args, **kwargs):
+        super(MidPMAManager, self).__init__(service_name='hades_midPMA_service', *args, **kwargs)
+        self.init_event_template()
+
+    def init_event_template(self):
+        """
+        init system event facts template
+        """
+        self.policyManager.buildTemplate('evacuation', """(slot instance (type SYMBOL)) (slot type (type SYMBOL))""",
+                                         "vm evacuate event facts")
+        self.policyManager.buildTemplate('migration', """(slot instance (type SYMBOL)) (slot src (type SYMBOL)) (slot dest (type SYMBOL))""",
+                                         "vm migrate event facts")
+        self.policyManager.buildTemplate('dismiss', """(slot host (type SYMBOL))""", "dismiss underload host")
+
+
 class MonitorPMAManager(PMAManager):
 
     target = messaging.Target()

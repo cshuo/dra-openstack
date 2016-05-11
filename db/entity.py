@@ -24,3 +24,7 @@ class Vm(Base):
     vm_type = Column(String(32))
 
 
+# class ShareStatus(Base):
+#     __tablename__ = 'status'
+#     name = Column(String(40), primary_key=True)
+#     value = Column(Integer)

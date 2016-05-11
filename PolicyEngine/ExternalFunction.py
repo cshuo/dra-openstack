@@ -4,12 +4,14 @@ import random
 import sys
 from ..Hades.scheduler.utils import get_queue_msg_num
 from ..Hades.EventService.RpcApi import *
+from ..Hades.PMA.RpcApi import ArbiterPMAAPI
 from ..Openstack.Service.Nova import Nova
 from ..Openstack.Service.Ceilometer import Ceilometer
 from ..Openstack.Conf import OpenstackConf
 from ..db.utils import DbUtil
 
 _eventService = EventServiceAPI(CONF.hades_eventService_topic, CONF.hades_exchange)
+_arbiter_api = ArbiterPMAAPI(CONF.hades_midPMA_topic, CONF.hades_exchange)
 _nova = Nova()
 _ceilometer = Ceilometer()
 _involved_host = []
@@ -45,12 +47,17 @@ def generateEvent(event_name, *args):
     @return:
     """
     if event_name == 'evacuation':
+        # print '----------------------------- begin generate evacuation --------------------'
         event = "(evacuation (instance {id}) (type {type}))".format(id=args[0], type=args[1])
+        # _eventService.sendEventForResult({}, OpenstackConf.DEFAULT_RPC_SERVER, 'arbiterPMA', event)
+        _arbiter_api.handleEventWithResult({}, OpenstackConf.DEFAULT_RPC_SERVER, event)
+        # print '----------------------------- end generate evacuation --------------------'
     elif event_name == 'migration':
+        # print '----------------------------- begin migration event --------------------'
         event = "(migration (instance {id}) (src {src}) (dest {dest}))".format(id=args[0], src=args[1],
                                                                                dest=args[2])
-    # print "generateEvent -> :\n", event
-    _eventService.sendEvent({}, OpenstackConf.DEFAULT_RPC_SERVER, 'arbiterPMA', event)
+        _eventService.sendEvent({}, OpenstackConf.DEFAULT_RPC_SERVER, 'arbiterPMA', event)
+        # print '----------------------------- end migration event --------------------'
 
 
 def hostFilter(host_list, expr, mode):
@@ -63,12 +70,12 @@ def hostFilter(host_list, expr, mode):
     """
     if mode == 'select':
         for host in host_list:
-            if eval(expr.replace('$HOST', '"'+host+'"')):
+            if eval(expr.replace('$HOST', '"' + host + '"')):
                 return host
     else:
         ret_host = []
         for host in host_list:
-            if eval(expr.replace('$HOST', '"'+host+'"')):
+            if eval(expr.replace('$HOST', '"' + host + '"')):
                 ret_host.append(host)
         return ret_host
     return None
@@ -92,7 +99,7 @@ def hostHasInstanceType(host, vm_type):
 def last_n_avg_statistic(host, meter, time_range):
     if meter == 'cpu_util':
         meter = 'compute.node.cpu.percent'
-    return _ceilometer.last_n_average_statistic(time_range, host+'_'+host, meter)
+    return _ceilometer.last_n_average_statistic(time_range, host + '_' + host, meter)
 
 
 def hostRankFilter(host_list, obj_host, expr):
@@ -106,7 +113,7 @@ def hostRankFilter(host_list, obj_host, expr):
     if 'getTimeDelay' in expr:
         min_delay = sys.maxint
         for host in host_list:
-            expr = expr.replace('$HOST', '"'+host+'"').replace('$MASTER', '"'+obj_host+'"')
+            expr = expr.replace('$HOST', '"' + host + '"').replace('$MASTER', '"' + obj_host + '"')
             delay = eval(expr)
             if delay < min_delay:
                 dest_host = host
@@ -142,9 +149,6 @@ def Migrate(src_host, instance, dest_host):
     """
     print '>> action: migrate ' + instance + ' to ' + dest_host
     _nova.liveMigration(instance, dest_host)
-    if get_queue_msg_num(CONF.hades_arbiterPMA_topic+'.'+OpenstackConf.DEFAULT_RPC_SERVER):
-        _involved_host.append(dest_host)
-        print ">> involved hosts: " + str(_involved_host)
 
 
 def hostPredictData(host, meter, time_range, meter_section):
@@ -177,7 +181,7 @@ def Dismiss(host):
     @param host:
     @return:
     """
-    print "---------------------------------------enter dismiss-----------------------------"
+    # print "---------------------------------------enter dismiss-----------------------------"
     vms = _nova.getInstancesOnHost(host)
     if not vms:
         return
@@ -186,16 +190,26 @@ def Dismiss(host):
         # NOTE hard code type to test... modify later
         # generateEvent('evacuation', vm, dbu.query_vm(vm)['type'])
         generateEvent('evacuation', vm, 'MATLAB_SLAVE')
-    print "---------------------------------------leave dismiss-----------------------------"
+        print '--->>: queue status is: '
+        print get_queue_msg_num('hades_arbiterPMA_topic.pike'), get_queue_msg_num('hades_midPMA_topic.pike'), \
+            get_queue_msg_num('hades_eventService_topic.pike'), get_queue_msg_num('hades_eventService_topic'), \
+            get_queue_msg_num('hades_midPMA_topic'), get_queue_msg_num('hades_arbiterPMA_topic')
+    # print "---------------------------------------leave dismiss-----------------------------"
 
 
-def clean_cache():
+def clean_cache(*args):
     """
     reset _involved_host if arbiter queue in rabbitmq is empty
     """
-    if get_queue_msg_num(CONF.hades_arbiterPMA_topic+'.'+OpenstackConf.DEFAULT_RPC_SERVER) == 0:
+    if get_queue_msg_num(CONF.hades_eventService_topic + '.' + OpenstackConf.DEFAULT_RPC_SERVER) == 0 and \
+            get_queue_msg_num(CONF.hades_arbiterPMA_topic + '.' + OpenstackConf.DEFAULT_RPC_SERVER) == 0 and \
+            get_queue_msg_num(CONF.hades_midPMA_topic+'.'+OpenstackConf.DEFAULT_RPC_SERVER) == 0:
         print ">> cache cleaned.."
         _involved_host[:] = []
+    else:
+        if args:
+            _involved_host.append(args[0])
+            print "****--->>: involved hosts:" + str(_involved_host)
 
 # added by cshuo #
 

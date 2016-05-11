@@ -33,6 +33,15 @@ def creat_vm_table():
     metaData.create_all(engine)
 
 
+# def create_status_table():
+#     metaData= MetaData()
+#     statusTable = Table('status', metaData,
+#                         Column('name', String(40), primary_key=True),
+#                         Column('value', Integer),
+#                         )
+#     metaData.create_all(engine)
+
+
 class DbUtil(object):
     def __init__(self):
         self.engine = engine
@@ -92,8 +101,10 @@ class DbUtil(object):
 
 if __name__ == '__main__':
     creat_vm_table()
+    create_status_table()
+
     db = DbUtil()
-    # db.rm_vm('76655412-6515-4be0-bcbf-f85e26a901a8')
+    db.rm_vm('584513aa-20ee-46ce-8229-4517104c211a')
     for i in db.list_all():
         print i.name, i.ids, i.vm_type
     # Vm.__table__.drop(engine)
@@ -101,4 +112,4 @@ if __name__ == '__main__':
     if db.add_vm('1212-1212-2121', 'test1', 'normal'):
         print "add ok"
     """
-    print db.query_vm('c4d73b6b-4d28-4cde-a8a8-b31613162da8')
+    # print db.query_vm('c4d73b6b-4d28-4cde-a8a8-b31613162da8')

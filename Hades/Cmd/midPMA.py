@@ -8,5 +8,5 @@ from ...Openstack.Conf import OpenstackConf
 CONF = cfg.CONF
 
 if __name__ == "__main__":
-    startService(CONF.hades_exchange, 'hades-arbiterPMA', CONF.hades_arbiterPMA_topic,
-                 OpenstackConf.DEFAULT_RPC_SERVER, CONF.hades_arbiterPMA_manager)
+    startService(CONF.hades_exchange, 'hades-midPMA', CONF.hades_midPMA_topic,
+                 OpenstackConf.DEFAULT_RPC_SERVER, CONF.hades_midPMA_manager)
