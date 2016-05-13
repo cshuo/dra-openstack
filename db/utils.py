@@ -5,6 +5,7 @@ __author__ = 'cshuo'
 from .entity import Vm
 from .entity import ShareStatus
 from .entity import InvolvedHost
+from .entity import Rules
 import time
 
 from sqlalchemy.orm import sessionmaker
@@ -14,7 +15,8 @@ from sqlalchemy import (
     Table, 
     Column, 
     Integer, 
-    String, 
+    String,
+    Text,
     MetaData, 
     ForeignKey
 )
@@ -51,6 +53,68 @@ def create_involved_table():
                         Column('name', String(40), primary_key=True),
                         )
     metaData.create_all(engine)
+
+def create_rules_table():
+    metaData = MetaData()
+    rulesTable = Table('rules', metaData,
+                        Column('name', String(40), primary_key=True),
+                        Column('app_type', String(40)),
+                        Column('content', Text()),
+                        )
+    metaData.create_all(engine)
+
+
+class RuleDb(object):
+    def __init__(self):
+        self.engine = engine
+
+    @staticmethod
+    def add_rule(name, app_type, content):
+        session = DBSession()
+        new_rule = Rules(name=name, app_type=app_type, content=content)
+        try:
+            session.add(new_rule)
+            session.commit()
+        except:
+            session.close()
+            return False 
+        session.close()
+        return True
+
+    @staticmethod
+    def rm_rule(name):
+        session = DBSession()
+        try:
+            rule = session.query(Rules).filter(Rules.name==name).one()
+        except:
+            session.close()
+            return False
+        session.delete(rule)
+        session.commit()
+        session.close()
+        return True
+
+    @staticmethod
+    def query_rule(name):
+        session = DBSession()
+        try:
+            rule = session.query(Rules).filter(Rules.name==name).one()
+        except:
+            session.close()
+            return None 
+        session.close()
+        return {'name': rule.name, 'app_type':rule.app_type, 'conten': rule.content}
+
+
+    @staticmethod
+    def list_rules():
+        session = DBSession()
+        rules = session.query(Rules).all()
+        session.close()
+        ret_info = []
+        for r in rules:
+            ret_info.append({'name': r.name, 'app_type':r.app_type, 'content':r.content})
+        return ret_info
 
 
 class DismissStatus(object):
@@ -173,10 +237,7 @@ class DbUtil(object):
         """
         """
         session = DBSession()
-        try:
-            vms = session.query(Vm).all()
-        except:
-            vms = []
+        vms = session.query(Vm).all()
         session.close()
         return vms
 
@@ -185,8 +246,10 @@ if __name__ == '__main__':
     creat_vm_table()
     create_involved_table()
     create_status_table()
+    create_rules_table()
 
-    # db = DbUtil()
+    db = DbUtil()
+    # print db.list_all()
     # db.rm_vm('584513aa-20ee-46ce-8229-4517104c211a')
     # for i in db.list_all():
     #     print i.name, i.ids, i.vm_type
@@ -204,9 +267,23 @@ if __name__ == '__main__':
     # DismissStatus.add_involved('compute2')
     # print DismissStatus.get_involved()
     # DismissStatus.clear_involved()
-    print DismissStatus.get_involved()
-
-
-
-
+    # print DismissStatus.query_num()
     # print db.query_vm('c4d73b6b-4d28-4cde-a8a8-b31613162da8')
+    RuleDb.add_rule('matlab', 'matlab_slave', """(defrule underload_valid_check
+        (declare (salience 100))
+        ?dismiss &lt;- (dismiss (host ?host))
+        =>
+        (if (= (python-call hostInvolved ?host) 1)
+            then
+            (python-call print_log "The host is involved in early round processing....")
+            (retract ?dismiss)
+            (python-call clearDismissCache ?host)
+            else
+            (python-call print_log "continue deal with the underload...")
+        ))
+        """)
+    rules = RuleDb.list_rules()
+    print rules
+    print RuleDb.query_rule('matlabasdf')
+    # RuleDb.rm_rule('matlab')
+    # print RuleDb.list_rules()

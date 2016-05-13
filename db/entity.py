@@ -8,7 +8,8 @@ from sqlalchemy import (
     Table, 
     Column, 
     Integer, 
-    String, 
+    String,
+    Text,
     MetaData, 
     ForeignKey
 )
@@ -33,3 +34,10 @@ class ShareStatus(Base):
 class InvolvedHost(Base):
     __tablename__ = 'involved'
     name = Column(String(40), primary_key=True)
+
+
+class Rules(Base):
+    __tablename__ = 'rules'
+    name = Column(String(40), primary_key=True)
+    app_type = Column(String(40))
+    content = Column(Text())

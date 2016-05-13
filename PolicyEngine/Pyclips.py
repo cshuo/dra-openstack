@@ -93,6 +93,9 @@ if __name__ == "__main__":
         (python-call new ?para2 ))
     """
 
+    rule3 = """(defrule light     (light red)     =>     (printout t test crlf))"""
+    rule4 = """(defrule light2\n     (light red)\n     =>\n     (printout t test2 crlf))\n"""
+
     #"""
     #rule = """
     #    (printout stdout ?para1 crlf))
@@ -130,6 +133,8 @@ if __name__ == "__main__":
     #engine.addRule(rule1)
     engine.addRule(rule2)
     engine.addRule(rule)
+    engine.addRule(rule3)
+    engine.addRule(rule4)
     engine.assertFact("(newVM cpubound test.new.ow)")
     engine.assertFact("(newVM cpubound vmInfo1 None)")
     #engine.reset()
