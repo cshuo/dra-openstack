@@ -2,6 +2,10 @@
 from .OpenstackService import *
 from ...Utils.HttpUtil import OpenstackRestful
 from ..Conf import OpenstackConf
+from .webSkt import SocketHandler
+from .webSkt import ServerThread
+from .webSkt import stop_tornado
+import time
 
 
 class Nova(OpenstackService):
@@ -20,11 +24,11 @@ class Nova(OpenstackService):
 
     def post_rest_data(self, url, data):
         try:
-            self.restful.post_req(url, data)
+            return self.restful.post_req(url, data)
         except:
             print "Token expires, update it now..."
             self.update_token()
-            self.restful.post_req(url, data)
+            return self.restful.post_req(url, data)
 
     def getInstances(self):
         """
@@ -111,7 +115,10 @@ class Nova(OpenstackService):
         url = "{base}/v2/{tenant}/servers/{instance}/action".format(base=OpenstackConf.NOVA_URL,
                                                                     tenant=self.tenantId, instance=instance_id)
         values = {"os-migrateLive": {"block_migration": "true", "host": host, 'disk_over_commit': "false"}}
-        self.post_rest_data(url, values)
+        status_code = self.post_rest_data(url, values)
+        if status_code == 202:
+            print "Migration req accept.."
+            SocketHandler.write_to_clients(instance_id, host)
 
     def get_interhost_bandwidth(self, host):
         """
@@ -133,6 +140,8 @@ class Nova(OpenstackService):
 
 if __name__ == "__main__":
     nova = Nova()
+    server_tornado = ServerThread()
+    server_tornado.start()
     # print nova.getInstances()
     # for instance in instances:
     #    print instance.getId()
@@ -147,8 +156,13 @@ if __name__ == "__main__":
     # nova.liveMigration('4071a9ba-5fa2-4dbd-a9be-36c230e0eafe', "compute1")
     # print nova.inspect_host('compute1')
     # print nova.getInstancesOnHost('compute1')
-    # nova.liveMigration('007a49ac-9f7e-4440-8b3d-514b4737879f', "compute1")
+    time.sleep(5)
+    print "begin migrate"
+    nova.liveMigration('4714eae2-c60b-4f78-a267-cd1119451b48', "compute1")
+    time.sleep(5)
+    stop_tornado()
+    server_tornado.join()
     # print nova.getComputeHosts()
     # nova.test('compute1')
     # print nova.inspect_host('compute1')
-    print nova.inspect_instance('6a8adcce-a89a-407f-9136-1e771206a66d')['OS-EXT-SRV-ATTR:host']
+    # print nova.inspect_instance('fd32c5e9-923d-40c6-a0ef-6e33c954a097')['OS-EXT-SRV-ATTR:host']

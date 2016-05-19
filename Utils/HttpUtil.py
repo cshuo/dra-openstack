@@ -16,5 +16,5 @@ class OpenstackRestful(object):
     def post_req(self, url, post_data):
         headers = {'Content-type': 'application/json', 'X-Auth-Token': self.tokenId}
         r = requests.post(url, json=post_data, headers=headers)
-        if r.status_code == 401:
-            raise Exception('401 unauthorized')
+        print r.status_code
+        return r.status_code
