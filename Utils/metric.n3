@@ -1,0 +1,56 @@
+@prefix : <file:///code/metric.n3#>.
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>.
+@prefix rdf:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#>. 
+@prefix owl:  <http://www.w3.org/2002/07/owl#>.
+@keywords is, of, a.
+
+:hardwareRes rdf:type owl:Class .
+:SLA rdf:type owl:Class .
+:Exception rdf:type owl:Class .
+
+### compute resources
+:Cpu rdfs:subClassOf :hardwareRes .
+:Mem rdfs:subClassOf :hardwareRes .
+:Network rdfs:subClassOf :hardwareRes .
+:Disk rdfs:subClassOf :hardwareRes .
+:Load rdfs:subClassOf :hardwareRes .
+:Cpu :hasMetric :cpu_system .
+:Cpu :hasMetric :cpu_user .
+:Cpu :hasMetric :cpu_nice .
+:Cpu :hasMetric :cpu_idle .
+:Network :hasMetric :pkts_in .
+:Network :hasMetric :pkts_out .
+:Mem :hasMetric :mem_free .
+:Mem :hasMetric :mem_shared . 
+:Mem :hasMetric :mem_total . 
+:Mem :hasMetric :mem_cached . 
+:Disk :hasMetric :disk_free .
+:Disk :hasMetric :disk_total .
+:Load :hasMetric :load_one .
+:Load :hasMetric :load_five .
+:Load :hasMetric :load_fifteen .
+
+### performance metrics
+:ResponseTime rdfs:subClassOf :SLA .
+:Throughput rdfs:subClassOf :SLA .
+:SlaException rdfs:subClassOf :Exception .
+
+:RTLong rdf:type :ResponseTime .
+:RTShort rdf:type :ResponseTime .
+:ThptSmall rdf:type :Throughput .
+:RTLong rdfs:subClassOf :SlaException .
+:RTShort rdfs:subClassOf :SlaException .
+:ThptSmall rdfs:subClassOf :SlaException .
+:rtlong1 a :RTLong .
+
+
+### inference rules for resource ontology
+:Mem :affect :ResponseTime.
+:Load :affect :Disk.
+:Load :affect :Cpu.
+:Load :affect :Mem.
+:Network :affect :Disk.
+
+### instances to be added
+:rtlong-timestamp a RTLong .
+:rtlong-timestamp a RTLong .:rtlong-timestamp a RTLong .

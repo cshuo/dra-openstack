@@ -43,6 +43,18 @@ class Nova(OpenstackService):
             instances.append(str(s['id']))
         return instances
 
+    def get_id_from_name(self, name):
+        """
+        get instances id with specific name
+        """
+        url = "%s/v2/%s/servers" % (OpenstackConf.NOVA_URL, self.tenantId)
+        servers = self.get_rest_data(url)['servers']
+        for s in servers:
+            if(str(s['name']) == name):
+                return str(s['id'])
+        return None
+       
+
     def getInstancesOnHost(self, host):
         url = "%s/v2/%s/servers?host=%s" % (OpenstackConf.NOVA_URL, self.tenantId, host)
 
@@ -106,6 +118,20 @@ class Nova(OpenstackService):
         info['cpu'] = flavor_info['vcpus']
         info['ram'] = flavor_info['ram']
         return info
+   
+    def resize_instance(self, instance_id, flavor_id):
+        """ resize a given instance to another flavor with id=flavor_id
+        @param instance_id:
+        @param host:
+        """
+        url = "{base}/v2/{tenant}/servers/{instance}/action".format(base=OpenstackConf.NOVA_URL,
+                                                                    tenant=self.tenantId, instance=instance_id)
+        values = {"resize": {"flavorRef": flavor_id, "OS-DCF:diskConfig": "AUTO"}}
+        status_code = self.post_rest_data(url, values)
+        if status_code == 202:
+            print "Resizing..."
+        else:
+            print "Failing to resizing"
 
     def liveMigration(self, instance_id, host):
         """ live migrate an instance to dest host
@@ -119,6 +145,7 @@ class Nova(OpenstackService):
         if status_code == 202:
             print "Migration req accept.."
             SocketHandler.write_to_clients(instance_id, host)
+
 
     def get_interhost_bandwidth(self, host):
         """
@@ -140,8 +167,8 @@ class Nova(OpenstackService):
 
 if __name__ == "__main__":
     nova = Nova()
-    server_tornado = ServerThread()
-    server_tornado.start()
+    # server_tornado = ServerThread()
+    # server_tornado.start()
     # print nova.getInstances()
     # for instance in instances:
     #    print instance.getId()
@@ -155,14 +182,19 @@ if __name__ == "__main__":
     #
     # nova.liveMigration('4071a9ba-5fa2-4dbd-a9be-36c230e0eafe', "compute1")
     # print nova.inspect_host('compute1')
-    # print nova.getInstancesOnHost('compute1')
-    time.sleep(5)
-    print "begin migrate"
-    nova.liveMigration('4714eae2-c60b-4f78-a267-cd1119451b48', "compute1")
-    time.sleep(5)
-    stop_tornado()
-    server_tornado.join()
+    print nova.getInstancesOnHost('compute0')
+    print nova.getInstancesOnHost('compute1')
+    print nova.getInstances()
+    print nova.get_id_from_name("ubuntu")
+    # time.sleep(5)
+    # print "begin migrate"
+    # nova.liveMigration('4714eae2-c60b-4f78-a267-cd1119451b48', "compute1")
+    # SocketHandler.write_to_clients("ff6186a3-2d80-4589-9939-cafae0375ff5", "compute0");
+    # time.sleep(5)
+    # stop_tornado()
+    # server_tornado.join()
     # print nova.getComputeHosts()
     # nova.test('compute1')
     # print nova.inspect_host('compute1')
-    # print nova.inspect_instance('fd32c5e9-923d-40c6-a0ef-6e33c954a097')['OS-EXT-SRV-ATTR:host']
+    # print nova.inspect_instance('aee77f2e-5ffa-4092-8442-4465357a0d36')
+    # nova.resize_instance("aee77f2e-5ffa-4092-8442-4465357a0d36", "3")
