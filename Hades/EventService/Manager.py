@@ -38,6 +38,9 @@ class EventServiceManager(Manager.Manager):
             return self.monitorPMA.handleEventWithResult(ctxt, host, event)
         else:
             return False
+ 
+    def testRpc(self, ctxt, msg):
+        print "Message received: ", msg
 
 if __name__ == "__main__":
     pass

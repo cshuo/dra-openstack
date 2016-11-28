@@ -15,7 +15,7 @@ def fetch_req_result(data):
     # get host list
     try:
        result = urllib2.urlopen(request)
-    except URLError as e:
+    except urllib2.URLError as e:
        if hasattr(e, 'reason'):
            print 'Fetch result failed: ', e.reason
        elif hasattr(e, 'code'):

@@ -17,7 +17,7 @@ def last_n_average_threshold(threshold, n, hostname):
     :return: bool value
     """
     avg_statistic = _ceil.last_n_average_statistic(n, hostname+'_'+hostname, METER_NAME)
-    print 'avg_statistic: ', avg_statistic
+    print 'avg_statistic of cpu: ', avg_statistic
     if avg_statistic < threshold:
         return True
     return False

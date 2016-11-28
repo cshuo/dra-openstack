@@ -84,8 +84,8 @@ def migrate_vms(sche_place):
 
 if __name__ == '__main__':
     s_time = time.time()
-    get_host_vms_cpu_ram('compute1', 1)
+    print get_host_vms_cpu_ram('compute0', 1)
     print time.time() - s_time
     s_time = time.time()
-    get_host_vms_ram('compute1')
+    print get_host_vms_ram('compute0')
     print time.time() - s_time

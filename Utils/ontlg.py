@@ -32,7 +32,7 @@ def infer_ontlg(resource_name):
 
 def add_ontlg_fact(subName, subType):
     with open('metric.n3', 'a') as apd:
-        apd.write(":"+subName + " a " + subType + " .")
+        apd.write(":"+subName + " a " + subType + " .\n")
 
 if __name__ == "__main__":
     add_ontlg_fact("rtlong-timestamp", "RTLong")

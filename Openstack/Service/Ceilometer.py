@@ -192,7 +192,7 @@ if __name__ == "__main__":
     "value": "4071a9ba-5fa2-4dbd-a9be-36c230e0eafe"}]'''
 
     # print ceilometerTest.getMeterStatistics("compute.node.cpu.percent", q)
-    print ceilometerTest.last_n_average_statistic(1, 'compute1_compute1')
+    print ceilometerTest.last_n_average_statistic(1, 'compute0_compute0')
     # print ceilometerTest.getMeter("compute.node.cpu.percent", q)
     # print ceilometerTest.getCpuStat("2014-12-12T00:00:00", "2014-12-16T00:00:00",
     #                                 "feebf6dc-2f04-4e1d-977e-6c7fde4e4cb3")

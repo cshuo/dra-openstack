@@ -53,7 +53,11 @@ class Nova(OpenstackService):
             if(str(s['name']) == name):
                 return str(s['id'])
         return None
-       
+
+    def get_host_from_vid(self, vid):
+        url = "{0}/v2/{1}/servers/{2}".format(OpenstackConf.NOVA_URL, self.tenantId, vid)
+        info = self.get_rest_data(url)['server']
+        return info["OS-EXT-SRV-ATTR:host"]
 
     def getInstancesOnHost(self, host):
         url = "%s/v2/%s/servers?host=%s" % (OpenstackConf.NOVA_URL, self.tenantId, host)
@@ -64,7 +68,6 @@ class Nova(OpenstackService):
         instances = []
         for s in servers:
             instances.append(str(s['id']))
-
         return instances
 
     def getComputeHosts(self):
@@ -182,10 +185,10 @@ if __name__ == "__main__":
     #
     # nova.liveMigration('4071a9ba-5fa2-4dbd-a9be-36c230e0eafe', "compute1")
     # print nova.inspect_host('compute1')
-    print nova.getInstancesOnHost('compute0')
-    print nova.getInstancesOnHost('compute1')
-    print nova.getInstances()
-    print nova.get_id_from_name("ubuntu")
+    # print nova.getInstancesOnHost('compute0')
+    # print nova.getInstancesOnHost('compute1')
+    # print nova.getInstances()
+    # print nova.get_id_from_name("ubuntu")
     # time.sleep(5)
     # print "begin migrate"
     # nova.liveMigration('4714eae2-c60b-4f78-a267-cd1119451b48', "compute1")
@@ -195,6 +198,6 @@ if __name__ == "__main__":
     # server_tornado.join()
     # print nova.getComputeHosts()
     # nova.test('compute1')
-    # print nova.inspect_host('compute1')
-    # print nova.inspect_instance('aee77f2e-5ffa-4092-8442-4465357a0d36')
+    # print nova.inspect_instance('2aebe8ae-1f08-4301-ae55-9aa50aa13db6')
+    print nova.get_host_from_vid('2aebe8ae-1f08-4301-ae55-9aa50aa13db6')
     # nova.resize_instance("aee77f2e-5ffa-4092-8442-4465357a0d36", "3")

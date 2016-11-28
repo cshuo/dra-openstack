@@ -7,7 +7,7 @@ import random
 
 from ..Openstack.Service import utils
 from ..Openstack.Service.Nova import Nova
-from ..db.utils import DbUtil
+# from ..db.utils import DbUtil
 
 
 def random_selection(host, n):
@@ -19,12 +19,12 @@ def random_selection(host, n):
     nova = Nova()
     vms = nova.getInstancesOnHost(host)
     select_vm = random.choice(vms)
-    dbu = DbUtil()
-    vm_type = dbu.query_vm(select_vm)['type']
-    return select_vm, vm_type
+    # dbu = DbUtil()
+    # vm_type = dbu.query_vm(select_vm)['type']
+    return select_vm
 
 
-def minimum_migration_time_max_cpu(host, n):
+def min_migrt_time_max_cpu(host, n):
     """
     Select a vm with the minimum ram usage and maximum cpu usage
     @param host: host that overloaded
@@ -37,15 +37,17 @@ def minimum_migration_time_max_cpu(host, n):
     min_ram = vms_ram[select_vm]
     max_cpu = 0
 
+    sel_vms = []
     for vm, cpu in vms_cpu.items():
         if vms_ram[vm] > min_ram:
             continue
         if cpu > max_cpu:
             max_cpu = cpu
             select_vm = vm
-    dbu = DbUtil()
-    vm_type = dbu.query_vm(select_vm)['type']
-    return select_vm, vm_type
+    # dbu = DbUtil()
+    # vm_type = dbu.query_vm(select_vm)['type']
+    sel_vms.append(select_vm)
+    return sel_vms
 
 
 if __name__ == '__main__':

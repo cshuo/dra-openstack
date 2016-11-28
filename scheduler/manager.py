@@ -49,7 +49,6 @@ def sche():
     for vm_id, val in candi_instances.items():
         print "Resize ", vm_id 
         vm_sche(vm_id, val)
-        # nova.resize_instance(inst, flavor_sche(inst))
 
 
 """
