@@ -41,6 +41,20 @@ def get_host_vms_ram(host):
     return vms_ram
 
 
+def get_vms_cpu_load(host, n):
+    """
+    Get all vms' cpu info of a overload host
+    :param host: overload host
+    :return: dict type cpu (VCPUS * CPU_UTIL) msg
+    """
+    vms = _nova.getInstancesOnHost(host)
+    vms_cpu_load = dict()
+    for vm in vms:
+        cpu_avg = _ceil.last_n_average_statistic(n, vm, 'cpu_util')
+        vms_cpu_load[vm] = cpu_avg * _nova.inspect_instance(vm)['cpu']
+    return vms_cpu_load
+
+
 def migrate_vms(sche_place):
     """
     Live migrating a set of vms according to schedule results synchronously

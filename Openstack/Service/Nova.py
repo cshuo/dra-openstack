@@ -198,6 +198,6 @@ if __name__ == "__main__":
     # server_tornado.join()
     # print nova.getComputeHosts()
     # nova.test('compute1')
-    # print nova.inspect_instance('2aebe8ae-1f08-4301-ae55-9aa50aa13db6')
-    print nova.get_host_from_vid('2aebe8ae-1f08-4301-ae55-9aa50aa13db6')
+    print nova.inspect_instance('2aebe8ae-1f08-4301-ae55-9aa50aa13db6')['cpu']
+    # print nova.get_host_from_vid('2aebe8ae-1f08-4301-ae55-9aa50aa13db6')
     # nova.resize_instance("aee77f2e-5ffa-4092-8442-4465357a0d36", "3")

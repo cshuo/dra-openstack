@@ -4,6 +4,7 @@
 #
 
 import random
+import time
 
 from ..Openstack.Service import utils
 from ..Openstack.Service.Nova import Nova
@@ -50,7 +51,21 @@ def min_migrt_time_max_cpu(host, n):
     return sel_vms
 
 
+def od_vm_select(host, n):
+    """
+    VM selection of overload hosts based on the concept "OD"(overload degree).
+    OD = sigma(U_ri/UT_ri - 1)
+    NOTE: consider only cpu now... only one vm is selected...
+    """
+    sel_vms = []
+    vms_cpu_load = utils.get_vms_cpu_load(host, n)
+    sel_vms.append(max(vms_cpu_load, key=vms_cpu_load.get))
+    return sel_vms
+
+
 if __name__ == '__main__':
     # vm = random_selection('compute1', 1)
-    vm_s = minimum_migration_time_max_cpu('compute1', 1)
-    print vm_s
+    begin = time.time()
+    vms = od_vm_select("compute0", 1)
+    print vms
+    print time.time() - begin

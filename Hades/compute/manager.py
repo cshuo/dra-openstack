@@ -59,7 +59,7 @@ class ComputeManager(Manager):
             print "overload detected..."
             node_info["status"] = "overload"
             # NOTE: change this to OD_based selecetion
-            node_info["select_vms"] = vm_selection.min_migrt_time_max_cpu(HOSTNAME, TIME_LENGTH)
+            node_info["select_vms"] = vm_selection.od_vm_select(HOSTNAME, TIME_LENGTH)
         else:
             print "Node: " + HOSTNAME + "'s resource status is ok..."
             node_info["status"] = "healthy"

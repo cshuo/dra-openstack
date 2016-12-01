@@ -99,7 +99,7 @@ def update_node_info(nodes_info, prbl_triggers):
     update nodes' info (overload nodes' vms selection) according to app's problem triggers
     """
     for trigger in prbl_triggers:
-        """ TODO: add other alert type """
+        # TODO: add other alert type
         if "RT" in trigger["description"]:
             instance_name = trigger["description"].split("#")[1].strip()
             app_vm_id = _nova.get_id_from_name(instance_name)

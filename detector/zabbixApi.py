@@ -84,6 +84,7 @@ def get_metrics(token, host_id):
        "params":{
            "output":["itemids","key_"],
            "hostids":host_id,
+           # NOTE:This is for including web items in the querying result
            "webitems": 1
        },
        # theauth id is what auth script returns, remeber it is string
