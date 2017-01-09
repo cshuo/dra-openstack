@@ -1,11 +1,13 @@
 # coding: utf-8
 # this file contains algorithms for detecting when a host is underload
 
+import logging
 from ..Openstack.Service.Ceilometer import Ceilometer
 
 
 METER_NAME = 'compute.node.cpu.percent'
 _ceil = Ceilometer()
+logger = logging.getLogger("DRA.detector")
 
 
 def last_n_average_threshold(threshold, n, hostname):
@@ -17,7 +19,7 @@ def last_n_average_threshold(threshold, n, hostname):
     :return: bool value
     """
     avg_statistic = _ceil.last_n_average_statistic(n, hostname+'_'+hostname, METER_NAME)
-    print 'avg_statistic of cpu: ', avg_statistic
+    logger.info('avg_statistic of cpu: ' + str(avg_statistic))
     if avg_statistic < threshold:
         return True
     return False

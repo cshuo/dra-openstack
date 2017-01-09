@@ -6,11 +6,14 @@
 from oslo_config import cfg
 import time
 import datetime
+import logging
 
 from ..Hades.controller.rpcapi import ControllerManagerApi 
 from ..Hades.compute.rpcapi import ComputeManagerApi
 from ..Openstack.Service.Nova import Nova
+from ..Openstack.Service.webSkt import ServerThread
 from ..Openstack.Service.utils import migrate_vms
+from ..Utils.logs import init_logger
 from .vm_placement import (
     get_migrt_plan,
     get_migrt_plan_underload
@@ -21,11 +24,13 @@ from ..detector.zabbixApi import (
 )
 
 
-LOOP_INTERVAL = 180    # 300s
+LOOP_INTERVAL = 60 # 300s
 ZABBIX_USERNAME = "Admin"
 ZABBIX_PASSWORD = "zabbix"
 CONF = cfg.CONF
 _nova = Nova()
+init_logger()
+logger = logging.getLogger("DRA.scheduler")
 
 
 def optimize_allocation():
@@ -41,17 +46,17 @@ def optimize_allocation():
             break
         time.sleep(1)
 
-    print datetime.datetime.now().isoformat(), "all nodes' info got"
-    
+    # print datetime.datetime.now().isoformat(), "all nodes' info got"
+    logger.info("All nodes' info got")
+
     # get compute nodes' resource information and health status
     nodes_info = ctrl_api.get_nodes_info({})
  
     # get app's SLA performance degradation
-    zabbix_token = get_token(ZABBIX_USERNAME, ZABBIX_PASSWORD)
-    problem_triggers = get_prbl_triggers(zabbix_token)
-
+    #zabbix_token = get_token(ZABBIX_USERNAME, ZABBIX_PASSWORD)
+    #problem_triggers = get_prbl_triggers(zabbix_token)
     # update nodes' info
-    update_node_info(nodes_info, problem_triggers)
+    #update_node_info(nodes_info, problem_triggers)
 
     allocation_map = {}
     sel_vms = []
@@ -65,6 +70,7 @@ def optimize_allocation():
 
     allocation_map.update(get_migrt_plan(sel_vms, nodes_info))
     
+    # The consolidation of underloaded server is success <==> all vms on it can be reallocated.
     for host in underload_host:
         info_back = nodes_info.copy()
         migrt_map = get_migrt_plan_underload(host, nodes_info)
@@ -74,9 +80,10 @@ def optimize_allocation():
             nodes_info = info_back.copy()
     
     if not allocation_map:
-        print datetime.datetime.now().isoformat(), "No migraions in this looping."
-    migrate_vms(allocation_map)
+        logger.info("No migraions in this looping.")
+    logger.info("Migration Map is: "+ str(allocation_map))
 
+    migrate_vms(allocation_map)
     ctrl_api.clean_node_info({})
 
     
@@ -84,13 +91,16 @@ def start():
     """
     start main loop of controller
     """
+    server_tornado = ServerThread()
+    server_tornado.start()
+    logger.info("Starting tornado websocket server...")
     while True:
         try:
-            print datetime.datetime.now().isoformat(), "Looping a iteration..."
+            logger.info("Looping a iteration...")
             optimize_allocation()
             time.sleep(LOOP_INTERVAL)
         except (KeyboardInterrupt, SystemExit):
-            print "Stopping main looping..."
+            logger.info("Stopping main looping...")
             break
 
 

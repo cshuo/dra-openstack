@@ -66,6 +66,6 @@ def od_vm_select(host, n):
 if __name__ == '__main__':
     # vm = random_selection('compute1', 1)
     begin = time.time()
-    vms = od_vm_select("compute0", 1)
+    vms = od_vm_select("compute1", 1)
     print vms
     print time.time() - begin

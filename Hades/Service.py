@@ -1,5 +1,4 @@
-__author__ = 'pike'
-
+import logging
 import oslo_messaging as messaging
 from oslo_config import cfg
 
@@ -9,6 +8,7 @@ from dra.Hades import BaseRpc
 from dra.Hades import Rpc
 
 CONF = cfg.CONF
+logger = logging.getLogger("DRA.Hades.Service")
 
 
 class Service(service.Service):
@@ -43,7 +43,7 @@ class Service(service.Service):
     def start(self):
 
         verstr = '1.0'
-        print 'Starting %(topic)s node (version %(version)s)' % {'topic': self.topic, 'version': verstr}
+        logger.info('Starting %(topic)s node (version %(version)s)' % {'topic': self.topic, 'version': verstr})
 
         #self.basic_config_check()
         self.manager.init_host()
@@ -53,7 +53,7 @@ class Service(service.Service):
         if self.backdoor_port is not None:
             self.manager.backdoor_port = self.backdoor_port
 
-        print "Creating RPC server for service %s" % self.topic
+        logger.info("Creating RPC server for service %s" % self.topic)
 
         # exchange is set in CONF.control_exchange
         target = messaging.Target(topic = self.topic, server = self.host)
@@ -72,7 +72,7 @@ class Service(service.Service):
 
         self.manager.post_start_hook()
 
-        print "Join ServiceGroup membership for this service %s" % self.topic
+        logger.info("Join ServiceGroup membership for this service %s" % self.topic)
 
 
     @classmethod
@@ -123,7 +123,7 @@ class Service(service.Service):
         try:
             self.manager.cleanup_host()
         except  Exception:
-            print 'Service error occurred during cleanup host'
+            logger.error('Service error occurred during cleanup host')
             pass
 
         super(Service, self).stop()
@@ -135,7 +135,7 @@ class Service(service.Service):
 _launcher = None
 
 def serve(server, workers=None):
-    print 'serve service\n'
+    # print 'serve service\n'
     global _launcher
     if _launcher:
         raise RuntimeError('serve() can only be called once')
@@ -144,7 +144,7 @@ def serve(server, workers=None):
 
 
 def wait():
-    print 'service wait\n'
+    # print 'service wait\n'
     _launcher.wait()
 
 

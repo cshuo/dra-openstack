@@ -1,4 +1,5 @@
 import oslo_messaging as messaging
+import logging
 from oslo_config import cfg
 from ..Manager import Manager
 
@@ -7,9 +8,10 @@ from ...Openstack.Conf import OpenstackConf
 from .data import ComputeNodeInfo
 
 CONF = cfg.CONF
+logger = logging.getLogger("DRA.controllerService")
 
 
-class  ControllerManager(Manager):
+class ControllerManager(Manager):
     """
     @doc:
     """
@@ -24,13 +26,14 @@ class  ControllerManager(Manager):
         """
         receive information from compute node, and store it.
         """
+        logger.info("Info of " + host_id + " :" + str(host_info))
         self._compute_node_info.add_node_info(host_id, host_info)
 
     def all_info_fetched(self, ctxt):
         """
         whether having received all nodes' information
         """
-        print "ControllerManager: num of nodes' info is ", len(self._compute_node_info.get_node_info()) 
+        # print "ControllerManager: num of nodes' info is ", len(self._compute_node_info.get_node_info()) 
         return self._compute_node_info.check_node_nums()
 
     def clean_node_info(self, ctxt):

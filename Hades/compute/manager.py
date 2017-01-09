@@ -2,6 +2,7 @@
 
 import socket
 import datetime
+import logging
 import oslo_messaging as messaging
 from oslo_config import cfg
 from ..Manager import Manager
@@ -21,9 +22,10 @@ CONF = cfg.CONF
 _nova = Nova()
 
 UNDERLOAD_THRESHOLD = 0
-OVERLOAD_THRESHOLD = 90
+OVERLOAD_THRESHOLD = 80
 TIME_LENGTH = 1  # for 1 hour statistics
 HOSTNAME = socket.gethostname()
+logger = logging.getLogger("DRA.computeService")
 
 
 class ComputeManager(Manager):
@@ -41,7 +43,7 @@ class ComputeManager(Manager):
         """
         receive a req from controller to check node's health, underload or overload
         """
-        print datetime.datetime.now().isoformat(), ": ", socket.gethostname(), " resource health check."
+        logger.info(socket.gethostname() + " resource health check.")
         controller_api = ControllerManagerApi(CONF.hades_controller_topic, CONF.hades_exchange)
         node_info = {}
         node_info['res'] = _nova.inspect_host(HOSTNAME)
@@ -52,16 +54,17 @@ class ComputeManager(Manager):
                 TIME_LENGTH, HOSTNAME)
 
         if underld:
-            print "underload detected..."
+            logger.info("underload detected...")
             node_info["status"] = "underload"
             node_info["select_vms"] = []
         elif overld:
-            print "overload detected..."
+            logger.info("overload detected...")
             node_info["status"] = "overload"
             # NOTE: change this to OD_based selecetion
             node_info["select_vms"] = vm_selection.od_vm_select(HOSTNAME, TIME_LENGTH)
+            logger.info("OD selected VMS: " + str(node_info["select_vms"]))
         else:
-            print "Node: " + HOSTNAME + "'s resource status is ok..."
+            logger.info("Node: " + HOSTNAME + "'s resource status is ok...\n")
             node_info["status"] = "healthy"
             node_info["select_vms"] = []
 

@@ -84,6 +84,5 @@ CONF.register_opts(transport)
 
 
 def config_init(exchange, argv = None, default_config_files = None):
-    print 'config init\n'
     Rpc.set_defaults(control_exchange=exchange)
     Rpc.init(CONF)
