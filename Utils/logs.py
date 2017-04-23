@@ -2,6 +2,28 @@
 
 import logging
 
+loggers = {}
+
+def draLogger(name):
+    global loggers
+    if loggers.get(name):
+        return loggers.get(name)
+    else:
+        logger = logging.getLogger(name)
+        logger.setLevel(logging.DEBUG)
+        
+        ch =logging.StreamHandler()
+        ch.setLevel(logging.DEBUG)
+
+        fmt = "%(asctime)-15s %(levelname)s %(name)s [%(filename)s:%(lineno)d] - %(message)s"
+        datefmt = "%a %d %b %Y %H:%M:%S"
+        formatter = logging.Formatter(fmt, datefmt)
+        ch.setFormatter(formatter)
+
+        logger.addHandler(ch)
+        loggers.update(dict(name=logger))
+        return logger
+
 
 def init_logger():
     # 创建一个logger

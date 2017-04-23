@@ -11,6 +11,7 @@ from ...Openstack.Service.Nova import Nova
 from ...Openstack.Conf import OpenstackConf
 from ..controller.rpcapi import ControllerManagerApi
 from ...Openstack.Service.Nova import Nova
+from ...Utils.logs import draLogger
 from ...detector import (
     overload,
     underload,
@@ -25,7 +26,8 @@ UNDERLOAD_THRESHOLD = 0
 OVERLOAD_THRESHOLD = 80
 TIME_LENGTH = 1  # for 1 hour statistics
 HOSTNAME = socket.gethostname()
-logger = logging.getLogger("DRA.computeService")
+# logger = logging.getLogger("DRA.computeService")
+logger = draLogger("DRA.computeService")
 
 
 class ComputeManager(Manager):
@@ -62,7 +64,7 @@ class ComputeManager(Manager):
             node_info["status"] = "overload"
             # NOTE: change this to OD_based selecetion
             node_info["select_vms"] = vm_selection.od_vm_select(HOSTNAME, TIME_LENGTH)
-            logger.info("OD selected VMS: " + str(node_info["select_vms"]))
+            logger.info("OD selected VMS: " + str(node_info["select_vms"]) + "\n")
         else:
             logger.info("Node: " + HOSTNAME + "'s resource status is ok...\n")
             node_info["status"] = "healthy"

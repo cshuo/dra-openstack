@@ -16,9 +16,9 @@ def init(conf):
     exmods = get_allowed_exmods()
     # TRANSPORT = messaging.get_transport(conf)
     TRANSPORT = messaging.get_transport(conf,
-                                        url=CONF.hades_rabbit_url,
-                                        allowed_remote_exmods = exmods,
-                                        aliases={})
+                                       url=CONF.hades_rabbit_url,
+                                       allowed_remote_exmods = exmods,
+                                       aliases={})
 
 def cleanup():
     global  TRANSPORT

@@ -4,8 +4,10 @@ import time
 
 from .Ceilometer import Ceilometer
 from .Nova import Nova
+from dra.Utils.logs import draLogger
 
 
+_logger = draLogger("Dra.Openstack.Common")
 _nova = Nova()
 _ceil = Ceilometer()
 
@@ -48,6 +50,8 @@ def get_vms_cpu_load(host, n):
     :return: dict type cpu (VCPUS * CPU_UTIL) msg
     """
     vms = _nova.getInstancesOnHost(host)
+    if len(vms) == 0:
+        return {}
     vms_cpu_load = dict()
     for vm in vms:
         cpu_avg = _ceil.last_n_average_statistic(n, vm, 'cpu_util')
@@ -75,24 +79,24 @@ def migrate_vms(sche_place):
             # get detail information of a vm
             vm_info = _nova.inspect_instance(vm)
             if vm_info['OS-EXT-SRV-ATTR:hypervisor_hostname'] == dest and vm_info['status'] == 'ACTIVE':
-                print "vm {0} migrated to host {1} successfully!".format(vm, dest)
+                _logger.info("vm {0} migrated to host {1} successfully!".format(vm, dest))
                 break
             elif time.time() - start_time > 240 and vm_info['OS-EXT-SRV-ATTR:hypervisor_hostname'] != dest \
                     and vm_info['status'] == 'ACTIVE':
                 retry_placement[vm] = dest
-                print "vm {0} migrate to host {1} timeout...".format(vm, dest)
+                _logger.warn("vm {0} migrate to host {1} timeout...".format(vm, dest))
                 break
             elif vm_info['status'] == 'ERROR':
                 failure_placement[vm] = dest
-                print "vm {0} state error during migration".format(vm)
+                _logger.warn("vm {0} state error during migration".format(vm))
                 break
             time.sleep(3)
 
     if failure_placement:
-        print "The following placements {0} are failed".format(str(failure_placement))
+        _logger.error("The following placements {0} are failed".format(str(failure_placement)))
 
     if retry_placement:
-        print "Retrying the following migrations {0}..".format(str(retry_placement))
+        _logger.warn("Retrying the following migrations {0}..".format(str(retry_placement)))
         migrate_vms(retry_placement)
 
 

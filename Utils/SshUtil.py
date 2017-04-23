@@ -14,11 +14,6 @@ class Ssh_tool:
 
     def remote_cmd(self, command):
         stdin, stdout, stderr = self.sshclient.exec_command(command)
-
-        #print "remote command: " + command + "\n"
-        #print "stdout: " + stdout.read() + "\n"
-        #print "stderr: " + stderr.read() + "\n"
-
         return {"stdin" : stdin,
                 "stdout" : stdout,
                 "stderr" : stderr}

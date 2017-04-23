@@ -3,11 +3,13 @@
 
 import logging
 from ..Openstack.Service.Ceilometer import Ceilometer
+from ..Utils.logs import draLogger
 
 
 METER_NAME = 'compute.node.cpu.percent'
 _ceil = Ceilometer()
-logger = logging.getLogger("DRA.detector")
+# logger = logging.getLogger("DRA.detector")
+logger = draLogger("DRA.detector")
 
 
 def last_n_average_threshold(threshold, n, hostname):

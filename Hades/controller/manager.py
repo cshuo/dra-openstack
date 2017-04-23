@@ -5,10 +5,12 @@ from ..Manager import Manager
 
 from ...Openstack.Service.Nova import Nova
 from ...Openstack.Conf import OpenstackConf
+from ...Utils.logs import draLogger
 from .data import ComputeNodeInfo
 
 CONF = cfg.CONF
-logger = logging.getLogger("DRA.controllerService")
+# logger = logging.getLogger("DRA.controllerService")
+logger = draLogger("DRA.controllerService")
 
 
 class ControllerManager(Manager):

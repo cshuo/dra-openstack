@@ -6,9 +6,12 @@ from dra.Utils import ImportUtils
 from dra.Hades.Common import Service as service
 from dra.Hades import BaseRpc
 from dra.Hades import Rpc
+from dra.Utils.logs import draLogger
 
 CONF = cfg.CONF
-logger = logging.getLogger("DRA.Hades.Service")
+# logger = logging.getLogger("DRA.Hades.Service")
+logger = draLogger("DRA.Hades.Service")
+
 
 
 class Service(service.Service):

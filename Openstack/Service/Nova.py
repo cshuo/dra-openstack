@@ -1,12 +1,12 @@
 # -*- coding: utf-8 -*-
 from .OpenstackService import *
 from ...Utils.HttpUtil import OpenstackRestful
+from ...Utils.logs import draLogger
 from ..Conf import OpenstackConf
 from .webSkt import SocketHandler
-from .webSkt import ServerThread
-from .webSkt import stop_tornado
 import time
 
+logger = draLogger("Dra.Openstack.Nova")
 
 class Nova(OpenstackService):
 
@@ -18,7 +18,7 @@ class Nova(OpenstackService):
         try:
             return self.restful.get_req(url)
         except:
-            print "Token expires, update it now..."
+            logger.info("Token expires, update it now...")
             self.update_token()
             return self.restful.get_req(url)
 
@@ -26,7 +26,7 @@ class Nova(OpenstackService):
         try:
             return self.restful.post_req(url, data)
         except:
-            print "Token expires, update it now..."
+            logger.info("Token expires, update it now...")
             self.update_token()
             return self.restful.post_req(url, data)
 
@@ -131,9 +131,9 @@ class Nova(OpenstackService):
         values = {"resize": {"flavorRef": flavor_id, "OS-DCF:diskConfig": "AUTO"}}
         status_code = self.post_rest_data(url, values)
         if status_code == 202:
-            print "Resizing..."
+            logger.info("Resizing...")
         else:
-            print "Failing to resizing"
+            logger.warn("Failing to resizing")
 
     def liveMigration(self, instance_id, host):
         """ live migrate an instance to dest host
@@ -142,10 +142,9 @@ class Nova(OpenstackService):
         """
         url = "{base}/v2/{tenant}/servers/{instance}/action".format(base=OpenstackConf.NOVA_URL,
                                                                     tenant=self.tenantId, instance=instance_id)
-        values = {"os-migrateLive": {"block_migration": "false", "host": host, 'disk_over_commit': "false"}}
+        values = {"os-migrateLive": {"block_migration": "False", "host": host, 'disk_over_commit': "False"}}
         status_code = self.post_rest_data(url, values)
         if status_code == 202:
-            # print "Migration req accept.."
             SocketHandler.write_to_clients(instance_id, host)
 
 
@@ -180,10 +179,13 @@ if __name__ == "__main__":
     # for host in hosts:
     #    print host.getHostName()
     #
-    # nova.liveMigration('4bd19233-e7b8-4fe8-9ab6-a0cc911bb517', "compute0")
+
+    nova.liveMigration('d1b19efe-6561-4e63-baee-f9a57e421ac7', "kolla2")
+    print nova.getComputeHosts()
+
     # print nova.inspect_host('compute1')
-    print nova.getInstancesOnHost('compute0')
-    print nova.getInstancesOnHost('compute1')
+    # print nova.getInstancesOnHost('compute0')
+    # print nova.getInstancesOnHost('compute1')
     # print nova.getInstances()
     # print nova.get_id_from_name("ubuntu")
     # time.sleep(5)
@@ -193,7 +195,6 @@ if __name__ == "__main__":
     # time.sleep(5)
     # stop_tornado()
     # server_tornado.join()
-    # print nova.getComputeHosts()
     # nova.test('compute1')
     # print nova.inspect_instance('2aebe8ae-1f08-4301-ae55-9aa50aa13db6')['cpu']
     # print nova.get_host_from_vid('2aebe8ae-1f08-4301-ae55-9aa50aa13db6')

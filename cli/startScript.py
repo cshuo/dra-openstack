@@ -16,7 +16,4 @@ def startService(exchange, serviceBinary, serviceTopic, serviceHost, serviceMana
     Service.wait()
 
 if __name__ == "__main__":
-
-    #for entry in iter_entry_points(group='oslo.messaging.drivers', name=None):
-    #    print entry
     pass

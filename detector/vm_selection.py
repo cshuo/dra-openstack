@@ -59,6 +59,9 @@ def od_vm_select(host, n):
     """
     sel_vms = []
     vms_cpu_load = utils.get_vms_cpu_load(host, n)
+    # no vms on Host $host
+    if not len(vms_cpu_load):
+        return []
     sel_vms.append(max(vms_cpu_load, key=vms_cpu_load.get))
     return sel_vms
 

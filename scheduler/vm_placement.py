@@ -6,12 +6,13 @@ import random
 import logging
 
 from ..Openstack.Service.Nova import Nova
+from ..Utils.logs import draLogger
 
 _nova = Nova()
 CPU_HEALTH_THRESHOLD = 0.75
 CPU_OVERCOMMIT_RATIO = 16
 MEM_OVERCOMMIT_RATIO = 1.5
-logger = logging.getLogger("DRA.vm_placement")
+logger = draLogger("DRA.vm_placement")
 
 
 def find_host_for_vm(vm_id, nodes_info):
