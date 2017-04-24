@@ -1,18 +1,16 @@
 __author__ = 'pike'
 
-from dra.Hades.DB import Base
 from oslo_config import cfg
 
 CONF = cfg.CONF
 
-class Manager(Base.Base):
+class Manager(object):
     def __init__(self, host = None, db_driver = None, service_name = 'undefined'):
 
         self.host = host
         self.backdoor_port = None
         self.service_name = service_name
         self.additional_endpoints = []
-        super(Manager, self).__init__(db_driver)
 
     def init_host(self):
         """Hook to do additional manager initialization when one requests

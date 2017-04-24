@@ -179,10 +179,8 @@ if __name__ == "__main__":
     # for host in hosts:
     #    print host.getHostName()
     #
-
-    nova.liveMigration('d1b19efe-6561-4e63-baee-f9a57e421ac7', "kolla2")
-    print nova.getComputeHosts()
-
+    #nova.liveMigration('d1b19efe-6561-4e63-baee-f9a57e421ac7', "kolla2")
+    # print nova.getComputeHosts()
     # print nova.inspect_host('compute1')
     # print nova.getInstancesOnHost('compute0')
     # print nova.getInstancesOnHost('compute1')
@@ -196,6 +194,6 @@ if __name__ == "__main__":
     # stop_tornado()
     # server_tornado.join()
     # nova.test('compute1')
-    # print nova.inspect_instance('2aebe8ae-1f08-4301-ae55-9aa50aa13db6')['cpu']
+    print nova.inspect_instance('7b8c5e0c-4c73-4817-a257-11b399de3919')
     # print nova.get_host_from_vid('2aebe8ae-1f08-4301-ae55-9aa50aa13db6')
     # nova.resize_instance("aee77f2e-5ffa-4092-8442-4465357a0d36", "3")

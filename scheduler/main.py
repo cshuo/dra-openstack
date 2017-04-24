@@ -66,12 +66,12 @@ def optimize_allocation():
         elif info["status"] == "underload":
             underload_host.append(host)
 
-    allocation_map.update(get_migrt_plan(sel_vms, nodes_info))
+    allocation_map.update(get_migrt_plan(sel_vms, nodes_info, underload_host))
     
     # The consolidation of underloaded server is success <==> all vms on it can be reallocated.
     for host in underload_host:
         info_back = nodes_info.copy()
-        migrt_map = get_migrt_plan_underload(host, nodes_info)
+        migrt_map = get_migrt_plan_underload(host, nodes_info, underload_host)
         if migrt_map:
             allocation_map.update(migrt_map)
         else:
