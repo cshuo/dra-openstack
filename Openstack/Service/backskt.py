@@ -1,11 +1,15 @@
 # -*- coding: utf-8 -*-
 
 import threading
+import multiprocessing
 import sys, time
 import tornado.web
 import tornado.ioloop
-import tornado.websocket
+import tornado.websocket 
 
+from ...Utils.logs import draLogger
+
+logger = draLogger("DRA.WebSocket")
 
 class SocketHandler(tornado.websocket.WebSocketHandler):
     clients = []
@@ -14,54 +18,52 @@ class SocketHandler(tornado.websocket.WebSocketHandler):
         return True
 
     def open(self):
-        print "new connection..., num: ", len(SocketHandler.clients)
+        logger.info("new websocket client connection...")
         SocketHandler.clients.append(self)
-
-    def on_message(self, message):
-        pass
 
     @classmethod
     def write_to_clients(cls, vm_id, host):
-        # print "Writing to all clients..."
         for client in cls.clients:
-            if not client.ws_connection or not client.ws_connection.stream.socket:
+            if not client.ws_connection.stream.socket:
+                logger.warn("Web socket does not exist anymore!!!")
                 cls.clients.remove(client)
             else:
                 client.write_message({'vm_id': vm_id, 'host': host})
 
+class TornadoService():
+    def __init__(self):
+        self.p = None
 
-class ServerThread(threading.Thread):
     def run(self):
         app = tornado.web.Application([
             ('/soc', SocketHandler)
         ])
         app.listen(8070)
-        tornado.ioloop.IOLoop.instance().start()
+        try:
+            tornado.ioloop.IOLoop.instance().start()
+        except (KeyboardInterrupt, SystemExit):
+            self.stop_tornado()
 
-    @classmethod
-    def stop_tornado(cls):
-        print "stop tornado..."
+    def start(self):
+        self.p = multiprocessing.Process(target=self.run)
+        self.p.start()
+
+    def stop_tornado(self):
         iolp = tornado.ioloop.IOLoop.instance()
         iolp.add_callback(iolp.stop)
 
 
-def stop_tornado():
-    iolp = tornado.ioloop.IOLoop.instance()
-    iolp.add_callback(iolp.stop)
-    print 'stopping tornado...'
-
-
 if __name__ == '__main__':
-    server_tornado = ServerThread()
+    server_tornado = TornadoService()
     server_tornado.start()
     i = 0
     while i < 10:
         if i % 2 ==0 :
-            hosts = "kolla3"
+            hosts = "kolla1"
         else:
             hosts = "kolla2"
-        print i, ": send a msg.."
-        SocketHandler.write_to_clients('b7e9dd7c-4c5b-4614-8b04-4caaaf4c9792', hosts);
+        print i, ": send a msg"
+        SocketHandler.write_to_clients('6b12712a-a7b0-401e-86d3-370e0a9e9a5f', hosts);
         i += 1
         time.sleep(2)
-    ServerThread.stop_tornado()
+    server_tornado.stop_tornado()

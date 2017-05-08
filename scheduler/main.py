@@ -11,7 +11,7 @@ import logging
 from ..Hades.controller.rpcapi import ControllerManagerApi 
 from ..Hades.compute.rpcapi import ComputeManagerApi
 from ..Openstack.Service.Nova import Nova
-from ..Openstack.Service.webSkt import TornadoService
+from ..Openstack.Service.webSkt import ServerThread, SocketHandler
 from ..Openstack.Service.utils import migrate_vms
 from ..Utils.logs import draLogger
 from .vm_placement import (
@@ -24,7 +24,7 @@ from ..detector.zabbixApi import (
 )
 
 
-LOOP_INTERVAL = 20 # 300s
+LOOP_INTERVAL = 60 # 300s
 ZABBIX_USERNAME = "Admin"
 ZABBIX_PASSWORD = "zabbix"
 CONF = cfg.CONF
@@ -89,10 +89,10 @@ def start():
     """
     start main loop of controller
     """
-    # server_tornado = ServerThread()
-    server_tornado = TornadoService()
+    server_tornado = ServerThread()
     server_tornado.start()
     logger.info("Starting tornado websocket server...")
+
     while True:
         try:
             logger.info("Looping a iteration...")
@@ -100,7 +100,7 @@ def start():
             time.sleep(LOOP_INTERVAL)
         except (KeyboardInterrupt, SystemExit):
             logger.info("Stopping main looping...")
-            # server_tornado.stop_tornado()
+            ServerThread.stop_tornado()
             break
 
 
