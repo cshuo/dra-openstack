@@ -1,14 +1,12 @@
 # -*- coding: utf-8 -*-
 #
 # Inside this file are some vm selection algorithms when a host is overload
-#
 
 import random
 import time
 
 from ..Openstack.Service import utils
 from ..Openstack.Service.Nova import Nova
-# from ..db.utils import DbUtil
 
 
 def random_selection(host, n):

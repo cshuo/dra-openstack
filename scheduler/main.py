@@ -1,30 +1,26 @@
 # -*- coding: utf-8 -*-
-#
 # main controller of the dynamic resource allocation
-#
 
 from oslo_config import cfg
 import time
-import datetime
-import logging
 
-from ..Hades.controller.rpcapi import ControllerManagerApi 
+from ..Hades.controller.rpcapi import ControllerManagerApi
 from ..Hades.compute.rpcapi import ComputeManagerApi
-from ..Openstack.Service.Nova import Nova
+from ..Openstack.Service.Nova import Nova, append_log_db
 from ..Openstack.Service.webSkt import ServerThread, SocketHandler
-from ..Openstack.Service.utils import migrate_vms
 from ..Utils.logs import draLogger
 from .vm_placement import (
     get_migrt_plan,
     get_migrt_plan_underload
 )
+from ..Openstack.Service.utils import migrate_vms
 from ..detector.zabbixApi import (
     get_token,
     get_prbl_triggers,
 )
 
 
-LOOP_INTERVAL = 60 # 300s
+LOOP_INTERVAL = 60  # 300s
 ZABBIX_USERNAME = "Admin"
 ZABBIX_PASSWORD = "zabbix"
 CONF = cfg.CONF
@@ -37,7 +33,7 @@ def optimize_allocation():
     compute_nodes = _nova.getComputeHosts()
     for node in compute_nodes:
         ComputeManagerApi(CONF.hades_compute_topic, CONF.hades_exchange, node).res_health_check({})
-    
+
     while 1:
         # all nodes info are collected
         # NOTE: more properly to set timeout
@@ -49,12 +45,12 @@ def optimize_allocation():
 
     # get compute nodes' resource information and health status
     nodes_info = ctrl_api.get_nodes_info({})
- 
+
     # get app's SLA performance degradation
-    #zabbix_token = get_token(ZABBIX_USERNAME, ZABBIX_PASSWORD)
-    #problem_triggers = get_prbl_triggers(zabbix_token)
+    # zabbix_token = get_token(ZABBIX_USERNAME, ZABBIX_PASSWORD)
+    # problem_triggers = get_prbl_triggers(zabbix_token)
     # update nodes' info
-    #update_node_info(nodes_info, problem_triggers)
+    # update_node_info(nodes_info, problem_triggers)
 
     allocation_map = {}
     sel_vms = []
@@ -62,16 +58,18 @@ def optimize_allocation():
     sleep_host = []
 
     for host, info in nodes_info.items():
+        SocketHandler.write_to_clients('status', host=host, status=info['status'])
         if info["select_vms"]:
             sel_vms += info["select_vms"]
+            append_log_db(host, 'warn', '计算节点: %s 出现超载状况' % str(host))
         elif info["status"] == "underload":
             underload_host.append(host)
+            append_log_db(host, 'warn', '计算节点: %s 出现欠载状况' % str(host))
         elif info["status"] == "sleeping":
             sleep_host.append(host)
 
-
     allocation_map.update(get_migrt_plan(sel_vms, nodes_info, underload_host, sleep_host))
-    
+
     # The consolidation of underloaded server is success <==> all vms on it can be reallocated.
     for host in underload_host:
         info_back = nodes_info.copy()
@@ -80,15 +78,15 @@ def optimize_allocation():
             allocation_map.update(migrt_map)
         else:
             nodes_info = info_back.copy()
-    
+
     if not allocation_map:
         logger.info("No migraions in this looping.")
-    logger.info("Migration Map is: "+ str(allocation_map))
+    logger.info("Migration Map is: " + str(allocation_map))
 
     migrate_vms(allocation_map)
     ctrl_api.clean_node_info({})
 
-    
+
 def start():
     """
     start main loop of controller
@@ -111,6 +109,8 @@ def start():
 def update_node_info(nodes_info, prbl_triggers):
     """
     update nodes' info (overload nodes' vms selection) according to app's problem triggers
+    @param prbl_triggers:
+    @param nodes_info:
     """
     for trigger in prbl_triggers:
         # TODO: add other alert type
@@ -118,17 +118,18 @@ def update_node_info(nodes_info, prbl_triggers):
             instance_name = trigger["description"].split("#")[1].strip()
             app_vm_id = _nova.get_id_from_name(instance_name)
             host_node = _nova.get_host_from_vid(app_vm_id)
-            # NOTE only one vm is selected for now, 
+            # NOTE only one vm is selected for now,
             # so there is no other choice for vm substitution
-            if(nodes_info[host_node]["status"] == 'overload'):
+            if nodes_info[host_node]["status"] == 'overload':
                 nodes_info[host_node]["select_vms"] = [app_vm_id]
-            elif(nodes_info[host_node]["status"] == 'healthy'):
-                assert(nodes_info[host_node]["select_vms"] == [])
+            elif nodes_info[host_node]["status"] == 'healthy':
+                assert (nodes_info[host_node]["select_vms"] == [])
                 nodes_info[host_node]["select_vms"].append(app_vm_id)
             else:
                 # app performance is bad, while the host is underload...
                 # We assume this scenario do not exist.
                 pass
+
 
 if __name__ == '__main__':
     start()

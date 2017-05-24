@@ -67,7 +67,7 @@ manager_opts = [
 
 transport = [
     cfg.StrOpt('hades_rabbit_url',
-               default='rabbit://openstack:1V6iIXheZZza9862cm5F3qMD1eFwlAwDVph8J9HS@20.0.1.9:5672',
+               default='rabbit://openstack:BbrteT4iO3C1IU0O4PfnrvO6NINoZfH96bOffzxt@20.0.1.10:5672',
                help='rabbit url'),
     cfg.StrOpt('hades_exchange',
                default='hades',

@@ -2,8 +2,6 @@
 
 from .OpenstackService import *
 from ..Conf import OpenstackConf
-from ...Utils.HttpUtil import OpenstackRestful
-from .Nova import Nova
 
 import time
 import datetime

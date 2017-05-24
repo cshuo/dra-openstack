@@ -8,26 +8,40 @@ import tornado.websocket
 
 
 class SocketHandler(tornado.websocket.WebSocketHandler):
-    clients = []
+    clients = set()
 
     def check_origin(self, origin):
         return True
 
     def open(self):
         print "new connection..., num: ", len(SocketHandler.clients)
-        SocketHandler.clients.append(self)
+        SocketHandler.clients.add(self)
+
+    def on_close(self):
+        SocketHandler.clients.remove(self)
 
     def on_message(self, message):
         pass
 
     @classmethod
-    def write_to_clients(cls, vm_id, host):
+    def write_to_clients(cls, mtype, **kwargs):
         # print "Writing to all clients..."
-        for client in cls.clients:
-            if not client.ws_connection or not client.ws_connection.stream.socket:
-                cls.clients.remove(client)
-            else:
-                client.write_message({'vm_id': vm_id, 'host': host})
+        msg = dict()
+        msg['type'] = mtype
+        if mtype == 'update':
+            msg['vm_id'] = kwargs['vm_id']
+            msg['host'] = kwargs['host']
+        elif mtype == 'status':
+            msg['host'] = kwargs['host']
+            msg['status'] = kwargs['status']
+        elif mtype == 'message':
+            msg['host'] = kwargs['host']
+            msg['content'] = kwargs['content']
+        else:
+            msg['content'] = kwargs['content']
+
+        for client in SocketHandler.clients:
+            client.write_message(msg)
 
 
 class ServerThread(threading.Thread):
@@ -55,13 +69,17 @@ if __name__ == '__main__':
     server_tornado = ServerThread()
     server_tornado.start()
     i = 0
-    while i < 10:
-        if i % 2 ==0 :
-            hosts = "kolla3"
-        else:
+    instance_id = 'af0e525c-fb95-414f-ae2e-13f484b6b972'
+    host = 'kolla1'
+    while i < 20:
+        if i % 2 == 0:
             hosts = "kolla2"
+        else:
+            hosts = "kolla3"
         print i, ": send a msg.."
-        SocketHandler.write_to_clients('b7e9dd7c-4c5b-4614-8b04-4caaaf4c9792', hosts);
+        # SocketHandler.write_to_clients('update', vm_id='af0e525c-fb95-414f-ae2e-13f484b6b972', host=hosts);
+        SocketHandler.write_to_clients('scheduler', content='虚拟机: %s 迁移到主机: %s' % (instance_id, host))
+
         i += 1
-        time.sleep(2)
+        time.sleep(3)
     ServerThread.stop_tornado()

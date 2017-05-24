@@ -5,11 +5,12 @@ import multiprocessing
 import sys, time
 import tornado.web
 import tornado.ioloop
-import tornado.websocket 
+import tornado.websocket
 
 from ...Utils.logs import draLogger
 
 logger = draLogger("DRA.WebSocket")
+
 
 class SocketHandler(tornado.websocket.WebSocketHandler):
     clients = []
@@ -29,6 +30,7 @@ class SocketHandler(tornado.websocket.WebSocketHandler):
                 cls.clients.remove(client)
             else:
                 client.write_message({'vm_id': vm_id, 'host': host})
+
 
 class TornadoService():
     def __init__(self):
@@ -58,7 +60,7 @@ if __name__ == '__main__':
     server_tornado.start()
     i = 0
     while i < 10:
-        if i % 2 ==0 :
+        if i % 2 == 0:
             hosts = "kolla1"
         else:
             hosts = "kolla2"

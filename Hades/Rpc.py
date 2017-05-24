@@ -10,19 +10,21 @@ TRANSPORT = None
 ALLOWED_EXMODS = []
 EXTRA_EXMODS = []
 
+
 # used in Hades/Cmd/scheduler
 def init(conf):
     global TRANSPORT
     exmods = get_allowed_exmods()
     # TRANSPORT = messaging.get_transport(conf)
     TRANSPORT = messaging.get_transport(conf,
-                                       url=CONF.hades_rabbit_url,
-                                       allowed_remote_exmods = exmods,
-                                       aliases={})
+                                        url=CONF.hades_rabbit_url,
+                                        allowed_remote_exmods=exmods,
+                                        aliases={})
+
 
 def cleanup():
-    global  TRANSPORT
-    assert  TRANSPORT is not None
+    global TRANSPORT
+    assert TRANSPORT is not None
     TRANSPORT.cleanup()
     TRANSPORT = None
 
@@ -30,7 +32,8 @@ def cleanup():
 def get_allowed_exmods():
     return ALLOWED_EXMODS + EXTRA_EXMODS
 
-#class RequestContextSerializer(messaging.Serializer):
+
+# class RequestContextSerializer(messaging.Serializer):
 #
 #    def __init__(self, base):
 #        self._base = base
@@ -51,7 +54,7 @@ def get_allowed_exmods():
 #    def deserialize_context(self, context):
 #        return nova.context.RequestContext.from_dict(context)
 
-def get_client(target, version_cap = None, serializer = None):
+def get_client(target, version_cap=None, serializer=None):
     assert TRANSPORT is not None
     return messaging.RPCClient(TRANSPORT, target)
     """
@@ -61,16 +64,17 @@ def get_client(target, version_cap = None, serializer = None):
                                serializer = serializer)
     """
 
-def get_server(target, endpoints, serializer = None):
+
+def get_server(target, endpoints, serializer=None):
     assert TRANSPORT is not None
-    #serializer = RequestContextSerializer(serializer)
+    # serializer = RequestContextSerializer(serializer)
     return messaging.get_rpc_server(TRANSPORT,
                                     target,
                                     endpoints,
-                                    executor = 'blocking',
-                                    serializer = serializer)
+                                    executor='blocking',
+                                    access_policy=messaging.DefaultRPCAccessPolicy,
+                                    serializer=serializer)
+
 
 def set_defaults(control_exchange):
     CONF.control_exchange = control_exchange
-
-

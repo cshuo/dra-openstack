@@ -4,7 +4,7 @@ import json
 import urllib2
 
 """bsed url and required header"""
-url = "http://30.0.1.150/zabbix/api_jsonrpc.php"
+url = "http://114.212.189.132/zabbix/api_jsonrpc.php"
 header = {"Content-Type": "application/json"}
 
 def fetch_req_result(data):
@@ -50,7 +50,7 @@ def get_hostgroup(token):
        "params":{
            "output":["groupid","name"],
        },
-       # theauth id is what auth script returns, remeber it is string
+       # the auth id is what auth script returns, remeber it is string
        "auth":token, 
        "id":1,
     })
@@ -104,7 +104,7 @@ def get_web_scn(token, host_id):
            "output":"extend",
            "hostids":host_id,
        },
-       # theauth id is what auth script returns, remeber it is string
+       # the auth id is what auth script returns, remeber it is string
        "auth":token, 
        "id":1,
     })
@@ -122,7 +122,7 @@ def get_web_detail(token, web_id):
            "selectSteps": "extend",
            "httptestids":web_id
        },
-       # theauth id is what auth script returns, remeber it is string
+       # the auth id is what auth script returns, remeber it is string
        "auth":token, 
        "id":1,
     })
@@ -173,11 +173,11 @@ def get_prbl_triggers(token):
 
 if __name__ == '__main__':
     token = get_token('Admin', 'zabbix')
-    print token
-    #  print get_hostgroup(token)
-    #  print get_hosts(token, '4')
+    # print token
+    # print get_hostgroup(token)
+    # print get_hosts(token, '4')
     # print get_metrics(token, '10084')
     # print get_web_scn(token, "10084")
     # print get_web_detail(token, "1")
-    # print get_metric_history(token, '25400', 10)
-    print get_prbl_triggers(token)
+    print get_metric_history(token, '23316', 10)
+    # print get_prbl_triggers(token)

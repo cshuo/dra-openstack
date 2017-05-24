@@ -5,6 +5,8 @@ import time
 from .Ceilometer import Ceilometer
 from .Nova import Nova
 from dra.Utils.logs import draLogger
+import requests
+from ..Conf import OpenstackConf
 
 
 _logger = draLogger("Dra.Openstack.Common")
@@ -22,11 +24,11 @@ def get_host_vms_cpu_ram(host, n):
     vms = _nova.getInstancesOnHost(host)
     vms_cpu, vms_ram = dict(), dict()
     for vm in vms:
-        cpu_avg = _ceil.last_n_average_statistic(n, vm, 'cpu_util')
+        cpu_avg = _ceil.last_n_average_statistic(n, vm.split('#')[0], 'cpu_util')
         # NOTE code using this function has to judge whether return res is empty
         if cpu_avg:
             vms_cpu[vm] = cpu_avg
-        vms_ram[vm] = _nova.inspect_instance(vm)['ram']
+        vms_ram[vm] = _nova.inspect_instance(vm.split('#')[0])['ram']
     return vms_cpu, vms_ram
 
 
@@ -39,7 +41,7 @@ def get_host_vms_ram(host):
     vms = _nova.getInstancesOnHost(host)
     vms_ram = dict()
     for vm in vms:
-        vms_ram[vm] = _nova.inspect_instance(vm)['ram']
+        vms_ram[vm] = _nova.inspect_instance(vm.split('#')[0])['ram']
     return vms_ram
 
 
@@ -54,8 +56,8 @@ def get_vms_cpu_load(host, n):
         return {}
     vms_cpu_load = dict()
     for vm in vms:
-        cpu_avg = _ceil.last_n_average_statistic(n, vm, 'cpu_util')
-        vms_cpu_load[vm] = cpu_avg * _nova.inspect_instance(vm)['cpu']
+        cpu_avg = _ceil.last_n_average_statistic(n, vm.split('#')[0], 'cpu_util')
+        vms_cpu_load[vm] = cpu_avg * _nova.inspect_instance(vm.split('#')[0])['cpu']
     return vms_cpu_load
 
 
@@ -70,7 +72,7 @@ def migrate_vms(sche_place):
     # migrate only 1 vm at a time, as multi migration at same time mail fail
     for vm, dest in sche_place.items():
         start_time = time.time()
-        _nova.liveMigration(vm, dest)
+        _nova.liveMigration(vm.split('#')[0], vm.split('#')[1], dest)
 
         # wait 10 seconds for migrating ok
         time.sleep(10)
@@ -101,9 +103,4 @@ def migrate_vms(sche_place):
 
 
 if __name__ == '__main__':
-    s_time = time.time()
-    print get_host_vms_cpu_ram('compute0', 1)
-    print time.time() - s_time
-    s_time = time.time()
-    print get_host_vms_ram('compute0')
-    print time.time() - s_time
+    pass

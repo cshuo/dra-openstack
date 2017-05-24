@@ -1,11 +1,11 @@
-# -*- coding: utf-8 -*- 
+# -*- coding: utf-8 -*-
 
 import sys
 import math
 import random
-import logging
 
 from ..Openstack.Service.Nova import Nova
+from ..Openstack.Service.webSkt import SocketHandler
 from ..Utils.logs import draLogger
 
 _nova = Nova()
@@ -15,17 +15,16 @@ MEM_OVERCOMMIT_RATIO = 1.5
 logger = draLogger("DRA.vm_placement")
 
 
-
 def find_host_for_vm(vm_id, nodes_info, underload_hosts, sleep_hosts):
     """
     Find a host for the vm using CD_based reallocation
     """
-    min_CD = sys.float_info.max
+    min_cd = sys.float_info.max
     vm_info = _nova.inspect_instance(vm_id)
     select_host = None
 
     for host, info in nodes_info.items():
-        if info["status"] == "overload" or info["status"] == "underload":
+        if info["status"] == "overload" or info["status"] == "underload" or info['status'] == 'sleeping':
             continue
         if vm_info['cpu'] >= CPU_OVERCOMMIT_RATIO * info['res']['cpu']['total'] - info['res']['cpu']['used']:
              continue
@@ -33,15 +32,15 @@ def find_host_for_vm(vm_id, nodes_info, underload_hosts, sleep_hosts):
             continue
         estimate_cpu_util = estimate_util(vm_id, vm_info, host)
         cd = math.pow(estimate_cpu_util-CPU_HEALTH_THRESHOLD, 2)
-        if cd < min_CD:
+        if cd < min_cd:
             select_host = host
-            min_CD = cd
+            min_cd = cd
 
     if select_host:
         # NOTE update nodes_info after reallocate vms
         nodes_info[select_host]['res']['cpu']['used'] += vm_info['cpu']
         nodes_info[select_host]['res']['mem']['used'] += vm_info['mem']
-    else:  
+    else:
         # find host in underload hosts;
         for host in underload_hosts:
             info = nodes_info[host]
@@ -54,9 +53,9 @@ def find_host_for_vm(vm_id, nodes_info, underload_hosts, sleep_hosts):
 
             estimate_cpu_util = estimate_util(vm_id, vm_info, host)
             cd = math.pow(estimate_cpu_util-CPU_HEALTH_THRESHOLD, 2)
-            if cd < min_CD:
+            if cd < min_cd:
                 select_host = host
-                min_CD = cd
+                min_cd = cd
 
         if select_host:
             underload_hosts.remove(select_host)
@@ -74,16 +73,18 @@ def find_host_for_vm(vm_id, nodes_info, underload_hosts, sleep_hosts):
 
                 estimate_cpu_util = estimate_util(vm_id, vm_info, host)
                 cd = math.pow(estimate_cpu_util-CPU_HEALTH_THRESHOLD, 2)
-                if cd < min_CD:
+                if cd < min_cd:
                     select_host = host
-                    min_CD = cd
+                    min_cd = cd
             if select_host:
+                # 更新显示主机状态
+                SocketHandler.write_to_clients('status', host=select_host, status='underload')
                 sleep_hosts.remove(select_host)
                 nodes_info[select_host]['status'] = 'healthy'
                 nodes_info[select_host]['res']['cpu']['used'] += vm_info['cpu']
                 nodes_info[select_host]['res']['mem']['used'] += vm_info['mem']
             else:
-                logger.warn("Failed to allocate vm: " + str(vm_id)) 
+                logger.warn("Failed to allocate vm: " + str(vm_id))
 
     return select_host
 
@@ -91,12 +92,16 @@ def find_host_for_vm(vm_id, nodes_info, underload_hosts, sleep_hosts):
 def get_migrt_plan(vm_ids, nodes_info, underload_hosts, sleep_hosts):
     """
     This is for selected vms from overloaded hosts
+    @param sleep_hosts:
+    @param underload_hosts:
+    @param vm_ids:
+    @param nodes_info:
     """
     vms_migrt_plan = {}
     sort_vms_decreasing(vm_ids)
 
     for vm in vm_ids:
-        dest_host = find_host_for_vm(vm, nodes_info, underload_hosts, sleep_hosts)
+        dest_host = find_host_for_vm(vm.split('#')[0], nodes_info, underload_hosts, sleep_hosts)
         if dest_host:
             vms_migrt_plan[vm] = dest_host
     return vms_migrt_plan
@@ -105,6 +110,10 @@ def get_migrt_plan(vm_ids, nodes_info, underload_hosts, sleep_hosts):
 def get_migrt_plan_underload(underload_host, nodes_info, underload_hosts, sleep_hosts):
     """
     This is for underloaded hosts' vms dismissing
+    @param sleep_hosts:
+    @param underload_hosts:
+    @param nodes_info:
+    @param underload_host:
     """
     vm_ids = _nova.getInstancesOnHost(underload_host)
     migrt_plan = get_migrt_plan(vm_ids, nodes_info, underload_hosts, sleep_hosts)
@@ -119,6 +128,7 @@ def get_migrt_plan_underload(underload_host, nodes_info, underload_hosts, sleep_
 def sort_vms_decreasing(vm_ids):
     """
     Sort vms by the overall resource utiliztion
+    @param vm_ids:
     """
     pass    # TODO
 
@@ -126,6 +136,9 @@ def sort_vms_decreasing(vm_ids):
 def estimate_util(vm_id, vm_info, host):
     """
     estimate the cpu util of host after the vm's migration
+    @param host:
+    @param vm_info:
+    @param vm_id:
     """
     return random.choice([0.7, 0.8, 0.9])
 
