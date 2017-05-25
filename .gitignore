@@ -2,3 +2,5 @@
 oslo_driver.egg-info
 build
 dist
+.idea/
+.DS_Store

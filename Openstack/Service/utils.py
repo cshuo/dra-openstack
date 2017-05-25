@@ -102,5 +102,19 @@ def migrate_vms(sche_place):
         migrate_vms(retry_placement)
 
 
+def get_diagnosis(app):
+    """
+    应用出现性能异常时, 获取本体推理相应消息;
+    :param app:
+    :return:
+    """
+    diag_url = OpenstackConf.REST_URL + "diagnosis";
+    params = {'app': app}
+    r = requests.get(diag_url, params=params)
+    if r.status_code != 200:
+        return []
+    return r.json()
+
+
 if __name__ == '__main__':
-    pass
+    get_diagnosis('db-1')

@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 import threading
-import sys, time
+import time
 import tornado.web
 import tornado.ioloop
 import tornado.websocket
@@ -25,20 +25,35 @@ class SocketHandler(tornado.websocket.WebSocketHandler):
 
     @classmethod
     def write_to_clients(cls, mtype, **kwargs):
-        # print "Writing to all clients..."
+        """
+        sending messages to all clients.
+        :param mtype:
+        :param kwargs:
+        :return:
+        """
         msg = dict()
         msg['type'] = mtype
         if mtype == 'update':
             msg['vm_id'] = kwargs['vm_id']
             msg['host'] = kwargs['host']
+            msg = [msg]
         elif mtype == 'status':
             msg['host'] = kwargs['host']
             msg['status'] = kwargs['status']
+            msg = [msg]
         elif mtype == 'message':
             msg['host'] = kwargs['host']
             msg['content'] = kwargs['content']
-        else:
+            msg = [msg]
+        elif mtype == 'scheduler':
             msg['content'] = kwargs['content']
+            msg = [msg]
+        elif mtype == 'data':
+            msg['id'] = kwargs['id']
+            msg['data'] = kwargs['data']
+            msg = [msg]
+        else:  # mtype == 'rel_status'
+            msg = kwargs['msg']  # 应用性能出现故障, 发送多个状态更新消息, 调用本方法前已构造好要发送的消息.
 
         for client in SocketHandler.clients:
             client.write_message(msg)

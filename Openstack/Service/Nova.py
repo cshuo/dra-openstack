@@ -50,7 +50,7 @@ class Nova(OpenstackService):
         url = "%s/v2/%s/servers" % (OpenstackConf.NOVA_URL, self.tenantId)
         servers = self.get_rest_data(url)['servers']
         for s in servers:
-            if (str(s['name']) == name):
+            if str(s['name']) == name:
                 return str(s['id'])
         return None
 
@@ -205,7 +205,8 @@ class Nova(OpenstackService):
 
 def append_log_db(holder, types, content):
     post_data = {'holder': holder, 'type': types, 'info': content};
-    requests.post(OpenstackConf.LOG_URL, json=post_data)
+    url = OpenstackConf.REST_URL + "logs"
+    requests.post(url, json=post_data)
 
 
 if __name__ == "__main__":
@@ -220,6 +221,6 @@ if __name__ == "__main__":
     # print nova.get_id_from_name('test-1')
     # print nova.inspect_host('kolla1')
     # print nova.get_hosts_info()
-    print get_related('app', app='web-1')
+    # print get_related('app', app='web-1')
     # print nova.getInstancesOnHost('kolla2')
     # print nova.get_host_from_vid('ae69b5fd-5d1e-4452-a90e-bcf3f1460c17')
