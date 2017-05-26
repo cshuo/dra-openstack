@@ -69,6 +69,7 @@ class Nova(OpenstackService):
 
     def getInstancesOnHost(self, host):
         """
+        返回一个服务器上的所有虚拟机,数组形式: [id#name, id#name]
         @param host:
         @return:
         """
@@ -100,7 +101,7 @@ class Nova(OpenstackService):
         """
         url = "%s/v2/%s/os-hosts/%s" % (OpenstackConf.NOVA_URL, self.tenantId, host)
         results = self.get_rest_data(url)['host']
-        print results
+        # print results
         assert results[0]['resource']['project'] == '(total)'
         assert results[1]['resource']['project'] == '(used_now)'
         info = dict()

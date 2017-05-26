@@ -6,6 +6,7 @@ from ..Conf import OpenstackConf
 import time
 import datetime
 import ceilometerclient.client
+import requests
 
 
 CEILOMETER_CLIENT_VERSION = 2

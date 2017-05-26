@@ -7,6 +7,7 @@ import time
 from ..Hades.controller.rpcapi import ControllerManagerApi
 from ..Hades.compute.rpcapi import ComputeManagerApi
 from ..Openstack.Service.Nova import Nova, append_log_db
+from ..Openstack.Service.utils import get_host_overview
 from ..Openstack.Service.webSkt import ServerThread, SocketHandler
 from ..Utils.logs import draLogger
 from .vm_placement import (
@@ -14,13 +15,15 @@ from .vm_placement import (
     get_migrt_plan_underload
 )
 from ..Openstack.Service.utils import migrate_vms
-from ..detector.zabbixApi import (
-    get_token,
-    get_prbl_triggers,
-)
+from .app_manager import get_all_diagnosis, get_sick_app
+
+# from ..detector.zabbixApi import (
+#     get_token,
+#     get_prbl_triggers,
+# )
 
 
-LOOP_INTERVAL = 60  # 300s
+LOOP_INTERVAL = 30  # 300s
 ZABBIX_USERNAME = "Admin"
 ZABBIX_PASSWORD = "zabbix"
 CONF = cfg.CONF
@@ -28,7 +31,23 @@ _nova = Nova()
 logger = draLogger("DRA.scheduler")
 
 
+def diagnose_apps():
+    """
+    对所有应用进行检查, 判断是否有应用出现性能问题, 出现问题进行资源关联性分析, 得到相关诊断信息.
+    :return:
+    """
+    logger.info("应用诊断...")
+    s_apps = get_sick_app()
+    diagnosis = get_all_diagnosis(s_apps)
+    # logger.info(diagnosis)
+    SocketHandler.write_to_clients('rel_status', msg=diagnosis)
+
+
 def optimize_allocation():
+    """
+    资源的动态调度.
+    :return:
+    """
     ctrl_api = ControllerManagerApi(CONF.hades_controller_topic, CONF.hades_exchange)
     compute_nodes = _nova.getComputeHosts()
     for node in compute_nodes:
@@ -56,9 +75,11 @@ def optimize_allocation():
     sel_vms = []
     underload_host = []
     sleep_host = []
+    meters_updating = []
 
     for host, info in nodes_info.items():
         SocketHandler.write_to_clients('status', host=host, status=info['status'])
+        meters_updating += info['meters']
         if info["select_vms"]:
             sel_vms += info["select_vms"]
             append_log_db(host, 'warn', '计算节点: %s 出现超载状况' % str(host))
@@ -67,6 +88,11 @@ def optimize_allocation():
             append_log_db(host, 'warn', '计算节点: %s 出现欠载状况' % str(host))
         elif info["status"] == "sleeping":
             sleep_host.append(host)
+
+    # update pm's and vm's popup meters in topology page
+    # print "##################\n", meters_updating
+    meters_updating += get_host_overview()
+    SocketHandler.write_to_clients('data', data=meters_updating)
 
     allocation_map.update(get_migrt_plan(sel_vms, nodes_info, underload_host, sleep_host))
 
@@ -95,10 +121,16 @@ def start():
     server_tornado.start()
     logger.info("Starting tornado websocket server...")
 
+    count = 0
     while True:
         try:
             logger.info("Looping a iteration...")
-            optimize_allocation()
+
+            if count&1 == 1:
+                diagnose_apps()  # 对应用进行健康检查
+            count += 1
+
+            optimize_allocation()  # 资源动态调度
             time.sleep(LOOP_INTERVAL)
         except (KeyboardInterrupt, SystemExit):
             logger.info("Stopping main looping...")

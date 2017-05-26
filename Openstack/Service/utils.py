@@ -1,11 +1,11 @@
 # coding: utf-8
 
 import time
+import requests
 
 from .Ceilometer import Ceilometer
 from .Nova import Nova
 from dra.Utils.logs import draLogger
-import requests
 from ..Conf import OpenstackConf
 
 
@@ -61,6 +61,51 @@ def get_vms_cpu_load(host, n):
     return vms_cpu_load
 
 
+def get_host_overview():
+    """
+    获取所有计算节点的计算资源当前监控信息.
+    :return: 示例[{type: "data", id: "kolla1", data: {cpu: "30", mem: "50",disk: "30", net: "400"}}]
+    """
+    rs = []
+    hosts = _nova.getComputeHosts()
+    url = OpenstackConf.REST_URL + "pmeters"
+
+    for h in hosts:
+        h_dict = {'type': 'data', 'id': h, 'data': {'cpu':0, 'mem':0, 'disk':0, 'net':0}}
+        params = {'host': h, 'num': 2}
+        r = requests.get(url=url, params=params)
+        if r.status_code != 200:
+            continue
+        r = r.json()
+        h_dict['data']['cpu'] = round(sum(r['cpu']['value']) / len(r['cpu']['value']), 2)
+        h_dict['data']['mem'] = round(sum(r['mem']['value']) / len(r['mem']['value']), 2)
+        h_dict['data']['disk'] = round(sum(r['disk']['value']) / len(r['disk']['value']), 2)
+        # NOTE net is unavailable now.
+        h_dict['data']['net'] = 0
+        rs.append(h_dict)
+    return rs
+
+
+def get_vms_overview(host):
+    """
+    获取一个服务器上所有虚拟机的资源使用预览情况, 过去两分钟的平均值.
+    :param host:
+    :return:
+    """
+    vms = _nova.getInstancesOnHost(host=host)
+    rs = []
+    for vm in vms:
+        vm_id, _ = vm.split('#')
+        vm_dict = {'type': 'data', 'id': vm_id, 'data': {}}
+        vm_dict['data']['cpu'] = round(_ceil.last_n_average_statistic(0.034, vm_id, 'cpu_util'), 2)
+        vm_dict['data']['mem'] = round(_ceil.last_n_average_statistic(0.034, vm_id, 'memory.usage'), 2)
+        vm_dict['data']['disk'] = round(_ceil.last_n_average_statistic(0.034, vm_id, 'disk.usage'), 2)
+        # NOTE net is unavailable now.
+        vm_dict['data']['net'] = 0
+        rs.append(vm_dict)
+    return rs
+
+
 def migrate_vms(sche_place):
     """
     Live migrating a set of vms according to schedule results synchronously
@@ -102,19 +147,5 @@ def migrate_vms(sche_place):
         migrate_vms(retry_placement)
 
 
-def get_diagnosis(app):
-    """
-    应用出现性能异常时, 获取本体推理相应消息;
-    :param app:
-    :return:
-    """
-    diag_url = OpenstackConf.REST_URL + "diagnosis";
-    params = {'app': app}
-    r = requests.get(diag_url, params=params)
-    if r.status_code != 200:
-        return []
-    return r.json()
-
-
 if __name__ == '__main__':
-    get_diagnosis('db-1')
+    print get_vms_overview('kolla1')

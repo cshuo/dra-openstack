@@ -38,8 +38,9 @@ class SocketHandler(tornado.websocket.WebSocketHandler):
             msg['host'] = kwargs['host']
             msg = [msg]
         elif mtype == 'status':
-            msg['host'] = kwargs['host']
+            msg['id'] = kwargs['host']
             msg['status'] = kwargs['status']
+            msg['target'] = 'host'
             msg = [msg]
         elif mtype == 'message':
             msg['host'] = kwargs['host']
@@ -49,14 +50,12 @@ class SocketHandler(tornado.websocket.WebSocketHandler):
             msg['content'] = kwargs['content']
             msg = [msg]
         elif mtype == 'data':
-            msg['id'] = kwargs['id']
-            msg['data'] = kwargs['data']
-            msg = [msg]
+            msg = kwargs['data']
         else:  # mtype == 'rel_status'
             msg = kwargs['msg']  # 应用性能出现故障, 发送多个状态更新消息, 调用本方法前已构造好要发送的消息.
 
         for client in SocketHandler.clients:
-            client.write_message(msg)
+            client.write_message({"msg":msg})
 
 
 class ServerThread(threading.Thread):
