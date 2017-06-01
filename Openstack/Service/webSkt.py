@@ -55,7 +55,7 @@ class SocketHandler(tornado.websocket.WebSocketHandler):
             msg = kwargs['msg']  # 应用性能出现故障, 发送多个状态更新消息, 调用本方法前已构造好要发送的消息.
 
         for client in SocketHandler.clients:
-            client.write_message({"msg":msg})
+            client.write_message({"msg": msg})
 
 
 class ServerThread(threading.Thread):

@@ -9,6 +9,7 @@ CONF = cfg.CONF
 DEFAULT_SERVER = "pike"
 RPC_TIMEOUT = 1000
 
+
 class ControllerManagerApi(BaseAPI):
     """
     client side of controller manager
@@ -22,7 +23,6 @@ class ControllerManagerApi(BaseAPI):
         """
         cctxt = self.client.prepare(server=DEFAULT_SERVER, timeout=RPC_TIMEOUT)
         cctxt.cast(ctxt, "collect_compute_info", host_id=host_id, host_info=host_info)
-
 
     def all_info_fetched(self, ctxt):
         """

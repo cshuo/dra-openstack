@@ -9,6 +9,13 @@ NOVA_URL = "http://%s:8774" % CONTROLLER_HOST
 CEILOMETER_URL = "http://%s:8777" % CEILOMETER_HOST
 REST_URL = "http://114.212.189.132:9000/api/"
 
+ZABBIX_URL = "http://20.0.1.12/zabbix/api_jsonrpc.php"
+ZABBIX_USER = "Admin"
+ZABBIX_PASSWD = "zabbix"
+CONTROLLER = 'kolla0'
+ZABBIX_WEB_INTERVAL = 30
+ZABBIX_TRIGGER_NUM = 2
+
 
 HOST_USERNAME = "cshuo"
 HOST_PASSWORD = "cshuo"

@@ -13,7 +13,6 @@ CONF = cfg.CONF
 logger = draLogger("DRA.Hades.Service")
 
 
-
 class Service(service.Service):
 
     """Service object for binaries running on hosts.

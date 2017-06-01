@@ -15,7 +15,11 @@ from .vm_placement import (
     get_migrt_plan_underload
 )
 from ..Openstack.Service.utils import migrate_vms
-from .app_manager import get_all_diagnosis, get_sick_app
+from .app_manager import(
+    get_all_diagnosis,
+    get_sick_app,
+    init_zabbix_web
+)
 
 # from ..detector.zabbixApi import (
 #     get_token,
@@ -39,7 +43,12 @@ def diagnose_apps():
     logger.info("应用诊断...")
     s_apps = get_sick_app()
     diagnosis = get_all_diagnosis(s_apps)
-    # logger.info(diagnosis)
+    # 没有异常应用, 更新web层拓扑图.
+    if len(diagnosis) == 0:
+        logger.info("重置拓扑视图...")
+        diagnosis = [{'type': 'reset'}]
+    else:
+        SocketHandler.write_to_clients('scheduler', content='应用: ' + str(s_apps) + ' 出现性能异常.')
     SocketHandler.write_to_clients('rel_status', msg=diagnosis)
 
 
@@ -117,18 +126,19 @@ def start():
     """
     start main loop of controller
     """
+    # 开启websocket server, 向web层推送相关消息.
     server_tornado = ServerThread()
     server_tornado.start()
     logger.info("Starting tornado websocket server...")
 
-    count = 0
+    # 初始化web app对应的zabbix web scenario和对应的trigger
+    init_zabbix_web()
+
     while True:
         try:
             logger.info("Looping a iteration...")
 
-            if count&1 == 1:
-                diagnose_apps()  # 对应用进行健康检查
-            count += 1
+            diagnose_apps()  # 对应用进行健康检查
 
             optimize_allocation()  # 资源动态调度
             time.sleep(LOOP_INTERVAL)

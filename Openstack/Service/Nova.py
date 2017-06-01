@@ -86,8 +86,10 @@ class Nova(OpenstackService):
     def getComputeHosts(self):
         url = "%s/v2/%s/os-hosts" % (OpenstackConf.NOVA_URL, self.tenantId)
         result = self.get_rest_data(url)
-        hostsList = result['hosts']
         hosts = []
+        if 'hosts' not in result:
+            return hosts
+        hostsList = result['hosts']
         for host in hostsList:
             if host['service'] == 'compute':
                 hosts.append(str(host['host_name']))
@@ -205,7 +207,7 @@ class Nova(OpenstackService):
 
 
 def append_log_db(holder, types, content):
-    post_data = {'holder': holder, 'type': types, 'info': content};
+    post_data = {'holder': holder, 'type': types, 'info': content}
     url = OpenstackConf.REST_URL + "logs"
     requests.post(url, json=post_data)
 

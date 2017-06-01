@@ -1,5 +1,4 @@
-__author__ = 'pike'
-
+# -*- coding: utf-8 -*-
 from eventlet import event
 import signal
 import os
@@ -17,6 +16,7 @@ try:
 except ImportError:
     # Python 2.6
     UnsupportedOperation = None
+
 
 class Launcher(object):
     """Launch one or more services and wait for them to complete."""
@@ -134,7 +134,6 @@ class ServiceLauncher(Launcher):
             self.restart()
 
 
-
 class Service(object):
 
     """Service object for binaries running on hosts."""
@@ -172,6 +171,7 @@ class Services(object):
 
     def add(self, service):
         self.services.append(service)
+        # 使用threadGroup启动service.
         self.tg.add_thread(self.run_service, service, self.done)
 
     def stop(self):
