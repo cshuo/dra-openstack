@@ -9,6 +9,7 @@ from ..Openstack.Service.webSkt import SocketHandler
 from ..Utils.logs import draLogger
 
 _nova = Nova()
+CES_ALPHA = 0.33
 CPU_HEALTH_THRESHOLD = 0.75
 CPU_OVERCOMMIT_RATIO = 16
 MEM_OVERCOMMIT_RATIO = 1.5
@@ -141,6 +142,28 @@ def estimate_util(vm_id, vm_info, host):
     @param vm_id:
     """
     return random.choice([0.7, 0.8, 0.9])
+
+
+def ces_predict(history_data, timestep):
+    """
+    使用三次指数平滑法进行复杂预测, 历史数据值个数大于2;
+    :param history_data:
+    :param timestep:
+    :return:
+    """
+    assert len(history_data) > 2
+    s_1 = s_2 = s_3 = (history_data[0] + history_data[1]) / 2
+    for i in xrange(1, len(history_data)):
+        s_1 = CES_ALPHA * history_data[i] + (1 - CES_ALPHA) * s_1
+        s_2 = CES_ALPHA * s_1 + (1 - CES_ALPHA) * s_2
+        s_3 = CES_ALPHA * s_2 + (1 - CES_ALPHA) * s_3
+
+    a_t = 3 * s_1 - 3 * s_2 + s_3
+    b_t = ((6-5*CES_ALPHA)*s_1 - 2*(5-4*CES_ALPHA)*s_2 + (4-3*CES_ALPHA)*s_3) * CES_ALPHA/pow(1-CES_ALPHA, 2) / 2
+    c_t = (s_1 - 2*s_2 + s_3) * pow(CES_ALPHA, 2) / pow(1-CES_ALPHA, 2) / 2
+
+    res = a_t + b_t * timestep + c_t * pow(timestep, 2)
+    return round(res, 3)
 
 
 if __name__ == '__main__':

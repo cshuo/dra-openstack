@@ -67,7 +67,6 @@ def init_zabbix_web():
 
     for app in apps:
         info = create_web_scenario(zb_token, default_hostid, app['app'], app['url'], OpenstackConf.ZABBIX_WEB_INTERVAL)
-        print "#################: init web scenario ", len(info)
         if len(info) > 0:  # tigger not created before
             create_web_trigger(zb_token, OpenstackConf.CONTROLLER, app['app'], app['threshold'], OpenstackConf.ZABBIX_TRIGGER_NUM)
 
