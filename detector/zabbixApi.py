@@ -5,14 +5,12 @@ import urllib2
 from ..Openstack.Conf import OpenstackConf
 
 """bsed url and required header"""
-url = "http://20.0.1.12/zabbix/api_jsonrpc.php"
 header = {"Content-Type": "application/json"}
-controller = 'kolla0'
 
 
 def fetch_req_result(data):
     # create request object
-    request = urllib2.Request(url, data)
+    request = urllib2.Request(OpenstackConf.ZABBIX_URL, data)
     for key in header:
         request.add_header(key, header[key])
     # get host list
@@ -221,7 +219,7 @@ def create_web_scenario(token, hostid, app_name, url, interval):
             "steps": [
                 {
                     "name": "APP_URL",
-                    "url": url,
+                    "url": OpenstackConf.ZABBIX_URL,
                     "status_codes": 200,
                     "no": 1
                 },

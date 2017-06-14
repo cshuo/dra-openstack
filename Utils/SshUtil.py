@@ -22,6 +22,4 @@ class Ssh_tool:
         self.sshclient.close()
 
 if __name__=="__main__":
-    ssh = Ssh_tool("20.0.1.11",22,"root","cshuo")
-    print ssh.remote_cmd("df")
-    ssh.close()
+    pass
