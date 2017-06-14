@@ -10,6 +10,7 @@ from ..Manager import Manager
 from ..controller.rpcapi import ControllerManagerApi
 from ...Openstack.Service.Nova import Nova
 from ...Openstack.Service.utils import get_vms_overview
+from ...Openstack.Conf import OpenstackConf
 from ...Utils.logs import draLogger
 from ...detector import (
     overload,
@@ -21,11 +22,12 @@ from ...detector import (
 CONF = cfg.CONF
 _nova = Nova()
 
-UNDERLOAD_THRESHOLD = 0
-OVERLOAD_THRESHOLD = 80
-TIME_LENGTH = 0.05  # for 1 hour statistics
-HOSTNAME = socket.gethostname()
+# UNDERLOAD_THRESHOLD = 0
+# OVERLOAD_THRESHOLD = 80
+# TIME_LENGTH = 0.05  # for 1 hour statistics
 # logger = logging.getLogger("DRA.computeService")
+
+HOSTNAME = socket.gethostname()
 logger = draLogger("DRA.computeService")
 
 
@@ -55,8 +57,8 @@ class ComputeManager(Manager):
             controller_api.collect_compute_info({}, HOSTNAME, node_info)
             return
 
-        underld = underload.last_n_average_threshold(UNDERLOAD_THRESHOLD,
-                TIME_LENGTH, HOSTNAME)
+        underld = underload.last_n_average_threshold(OpenstackConf.UNDERLOAD_THRESHOLD,
+                OpenstackConf.AVG_TIME_LEN, HOSTNAME)
         if underld:
             logger.info("underload detected...")
             node_info["status"] = "underload"
@@ -64,13 +66,13 @@ class ComputeManager(Manager):
             controller_api.collect_compute_info({}, HOSTNAME, node_info)
             return
 
-        overld = overload.last_n_average_threshold(0, OVERLOAD_THRESHOLD,
-                TIME_LENGTH, HOSTNAME)
+        overld = overload.last_n_average_threshold(0, OpenstackConf.OVERLOAD_THRESHOLD,
+                OpenstackConf.AVG_TIME_LEN, HOSTNAME)
         if overld:
             logger.info("overload detected...")
             node_info["status"] = "overload"
             # NOTE: change this to OD_based selecetion
-            node_info["select_vms"] = vm_selection.od_vm_select(HOSTNAME, TIME_LENGTH)
+            node_info["select_vms"] = vm_selection.od_vm_select(HOSTNAME, OpenstackConf.AVG_TIME_LEN)
             logger.info("OD selected VMS: " + str(node_info["select_vms"]) + "\n")
             controller_api.collect_compute_info({}, HOSTNAME, node_info)
             return;

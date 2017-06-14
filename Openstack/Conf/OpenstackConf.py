@@ -46,3 +46,8 @@ PARAMS = "--os-username %s " % USERNAME + \
          "--os-auth-url %s/v3 " % AUTH_URL + \
          "--os-password %s" % PASSWORD
 
+
+# Hades compute threshold conf
+UNDERLOAD_THRESHOLD = 0
+OVERLOAD_THRESHOLD = 80
+AVG_TIME_LEN = 0.05  # hour
